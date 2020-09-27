@@ -17,12 +17,10 @@
 
 */
 import React from "react";
+import { auth, createUserProfileDocument, signInWithGoogle } from "components/firebaseUtilities";
 
 // reactstrap components
 import { Button, Card, Form, Input, Container, Row, Col } from "reactstrap";
-
-// core components
-import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
 
 function RegisterPage() {
   document.documentElement.classList.remove("nav-open");
@@ -32,13 +30,39 @@ function RegisterPage() {
       document.body.classList.remove("register-page");
     };
   });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    let displayName = e.target[0].value;
+    let email = e.target[1].value;
+    let password = e.target[2].value;
+    let confirmPassword = e.target[3].value;
+
+    if (password !== confirmPassword) {
+      alert("passwords don't match");
+      return;
+    }
+
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then((res) => {
+        createUserProfileDocument(res.user, { displayName });
+      })
+      .catch(function (error) {
+        console.log(error);
+        // ...
+      });
+  };
+
   return (
     <>
-      <ExamplesNavbar />
       <div
         className="page-header"
         style={{
-          backgroundImage: "url(" + require("assets/img/splash-image.jpg") + ")",
+          backgroundImage:
+            "url(" + require("assets/img/splash-image.jpg") + ")",
+          height: `calc(100vh - 85px)`,
         }}
       >
         <div className="filter" />
@@ -48,37 +72,44 @@ function RegisterPage() {
               <Card className="card-register ml-auto mr-auto">
                 <h3 className="title mx-auto">Welcome</h3>
                 <div className="social-line text-center">
-                  <Button
-                    className="btn-neutral btn-just-icon mr-1"
-                    color="facebook"
-                    href="#pablo"
-                    onClick={(e) => e.preventDefault()}
-                  >
-                    <i className="fa fa-facebook-square" />
-                  </Button>
-                  <Button
-                    className="btn-neutral btn-just-icon mr-1"
-                    color="google"
-                    href="#pablo"
-                    onClick={(e) => e.preventDefault()}
-                  >
-                    <i className="fa fa-google-plus" />
-                  </Button>
-                  <Button
-                    className="btn-neutral btn-just-icon"
-                    color="twitter"
-                    href="#pablo"
-                    onClick={(e) => e.preventDefault()}
-                  >
-                    <i className="fa fa-twitter" />
+                  <Button className="btn btn-primary" onClick={signInWithGoogle}>
+                    <span>Sign In with Google</span>
                   </Button>
                 </div>
-                <Form className="register-form">
+                <Form onSubmit={handleSubmit} className="register-form">
+                  <label>Name</label>
+                  <Input
+                    placeholder="Name"
+                    type="text"
+                    name="displayName"
+                    required
+                  />
                   <label>Email</label>
-                  <Input placeholder="Email" type="text" />
+                  <Input
+                    placeholder="Email"
+                    type="text"
+                    name="email"
+                    required
+                  />
                   <label>Password</label>
-                  <Input placeholder="Password" type="password" />
-                  <Button block className="btn-round" color="danger">
+                  <Input
+                    placeholder="Password"
+                    type="password"
+                    name="pasword"
+                  />
+                  <label>Confirm Password</label>
+                  <Input
+                    placeholder="Confirm Password"
+                    type="text"
+                    name="confirmPassword"
+                    required
+                  />
+                  <Button
+                    type="submit"
+                    block
+                    className="btn-round"
+                    color="danger"
+                  >
                     Register
                   </Button>
                 </Form>
@@ -96,9 +127,7 @@ function RegisterPage() {
             </Col>
           </Row>
         </Container>
-        <div className="footer register-footer text-center">
-          
-        </div>
+        <div className="footer register-footer text-center"></div>
       </div>
     </>
   );

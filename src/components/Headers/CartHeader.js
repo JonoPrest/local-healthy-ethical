@@ -19,13 +19,10 @@
 import React from "react";
 
 // reactstrap components
-import { Button, Container } from "reactstrap";
-
-import { Link } from "react-router-dom";
 
 // core components
 
-function LandingPageHeader() {
+function ShopHeader() {
   let pageHeader = React.createRef();
 
   React.useEffect(() => {
@@ -47,32 +44,17 @@ function LandingPageHeader() {
       <div
         style={{
           backgroundImage:
-            "url(" + require("assets/img/splash-image.jpg") + ")",
+            "url(" + require("assets/img/cart-cover.jpeg") + ")",
         }}
-        className="page-header"
+        className="page-header page-header-xs"
         data-parallax={true}
         ref={pageHeader}
       >
         <div className="filter" />
-        <Container>
-          <div className="motto text-center">
-            <h1 style={{letterSpacing: "5px"}}>Local  Healthy  Ethical</h1>
-            <h3>Buying good food made easy.</h3>
-            <br />
-            <Button
-              to="/shop"
-              tag={Link}
-              className="btn-round mr-1"
-              color="neutral"
-              outline
-            >
-              SHOP NOW
-            </Button>
-          </div>
-        </Container>
+        <h1 className="motto border px-3">CART</h1>
       </div>
     </>
   );
 }
 
-export default LandingPageHeader;
+export default ShopHeader;

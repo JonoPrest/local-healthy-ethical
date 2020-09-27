@@ -18,6 +18,7 @@
 */
 import React from "react";
 import { Link } from "react-router-dom";
+import { auth } from "components/firebaseUtilities";
 // nodejs library that concatenates strings
 import classnames from "classnames";
 
@@ -30,9 +31,10 @@ import {
   NavLink,
   Nav,
   Container,
+  Badge,
 } from "reactstrap";
 
-function ExamplesNavbar() {
+function ExamplesNavbar({ cartCount, setLoginModal, currentUser }) {
   const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
   const [navbarCollapse, setNavbarCollapse] = React.useState(false);
 
@@ -44,13 +46,13 @@ function ExamplesNavbar() {
   React.useEffect(() => {
     const updateNavbarColor = () => {
       if (
-        document.documentElement.scrollTop > 299 ||
-        document.body.scrollTop > 299
+        document.documentElement.scrollTop > 199 ||
+        document.body.scrollTop > 199
       ) {
         setNavbarColor("");
       } else if (
-        document.documentElement.scrollTop < 300 ||
-        document.body.scrollTop < 300
+        document.documentElement.scrollTop < 200 ||
+        document.body.scrollTop < 200
       ) {
         setNavbarColor("navbar-transparent");
       }
@@ -75,7 +77,10 @@ function ExamplesNavbar() {
             to="/"
             title="Local Healthy Ethical"
             tag={Link}
-          ></NavbarBrand>
+          >
+            
+            {currentUser ? <div><i className="nc-icon nc-single-02 mr-2" style={{fontSize: "15px"}}/>{currentUser.displayName}</div> : "Welcome"}
+          </NavbarBrand>
 
           <button
             aria-expanded={navbarCollapse}
@@ -101,24 +106,44 @@ function ExamplesNavbar() {
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink to="/shop-page" tag={Link}>
+              <NavLink to="/shop" tag={Link}>
                 SHOP
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink to="/about-page" tag={Link}>
-                About
-              </NavLink>
+              {currentUser ? (
+                <NavLink
+                  onClick={() => auth.signOut()}
+                  style={{ cursor: "pointer" }}
+                >
+                  Sign Out
+                </NavLink>
+              ) : (
+                <NavLink
+                  onClick={() => setLoginModal(true)}
+                  style={{ cursor: "pointer" }}
+                >
+                  Sign In
+                </NavLink>
+              )}
             </NavItem>
-            
             <NavItem>
-              <NavLink to="/register-page" tag={Link}>
-                Sign In/Register
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink to="/cart" tag={Link}>
-                <i className="nc-icon nc-cart-simple" style={{fontSize: "20px"}}></i>
+              <NavLink
+                to="/cart"
+                tag={Link}
+                alt={`${cartCount} items in your cart`}
+                className="d-flex align-items-center"
+              >
+                <i
+                  className="nc-icon nc-cart-simple"
+                  style={{ fontSize: "20px" }}
+                />
+                <p className="d-lg-none ml-2 ">Cart</p>
+                {cartCount > 0 && (
+                  <Badge color="danger" className="ml-1 px-1">
+                    {cartCount}
+                  </Badge>
+                )}
               </NavLink>
             </NavItem>
           </Nav>

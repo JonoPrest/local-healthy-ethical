@@ -24,7 +24,7 @@ import { Row, Container } from "reactstrap";
 
 function DemoFooter() {
   return (
-    <footer className="footer footer-black footer-white">
+    <footer className="footer footer-black footer-white bg-dark">
       <Container>
         <Row>
           <nav className="footer-nav">
@@ -36,8 +36,8 @@ function DemoFooter() {
                   target="_blank"
                   title="Like us on Facebook"
                 >
-                  <i className="fa fa-facebook-square" />
-                  <p className="d-lg-none">Facebook</p>
+                  <i className="fa fa-facebook-square" style={{fontSize: "20px"}}/>
+                  {/* <p className="d-lg-none">Facebook</p> */}
                 </a>
               </li>
               <li>
@@ -47,18 +47,18 @@ function DemoFooter() {
                   target="_blank"
                   title="Follow us on Instagram"
                 >
-                  <i className="fa fa-instagram" />
-                  <p className="d-lg-none">Instagram</p>
+                  <i className="fa fa-instagram" style={{fontSize: "20px"}}/>
+                  {/* <p className="d-lg-none">Instagram</p> */}
                 </a>
               </li>
             </ul>
           </nav>
-          <div className="credits ml-auto">
+          {/* <div className="credits ml-auto">
             <span className="copyright">
               © {new Date().getFullYear()}, made with{" "}
               <i className="fa fa-heart heart" /> by Creative Tim
             </span>
-          </div>
+          </div> */}
         </Row>
       </Container>
     </footer>
