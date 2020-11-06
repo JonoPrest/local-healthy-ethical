@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
+import { addItem } from "redux/cart/cart.actions";
 
 import {
   Card,
@@ -11,7 +13,7 @@ import {
 
 const noImage = require("assets/img/no-image.jpg");
 
-const ProductCard = ({ product, addToCart }) => {
+const ProductCard = ({ product, addItem }) => {
   const [quantity, setQuantity] = useState(1);
   const [btnText, setBtnText] = useState("Add to Cart");
   const [btnColor, setBtnColor] = useState("primary");
@@ -19,7 +21,7 @@ const ProductCard = ({ product, addToCart }) => {
 
   const addToCartClicked = (e) => {
     e.preventDefault();
-    addToCart({product: product, quantity: quantity});
+    addItem(product, quantity);
     setBtnText("Added");
     setBtnColor("success");
     setBtnDisabled(true);
@@ -32,12 +34,15 @@ const ProductCard = ({ product, addToCart }) => {
   };
 
   return (
-    <Card className="mx-3 card-product" style={{ width: "20rem", minWidth: "20rem" }}>
+    <Card
+      className="mx-3 card-product"
+      style={{ width: "20rem", minWidth: "20rem" }}
+    >
       <CardImg
         top
         src={product.Image !== "" ? product.Image : noImage}
         alt="..."
-        style={{ height: "14rem", objectFit: "cover"}}
+        style={{ height: "14rem", objectFit: "cover" }}
       />
       <CardBody>
         <CardTitle>{product.Item}</CardTitle>
@@ -52,10 +57,18 @@ const ProductCard = ({ product, addToCart }) => {
           <strong>Price:</strong> {product.Price}
           <br />
         </CardText>
-        <form className="d-flex justify-content-around" onSubmit={addToCartClicked}>
+        <form
+          className="d-flex justify-content-around"
+          onSubmit={addToCartClicked}
+        >
           <Button color={btnColor} type="submit" disabled={btnDisabled}>
             {btnText}
-            {btnText === "Added" && <i className="nc-icon nc-check-2 ml-4" style={{fontSize: "15px"}}/>}
+            {btnText === "Added" && (
+              <i
+                className="nc-icon nc-check-2 ml-4"
+                style={{ fontSize: "15px" }}
+              />
+            )}
           </Button>
           <div className="d-flex justify-content-center">
             <input
@@ -64,9 +77,8 @@ const ProductCard = ({ product, addToCart }) => {
               style={{ width: "30px" }}
               className="m-3"
               onChange={(e) => {
-                    if(!Number(e.target.value) && e.target.value !== "") return;
-                  setQuantity(Number(e.target.value));
-                
+                if (!Number(e.target.value) && e.target.value !== "") return;
+                setQuantity(Number(e.target.value));
               }}
             />
             <div className="d-flex flex-column justify-content-center">
@@ -90,4 +102,10 @@ const ProductCard = ({ product, addToCart }) => {
   );
 };
 
-export default ProductCard;
+const mapStateToProps = (state) => ({});
+
+const mapDispatchToProps = (dispatch) => ({
+  addItem: (item, quantity) => dispatch(addItem(item, quantity)),
+});
+
+export default connect(null, mapDispatchToProps)(ProductCard);

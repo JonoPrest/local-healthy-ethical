@@ -16,9 +16,10 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { auth } from "components/firebaseUtilities";
+import { auth } from "firebaseUtilities";
 // nodejs library that concatenates strings
 import classnames from "classnames";
 
@@ -34,9 +35,20 @@ import {
   Badge,
 } from "reactstrap";
 
-function ExamplesNavbar({ cartCount, setLoginModal, currentUser }) {
+function ExamplesNavbar({ setLoginModal, currentUser, cartItems }) {
   const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
   const [navbarCollapse, setNavbarCollapse] = React.useState(false);
+  const [cartCount, setCartCount] = React.useState(0);
+
+  useEffect(() => {
+    setCartCount(
+      cartItems.reduce(
+        (accumulatedQuantity, cartItem) =>
+          accumulatedQuantity + cartItem.quantity,
+        0
+      )
+    );
+  }, [cartItems]);
 
   const toggleNavbarCollapse = () => {
     setNavbarCollapse(!navbarCollapse);
@@ -78,8 +90,17 @@ function ExamplesNavbar({ cartCount, setLoginModal, currentUser }) {
             title="Local Healthy Ethical"
             tag={Link}
           >
-            
-            {currentUser ? <div><i className="nc-icon nc-single-02 mr-2" style={{fontSize: "15px"}}/>{currentUser.displayName}</div> : "Welcome"}
+            {currentUser ? (
+              <div>
+                <i
+                  className="nc-icon nc-single-02 mr-2"
+                  style={{ fontSize: "15px" }}
+                />
+                {currentUser.displayName}
+              </div>
+            ) : (
+              "Welcome"
+            )}
           </NavbarBrand>
 
           <button
@@ -153,4 +174,8 @@ function ExamplesNavbar({ cartCount, setLoginModal, currentUser }) {
   );
 }
 
-export default ExamplesNavbar;
+const mapStateToProps = (state) => ({
+  cartItems: state.cart.cartItems,
+});
+
+export default connect(mapStateToProps)(ExamplesNavbar);

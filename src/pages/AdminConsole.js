@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { getFirebaseUserInfo } from "components/firebaseUtilities";
+import { getFirebaseUserInfo } from "firebaseUtilities";
 
 import { Table } from "reactstrap";
 
-import CartHeader from "components/Headers/CartHeader";
+import Header from "components/Headers/Header";
 
 const AdminConsole = ({ data }) => {
   const [allData, setAllData] = useState([]);
@@ -41,7 +41,7 @@ const AdminConsole = ({ data }) => {
 
   return (
     <div>
-      <CartHeader />
+      <Header />
       <div style={{ height: `calc(60vh - 85px)` }}>
         <Table onClick={getMasterOrder}>
           <thead>

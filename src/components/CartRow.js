@@ -1,24 +1,36 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 
+import { updateItem, updateItemWithInput } from "redux/cart/cart.actions";
 import { Button, CardText, CardTitle, Row, Col } from "reactstrap";
 
 const noImage = require("assets/img/no-image.jpg");
 
-const CartRow = ({ itemInfo, updateCart, index }) => {
+const CartRow = ({
+  itemInfo,
+  updateCart,
+  index,
+  updateItem,
+  updateItemWithInput,
+}) => {
+  const [totalQuantity, setTotalQuantity] = useState("");
+
+  useEffect(() => {
+    setTotalQuantity(itemInfo.quantity);
+  }, [itemInfo]);
+
   let item = "";
   let imageURL = "";
   let quantity = "";
   let units = "";
   let price = "";
-  let totalQuantity = "";
-  if (itemInfo) {
-    item = itemInfo.product.Item;
-    imageURL = itemInfo.product.Image;
-    quantity = itemInfo.product.Quantity;
-    units = itemInfo.product.Units;
-    price = Number(itemInfo.product.Price).toFixed(2);
 
-    totalQuantity = itemInfo.quantity;
+  if (itemInfo) {
+    item = itemInfo.item.Item;
+    imageURL = itemInfo.item.Image;
+    quantity = itemInfo.item.Quantity;
+    units = itemInfo.item.Units;
+    price = Number(itemInfo.item.Price).toFixed(2);
   }
 
   return (
@@ -36,7 +48,9 @@ const CartRow = ({ itemInfo, updateCart, index }) => {
           <strong>Quantity:</strong> {quantity + units}
           <br />
         </CardText>
-        <Button onClick={() => updateCart(index, "remove")}>Remove</Button>
+        <Button onClick={() => updateItem(itemInfo.item, "remove")}>
+          Remove
+        </Button>
       </Col>
       <Col>
         <strong>R{price}</strong>
@@ -49,23 +63,29 @@ const CartRow = ({ itemInfo, updateCart, index }) => {
             style={{ width: "30px" }}
             className="m-3"
             onChange={(e) => {
-              if (!Number(e.target.value) && e.target.value !== "") return;
+              if (e.target.value.length < 1) {
+                return setTotalQuantity("");
+              }
               const value = Number(e.target.value);
-              updateCart(index, "change", value);
+              if (!value) return;
+              updateItemWithInput(itemInfo.item, value);
+            }}
+            onBlur={(e) => {
+              if (e.target.value === "") {
+                updateItemWithInput(itemInfo.item, 1);
+              }
             }}
           />
           <div className="d-flex flex-column justify-content-center">
             <i
               className="nc-icon nc-simple-add rounded-circle my-1 btn btn-primary p-0"
-               onClick={() => updateCart(index,"change" ,totalQuantity + 1)}
+              onClick={() => updateItem(itemInfo.item, 1)}
             />
             <i
               className="nc-icon nc-simple-delete rounded-circle my-1 btn btn-primary p-0"
-                onClick={() => {
-                  if (totalQuantity > 1) {
-                    updateCart(index,"change" , totalQuantity - 1);
-                  }
-                }}
+              onClick={() => {
+                updateItem(itemInfo.item, -1);
+              }}
             />
           </div>
         </div>
@@ -77,4 +97,10 @@ const CartRow = ({ itemInfo, updateCart, index }) => {
   );
 };
 
-export default CartRow;
+const mapDispatchToProps = (dispatch) => ({
+  updateItem: (item, quantity) => dispatch(updateItem(item, quantity)),
+  updateItemWithInput: (item, quantity) =>
+    dispatch(updateItemWithInput(item, quantity)),
+});
+
+export default connect(null, mapDispatchToProps)(CartRow);

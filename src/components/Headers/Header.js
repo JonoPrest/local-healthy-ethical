@@ -22,7 +22,7 @@ import React from "react";
 
 // core components
 
-function ShopHeader() {
+function Header({ imgName}) {
   let pageHeader = React.createRef();
 
   React.useEffect(() => {
@@ -44,7 +44,7 @@ function ShopHeader() {
       <div
         style={{
           backgroundImage:
-            "url(" + require("assets/img/shop-cover.jpg") + ")",
+            "url(" + require(`assets/img/${imgName}`) + ")",
         }}
         className="page-header page-header-xs"
         data-parallax={true}
@@ -57,4 +57,4 @@ function ShopHeader() {
   );
 }
 
-export default ShopHeader;
+export default Header;

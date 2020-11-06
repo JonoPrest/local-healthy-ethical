@@ -5,14 +5,14 @@ import { Link, Route, Redirect, Switch } from "react-router-dom";
 import "./ShopPage.css";
 
 // core components
-import ShopHeader from "components/Headers/ShopHeader";
-import CategoryCard from "components/categoryCard/categoryCard";
+import Header from "components/Headers/Header";
+import CategoryCard from "components/CategoryCard";
 import ProductsAll from "components/ProductsAll";
 import Products from "components/Products";
 
 const allCatImg = require("assets/img/splash-image.jpg");
 
-const ShopPage = ({ addToCart, data, dataLoaded }) => {
+const ShopPage = ({ data, dataLoaded }) => {
   const uniqueCategoryArray = data.filter((value, index, self) => {
     return (
       self.findIndex((v) => v.Category === value.Category) === index &&
@@ -23,7 +23,7 @@ const ShopPage = ({ addToCart, data, dataLoaded }) => {
 
   return (
     <div>
-      <ShopHeader />
+      <Header imgName="shop-cover.jpg" />
       {!dataLoaded ? (
         <div
           style={{ height: `calc(60vh - 85px)`, width: "100%" }}
@@ -68,7 +68,6 @@ const ShopPage = ({ addToCart, data, dataLoaded }) => {
               render={(props) => (
                 <ProductsAll
                   {...props}
-                  addToCart={addToCart}
                   data={data}
                   uniqueCategoryArray={uniqueCategoryArray}
                 />
@@ -87,7 +86,6 @@ const ShopPage = ({ addToCart, data, dataLoaded }) => {
                     <Products
                       {...props}
                       products={products}
-                      addToCart={addToCart}
                       title={category.Category}
                     />
                   )}

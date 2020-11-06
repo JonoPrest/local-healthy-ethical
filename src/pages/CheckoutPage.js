@@ -1,26 +1,28 @@
 import React, { useState } from "react";
-import { Container, Row, Col, Button } from "reactstrap";
+import { connect } from "react-redux";
+import { Button } from "reactstrap";
 import { Link } from "react-router-dom";
-import { createUserOrder } from "components/firebaseUtilities";
+import { createUserOrder } from "firebaseUtilities";
+
+import { clearCart } from "redux/cart/cart.actions";
 
 import "./CheckoutPage.css";
 
 // core components
-import CartHeader from "components/Headers/CartHeader";
+import Header from "components/Headers/Header";
 
-const CheckoutPage = ({ cart, total, currentUser, setCart, setCartCount }) => {
+const CheckoutPage = ({ cart, total, currentUser, clearCart }) => {
   const [orderPlaced, setOrderPlaced] = useState(false);
 
   const handleOrder = async () => {
     await createUserOrder(currentUser, cart);
-    setCart([]);
-    setCartCount(0);
+    clearCart();
     setOrderPlaced(true);
   };
 
   return (
     <>
-      <CartHeader />
+      <Header imgName="cart-cover.jpeg" />
 
       {cart.length === 0 ? (
         <div
@@ -32,7 +34,7 @@ const CheckoutPage = ({ cart, total, currentUser, setCart, setCartCount }) => {
               ? "Thank you for your Order"
               : "There are no items in your cart"}
           </h2>
-          <Button to="/shop" tag={Link} onClick={()=>setOrderPlaced(false)}>
+          <Button to="/shop" tag={Link} onClick={() => setOrderPlaced(false)}>
             Go to Shop
           </Button>
         </div>
@@ -65,13 +67,13 @@ const CheckoutPage = ({ cart, total, currentUser, setCart, setCartCount }) => {
                     <tr key={i}>
                       <td>{item.quantity}</td>
                       <td>
-                        {item.product.Item +
+                        {item.item.Item +
                           " (" +
-                          item.product.Quantity +
-                          item.product.Units +
+                          item.item.Quantity +
+                          item.item.Units +
                           ")"}
                       </td>
-                      <td>{`R${item.product.Price}`}</td>
+                      <td>{`R${item.item.Price}`}</td>
                     </tr>
                   );
                 })}
@@ -94,4 +96,12 @@ const CheckoutPage = ({ cart, total, currentUser, setCart, setCartCount }) => {
   );
 };
 
-export default CheckoutPage;
+const mapStateToProps = (state) => ({
+  cart: state.cart.cartItems,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  clearCart: () => dispatch(clearCart()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CheckoutPage);

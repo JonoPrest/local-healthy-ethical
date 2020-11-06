@@ -2,11 +2,11 @@ import React from "react";
 
 import ProductCard from "components/ProductCard";
 
-const ProductCategory = ({ products, addToCart }) => {
+const ProductCategory = ({ products }) => {
   return (
     <>
       {products.map((product, i) => {
-        return <ProductCard key={i} product={product} addToCart={addToCart} />;
+        return <ProductCard key={i} product={product} />;
       })}
     </>
   );

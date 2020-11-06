@@ -1,17 +1,16 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Container, Row, Col, Button } from "reactstrap";
 import { Link } from "react-router-dom";
-import { createUserOrder } from "components/firebaseUtilities";
 
 // core components
-import CartHeader from "components/Headers/CartHeader";
+import Header from "components/Headers/Header";
 import CartRow from "components/CartRow";
-
 
 const CartPage = ({ cart, updateCart, total }) => {
   return (
     <div>
-      <CartHeader />
+      <Header imgName="cart-cover.jpeg" />
       {cart.length < 1 ? (
         <div
           style={{ height: `calc(60vh - 85px)`, width: "100%" }}
@@ -76,4 +75,8 @@ const CartPage = ({ cart, updateCart, total }) => {
   );
 };
 
-export default CartPage;
+const mapStateToProps = (state) => ({
+  cart: state.cart.cartItems,
+});
+
+export default connect(mapStateToProps)(CartPage);

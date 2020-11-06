@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./categoryCard.scss";
+import "./CategoryCard.scss";
 
 import { Card, CardImgOverlay, CardImg } from "reactstrap";
 

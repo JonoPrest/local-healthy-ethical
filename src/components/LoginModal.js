@@ -3,7 +3,7 @@ import React from "react";
 import { Button, FormGroup, Input, Modal } from "reactstrap";
 import { Link } from "react-router-dom";
 
-import { auth, signInWithGoogle } from "components/firebaseUtilities";
+import { auth, signInWithGoogle } from "firebaseUtilities";
 
 function LoginModal({ loginModal, setLoginModal }) {
   const handleSubmit = (e) => {

@@ -17,7 +17,7 @@
 
 */
 import React from "react";
-import { auth, createUserProfileDocument, signInWithGoogle } from "components/firebaseUtilities";
+import { auth, createUserProfileDocument, signInWithGoogle } from "firebaseUtilities";
 
 // reactstrap components
 import { Button, Card, Form, Input, Container, Row, Col } from "reactstrap";
