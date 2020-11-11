@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 import ProductCategory from "components/ProductCategory";
 
-const Products = ({ products, title }) => {
+const IndividualCategoriesPage = ({ products, title }) => {
   return (
     <>
       <Button className="m-1" color="neutral" to="/shop" tag={Link}>
@@ -35,4 +35,4 @@ const Products = ({ products, title }) => {
   );
 };
 
-export default Products;
+export default IndividualCategoriesPage;

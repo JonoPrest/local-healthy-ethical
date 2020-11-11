@@ -176,6 +176,7 @@ function ExamplesNavbar({ setLoginModal, currentUser, cartItems }) {
 
 const mapStateToProps = (state) => ({
   cartItems: state.cart.cartItems,
+  currentUser: state.user.currentUser,
 });
 
 export default connect(mapStateToProps)(ExamplesNavbar);

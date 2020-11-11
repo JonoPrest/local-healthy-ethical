@@ -1,4 +1,5 @@
 export const addItemToCart = (cartItems, cartItemToAdd) => {
+  console.log(cartItemToAdd);
   const existingCartItem = cartItems.find(
     (cartItem) => cartItem.item.Code === cartItemToAdd.item.Code
   );
@@ -14,7 +15,7 @@ export const addItemToCart = (cartItems, cartItemToAdd) => {
 };
 
 export const updateItemInCartWithInput = (cartItems, cartItemToUpdate) => {
-    return cartItems.map((cartItem) =>
+  return cartItems.map((cartItem) =>
     cartItem.item.Code === cartItemToUpdate.item.Code
       ? { ...cartItem, quantity: cartItemToUpdate.quantity }
       : cartItem

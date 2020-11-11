@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 // core components
 import ProductCategory from "components/ProductCategory";
 
-const ProductsAll = ({ addToCart, data, uniqueCategoryArray }) => {
+const AllCategoriesPage = ({ data, uniqueCategoryArray }) => {
   return (
     <div>
       <Button className="m-1" color="neutral" to="/shop" tag={Link}>
@@ -26,7 +26,6 @@ const ProductsAll = ({ addToCart, data, uniqueCategoryArray }) => {
                 <ProductCategory
                   key={i}
                   products={products}
-                  addToCart={addToCart}
                 />
               </div>
             </div>
@@ -45,4 +44,4 @@ const ProductsAll = ({ addToCart, data, uniqueCategoryArray }) => {
   );
 };
 
-export default ProductsAll;
+export default AllCategoriesPage;

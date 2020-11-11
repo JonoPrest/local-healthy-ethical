@@ -6,13 +6,7 @@ import { Button, CardText, CardTitle, Row, Col } from "reactstrap";
 
 const noImage = require("assets/img/no-image.jpg");
 
-const CartRow = ({
-  itemInfo,
-  updateCart,
-  index,
-  updateItem,
-  updateItemWithInput,
-}) => {
+const CartRow = ({ itemInfo, updateItem, updateItemWithInput }) => {
   const [totalQuantity, setTotalQuantity] = useState("");
 
   useEffect(() => {

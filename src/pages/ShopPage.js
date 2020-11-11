@@ -7,8 +7,8 @@ import "./ShopPage.css";
 // core components
 import Header from "components/Headers/Header";
 import CategoryCard from "components/CategoryCard";
-import ProductsAll from "components/ProductsAll";
-import Products from "components/Products";
+import AllCategoriesPage from "pages/AllCategoriesPage";
+import IndividualCategoriesPage from "pages/IndividualCategoriesPage";
 
 const allCatImg = require("assets/img/splash-image.jpg");
 
@@ -66,7 +66,7 @@ const ShopPage = ({ data, dataLoaded }) => {
             <Route
               path="/shop/all"
               render={(props) => (
-                <ProductsAll
+                <AllCategoriesPage
                   {...props}
                   data={data}
                   uniqueCategoryArray={uniqueCategoryArray}
@@ -83,7 +83,7 @@ const ShopPage = ({ data, dataLoaded }) => {
                   key={i}
                   path={`/shop/${category.Category}`}
                   render={(props) => (
-                    <Products
+                    <IndividualCategoriesPage
                       {...props}
                       products={products}
                       title={category.Category}

@@ -102,8 +102,6 @@ const ProductCard = ({ product, addItem }) => {
   );
 };
 
-const mapStateToProps = (state) => ({});
-
 const mapDispatchToProps = (dispatch) => ({
   addItem: (item, quantity) => dispatch(addItem(item, quantity)),
 });

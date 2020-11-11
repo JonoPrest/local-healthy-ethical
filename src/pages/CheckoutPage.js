@@ -98,6 +98,7 @@ const CheckoutPage = ({ cart, total, currentUser, clearCart }) => {
 
 const mapStateToProps = (state) => ({
   cart: state.cart.cartItems,
+  currentUser: state.user.currentUser,
 });
 
 const mapDispatchToProps = (dispatch) => ({

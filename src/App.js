@@ -4,6 +4,8 @@ import { Route, Redirect, Switch } from "react-router-dom";
 import { auth, createUserProfileDocument } from "firebaseUtilities";
 import Papa from "papaparse";
 
+import { setCurrentUser } from "redux/user/user.actions";
+
 // styles
 import "assets/css/bootstrap.min.css";
 import "assets/scss/paper-kit.scss?v=1.2.0";
@@ -21,12 +23,10 @@ import AdminConsole from "pages/AdminConsole";
 import DemoFooter from "components/Footer.js";
 import ExamplesNavbar from "components/Navbar.js";
 
-const App = ({ cart }) => {
-  const [currentUser, setCurrentUser] = useState(null);
+const App = ({ cart, setCurrentUser }) => {
   const [data, setData] = useState([]);
   const [dataLoaded, setDataLoaded] = useState(false);
   const [loginModal, setLoginModal] = useState(false);
-  const [cartCount, setCartCount] = useState(0);
   const [total, setTotal] = useState("0.00");
 
   useEffect(() => {
@@ -77,10 +77,7 @@ const App = ({ cart }) => {
 
   return (
     <div>
-      <ExamplesNavbar
-        setLoginModal={setLoginModal}
-        currentUser={currentUser}
-      />
+      <ExamplesNavbar setLoginModal={setLoginModal} />
       <LoginModal loginModal={loginModal} setLoginModal={setLoginModal} />
       <Switch>
         <Route
@@ -91,32 +88,17 @@ const App = ({ cart }) => {
         <Route
           path="/shop"
           render={(props) => (
-            <ShopPage
-              {...props}
-              data={data}
-              dataLoaded={dataLoaded}
-            />
+            <ShopPage {...props} data={data} dataLoaded={dataLoaded} />
           )}
         />
         <Route
           exact
           path="/cart"
-          render={(props) => (
-            <CartPage
-              {...props}
-              total={total}
-            />
-          )}
+          render={(props) => <CartPage {...props} total={total} />}
         />
         <Route
           path="/cart/checkout"
-          render={(props) => (
-            <CheckoutPage
-              {...props}
-              total={total}
-              currentUser={currentUser}
-            />
-          )}
+          render={(props) => <CheckoutPage {...props} total={total} />}
         />
         <Route
           exact
@@ -140,4 +122,8 @@ const mapStateToProps = (state) => ({
   cart: state.cart.cartItems,
 });
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch) => ({
+  setCurrentUser: (userAuth) => dispatch(setCurrentUser(userAuth)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
