@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Route, Redirect, Switch } from "react-router-dom";
 import { auth, createUserProfileDocument } from "firebaseUtilities";
-import Papa from "papaparse";
 
 import { setCurrentUser } from "redux/user/user.actions";
+import { fetchShopDataStartAsync } from "redux/shop/shop.actions";
 
 // styles
 import "assets/css/bootstrap.min.css";
@@ -23,13 +23,12 @@ import AdminConsole from "pages/AdminConsole";
 import DemoFooter from "components/Footer.js";
 import ExamplesNavbar from "components/Navbar.js";
 
-const App = ({ cart, setCurrentUser }) => {
-  const [data, setData] = useState([]);
-  const [dataLoaded, setDataLoaded] = useState(false);
+const App = ({ cart, setCurrentUser, fetchShopDataStartAsync }) => {
   const [loginModal, setLoginModal] = useState(false);
   const [total, setTotal] = useState("0.00");
 
   useEffect(() => {
+    fetchShopDataStartAsync();
     auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
         setLoginModal(false);
@@ -45,24 +44,7 @@ const App = ({ cart, setCurrentUser }) => {
         setCurrentUser(userAuth);
       }
     });
-
-    const proxyUrl = "https://agile-anchorage-79298.herokuapp.com/";
-    const apiURL =
-      "https://docs.google.com/spreadsheets/d/1T2EV-ArYBTgchH1h89pqK0ffc77EDTffItpNqoHosd0/export?format=csv";
-
-    //Get google sheet data using papa parse
-
-    Papa.parse(proxyUrl + apiURL, {
-      download: true,
-      header: true,
-      skipEmptyLines: true,
-      comments: "#",
-      complete: function (results) {
-        setData(results.data);
-        setDataLoaded(true);
-      },
-    });
-  }, []);
+  }, [setCurrentUser, fetchShopDataStartAsync]);
 
   useEffect(() => {
     let cummulativeTotal = 0;
@@ -88,7 +70,7 @@ const App = ({ cart, setCurrentUser }) => {
         <Route
           path="/shop"
           render={(props) => (
-            <ShopPage {...props} data={data} dataLoaded={dataLoaded} />
+            <ShopPage {...props}/>
           )}
         />
         <Route
@@ -104,7 +86,7 @@ const App = ({ cart, setCurrentUser }) => {
           exact
           path="/admin"
           render={(props) => (
-            <AdminConsole data={data} dataLoaded={dataLoaded} {...props} />
+            <AdminConsole {...props} />
           )}
         />
         <Route
@@ -124,6 +106,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (userAuth) => dispatch(setCurrentUser(userAuth)),
+  fetchShopDataStartAsync: () => dispatch(fetchShopDataStartAsync()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
