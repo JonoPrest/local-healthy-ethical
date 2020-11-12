@@ -33,18 +33,28 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
     const createdAt = new Date();
     const ordersPlaced = 0;
 
+    const newUserRefObject = {
+      displayName,
+      email,
+      createdAt,
+      ordersPlaced,
+      ...additionalData,
+    };
+
     try {
-      await userRef.set({
-        displayName,
-        email,
-        createdAt,
-        ordersPlaced,
-        ...additionalData,
-      });
+      await userRef.set(newUserRefObject);
     } catch (error) {
       console.log("error creating user", error.message);
     }
   }
+
+  return userRef;
+};
+
+export const getUserRef = (userAuth) => {
+  if (!userAuth) return;
+
+  const userRef = firestore.doc(`users/${userAuth.uid}`);
 
   return userRef;
 };

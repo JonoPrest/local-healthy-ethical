@@ -16,13 +16,20 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
-import { auth, createUserProfileDocument, signInWithGoogle } from "firebaseUtilities";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import {
+  auth,
+  createUserProfileDocument,
+  signInWithGoogle,
+} from "firebaseUtilities";
 
 // reactstrap components
 import { Button, Card, Form, Input, Container, Row, Col } from "reactstrap";
 
 function RegisterPage() {
+  const history = useHistory();
+
   document.documentElement.classList.remove("nav-open");
   React.useEffect(() => {
     document.body.classList.add("register-page");
@@ -49,6 +56,7 @@ function RegisterPage() {
       .then((res) => {
         createUserProfileDocument(res.user, { displayName });
       })
+      .then(() => history.push("/"))
       .catch(function (error) {
         console.log(error);
         // ...
@@ -72,7 +80,10 @@ function RegisterPage() {
               <Card className="card-register ml-auto mr-auto">
                 <h3 className="title mx-auto">Welcome</h3>
                 <div className="social-line text-center">
-                  <Button className="btn btn-primary" onClick={signInWithGoogle}>
+                  <Button
+                    className="btn btn-primary"
+                    onClick={signInWithGoogle}
+                  >
                     <span>Sign In with Google</span>
                   </Button>
                 </div>
@@ -100,7 +111,7 @@ function RegisterPage() {
                   <label>Confirm Password</label>
                   <Input
                     placeholder="Confirm Password"
-                    type="text"
+                    type="password"
                     name="confirmPassword"
                     required
                   />

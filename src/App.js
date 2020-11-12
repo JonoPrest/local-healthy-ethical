@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Route, Redirect, Switch } from "react-router-dom";
-import { auth, createUserProfileDocument } from "firebaseUtilities";
+import { auth, getUserRef } from "firebaseUtilities";
 
 import { setCurrentUser } from "redux/user/user.actions";
 import { fetchShopDataStartAsync } from "redux/shop/shop.actions";
@@ -29,10 +29,10 @@ const App = ({ cart, setCurrentUser, fetchShopDataStartAsync }) => {
 
   useEffect(() => {
     fetchShopDataStartAsync();
-    auth.onAuthStateChanged(async (userAuth) => {
+    const unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
         setLoginModal(false);
-        const userRef = await createUserProfileDocument(userAuth);
+        const userRef = await getUserRef(userAuth);
 
         userRef.onSnapshot((snapShot) => {
           setCurrentUser({
@@ -40,10 +40,13 @@ const App = ({ cart, setCurrentUser, fetchShopDataStartAsync }) => {
             ...snapShot.data(),
           });
         });
-      } else {
-        setCurrentUser(userAuth);
       }
+      setCurrentUser(userAuth);
     });
+
+    return () => {
+      unsubscribeFromAuth();
+    };
   }, [setCurrentUser, fetchShopDataStartAsync]);
 
   useEffect(() => {
@@ -67,12 +70,7 @@ const App = ({ cart, setCurrentUser, fetchShopDataStartAsync }) => {
           render={(props) => <NucleoIcons {...props} />}
         />
         <Route exact path="/" render={(props) => <LandingPage {...props} />} />
-        <Route
-          path="/shop"
-          render={(props) => (
-            <ShopPage {...props}/>
-          )}
-        />
+        <Route path="/shop" render={(props) => <ShopPage {...props} />} />
         <Route
           exact
           path="/cart"
@@ -85,9 +83,7 @@ const App = ({ cart, setCurrentUser, fetchShopDataStartAsync }) => {
         <Route
           exact
           path="/admin"
-          render={(props) => (
-            <AdminConsole {...props} />
-          )}
+          render={(props) => <AdminConsole {...props} />}
         />
         <Route
           path="/register"
