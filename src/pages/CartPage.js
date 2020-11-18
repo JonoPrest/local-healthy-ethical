@@ -10,7 +10,7 @@ import CartRow from "components/CartRow";
 const CartPage = ({ cart, updateCart, total }) => {
   return (
     <div>
-      <Header imgName="cart-cover.jpeg" />
+      <Header title="Cart" imgName="cart-cover.jpeg" />
       {cart.length < 1 ? (
         <div
           style={{ height: `calc(60vh - 85px)`, width: "100%" }}

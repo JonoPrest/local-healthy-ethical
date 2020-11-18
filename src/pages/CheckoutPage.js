@@ -15,14 +15,15 @@ const CheckoutPage = ({ cart, total, currentUser, clearCart }) => {
   const [orderPlaced, setOrderPlaced] = useState(false);
 
   const handleOrder = async () => {
-    await createUserOrder(currentUser, cart);
-    clearCart();
-    setOrderPlaced(true);
+    createUserOrder(currentUser, cart).then(() => {
+      clearCart();
+      setOrderPlaced(true);
+    });
   };
 
   return (
     <>
-      <Header imgName="cart-cover.jpeg" />
+      <Header title="Checkout" imgName="cart-cover.jpeg" />
 
       {cart.length === 0 ? (
         <div

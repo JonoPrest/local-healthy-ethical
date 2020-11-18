@@ -19,7 +19,6 @@ export const fetchShopDataStartAsync = () => {
   return (dispatch) => {
     dispatch(fetchShopDataStart());
 
-
     const proxyUrl = "https://agile-anchorage-79298.herokuapp.com/";
     const apiURL =
       "https://docs.google.com/spreadsheets/d/1T2EV-ArYBTgchH1h89pqK0ffc77EDTffItpNqoHosd0/export?format=csv";
@@ -32,7 +31,13 @@ export const fetchShopDataStartAsync = () => {
       skipEmptyLines: true,
       comments: "#",
       complete: function (results) {
-        dispatch(fetchShopDataSuccess(results.data));
+        const data = results.data;
+        //Hack fix because papa parse is giving an empty prop with empty attribute causing issues with firebase
+        const remappedData = data.map((item) => {
+          delete item[""];
+          return item;
+        });
+        dispatch(fetchShopDataSuccess(remappedData));
       },
       error: (error) => {
         dispatch(fetchShopDataFailure(error.message));

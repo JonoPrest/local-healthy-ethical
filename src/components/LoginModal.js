@@ -12,7 +12,7 @@ function LoginModal({ loginModal, setLoginModal }) {
     let password = e.target[1].value;
     auth
       .signInWithEmailAndPassword(email, password)
-      .then((res) => {
+      .then(() => {
         setLoginModal(false);
       })
       .catch((err) => alert(err.message));

@@ -38,7 +38,7 @@ function RegisterPage() {
     };
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     let displayName = e.target[0].value;
@@ -51,16 +51,18 @@ function RegisterPage() {
       return;
     }
 
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then((res) => {
-        createUserProfileDocument(res.user, { displayName });
-      })
-      .then(() => history.push("/"))
-      .catch(function (error) {
-        console.log(error);
-        // ...
-      });
+    try {
+      const { user } = await auth.createUserWithEmailAndPassword(
+        email,
+        password
+      );
+
+      await createUserProfileDocument(user, { displayName });
+
+      history.push("/");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

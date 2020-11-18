@@ -33,16 +33,14 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
     const createdAt = new Date();
     const ordersPlaced = 0;
 
-    const newUserRefObject = {
-      displayName,
-      email,
-      createdAt,
-      ordersPlaced,
-      ...additionalData,
-    };
-
     try {
-      await userRef.set(newUserRefObject);
+      await userRef.set({
+        displayName,
+        email,
+        createdAt,
+        ordersPlaced,
+        ...additionalData,
+      });
     } catch (error) {
       console.log("error creating user", error.message);
     }
@@ -59,46 +57,78 @@ export const getUserRef = (userAuth) => {
   return userRef;
 };
 
-export const createUserOrder = async (userAuth, cart) => {
-  const userRef = firestore.doc(`users/${userAuth.id}`);
-  const orderNumber = userAuth.ordersPlaced + 1;
-
+export const createUserOrder = async (currentUser, cart) => {
+  const batch = firestore.batch();
+  const userRef = firestore.doc(`users/${currentUser.id}`);
+  const userOrderNumber = currentUser.ordersPlaced + 1;
   const date = new Date();
 
-  await userRef.update({ ordersPlaced: orderNumber });
-  await userRef.collection("orders").doc(`${orderNumber}`).set({ date: date });
+  //create date for categorising orders by month
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+  const dateStr = year + "-" + month;
 
-  cart.forEach(async (cartItem, i) => {
-    const {
-      Category,
-      Item,
-      Price,
-      Quantity,
-      Units,
-      Supplier,
-      Code,
-    } = cartItem.product;
+  //Get invoice number
+  const invoiceNumberRef = firestore.doc("orders/info");
+  const invoiceSnapshot = await invoiceNumberRef.get();
+  const data = await invoiceSnapshot.data();
+  const totalOrders = data.totalOrders;
+  const invoiceNumber = totalOrders + 1;
 
-    const orderQuantity = cartItem.quantity;
+  const userOrderObject = {
+    date: date,
+    cart: cart,
+    invoiceNumber: invoiceNumber,
+  };
 
-    const orderObject = {
-      orderQuantity: orderQuantity,
-      category: Category,
-      item: Item,
-      code: Code,
-      price: Price,
-      quantity: Quantity,
-      units: Units,
-      supplier: Supplier,
-      dateOrdered: date,
-    };
-    await userRef
-      .collection("orders")
-      .doc(`${orderNumber}`)
-      .collection("items")
-      .doc()
-      .set(orderObject);
+  const orderObject = {
+    date: date,
+    cart: cart,
+    invoiceNumber: invoiceNumber,
+    user: {
+      ...currentUser,
+      ordersPlaced: userOrderNumber,
+    },
+  };
+
+  const userOrderRef = userRef.collection("orders").doc(`${invoiceNumber}`);
+  const dateRef = firestore.collection("orders").doc(dateStr);
+  const orderRef = dateRef
+    .collection("orders-this-month")
+    .doc(`${invoiceNumber}`);
+
+  batch.set(userOrderRef, userOrderObject);
+  batch.update(userRef, { ordersPlaced: userOrderNumber });
+  batch.set(dateRef, { month: month, year: year });
+  batch.set(orderRef, orderObject);
+  batch.update(invoiceNumberRef, { totalOrders: invoiceNumber });
+
+  return await batch.commit();
+};
+
+export const getOrderMonths = async () => {
+  const snapShot = await firestore.collection("orders").get();
+
+  let monthsArray = [];
+  snapShot.forEach((snap) =>
+    snap.id === "info" ? null : monthsArray.push(snap.id)
+  );
+  return monthsArray;
+};
+
+export const getOrdersForGivenMonth = async (month) => {
+  const monthOrdersRef = firestore.collection(
+    `orders/${month}/orders-this-month`
+  );
+
+  const snapShot = await monthOrdersRef.get();
+
+  let ordersArray = [];
+  snapShot.forEach((snap) => {
+    ordersArray.push(snap.data());
   });
+
+  return ordersArray;
 };
 
 export const getFirebaseUserInfo = async () => {
@@ -111,12 +141,9 @@ export const getFirebaseUserInfo = async () => {
         const userOrdersRef = firestore.collection(`users/${user.id}/orders`);
         userOrdersRef.get().then((orderSnapshot) =>
           orderSnapshot.forEach((order) => {
-            const orderItemsRef = firestore.collection(
-              `users/${user.id}/orders/${order.id}/items`
-            );
-            orderItemsRef.get().then((itemSnapshot) => {
-              itemSnapshot.forEach((item) => everyOrderArray.push(item.data()));
-            });
+            const orderData = order.data();
+            const { id, displayName, email } = user;
+            everyOrderArray.push(order.data());
           })
         );
       });

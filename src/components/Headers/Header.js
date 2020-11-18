@@ -22,7 +22,7 @@ import React from "react";
 
 // core components
 
-function Header({ imgName}) {
+function Header({ imgName, title }) {
   let pageHeader = React.createRef();
 
   React.useEffect(() => {
@@ -43,15 +43,14 @@ function Header({ imgName}) {
     <>
       <div
         style={{
-          backgroundImage:
-            "url(" + require(`assets/img/${imgName}`) + ")",
+          backgroundImage: "url(" + require(`assets/img/${imgName}`) + ")",
         }}
         className="page-header page-header-xs"
         data-parallax={true}
         ref={pageHeader}
       >
         <div className="filter" />
-        <h1 className="motto border px-3">SHOP</h1>
+      <h1 className="motto border px-3">{title}</h1>
       </div>
     </>
   );

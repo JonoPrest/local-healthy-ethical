@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Route, Redirect, Switch } from "react-router-dom";
-import { auth, getUserRef } from "firebaseUtilities";
+import { auth, createUserProfileDocument } from "firebaseUtilities";
 
 import { setCurrentUser } from "redux/user/user.actions";
 import { fetchShopDataStartAsync } from "redux/shop/shop.actions";
@@ -28,11 +28,9 @@ const App = ({ cart, setCurrentUser, fetchShopDataStartAsync }) => {
   const [total, setTotal] = useState("0.00");
 
   useEffect(() => {
-    fetchShopDataStartAsync();
     const unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
-        setLoginModal(false);
-        const userRef = await getUserRef(userAuth);
+        const userRef = await createUserProfileDocument(userAuth);
 
         userRef.onSnapshot((snapShot) => {
           setCurrentUser({
@@ -47,7 +45,11 @@ const App = ({ cart, setCurrentUser, fetchShopDataStartAsync }) => {
     return () => {
       unsubscribeFromAuth();
     };
-  }, [setCurrentUser, fetchShopDataStartAsync]);
+  }, []);
+
+  useEffect(() => {
+    fetchShopDataStartAsync();
+  }, [fetchShopDataStartAsync]);
 
   useEffect(() => {
     let cummulativeTotal = 0;
@@ -81,7 +83,6 @@ const App = ({ cart, setCurrentUser, fetchShopDataStartAsync }) => {
           render={(props) => <CheckoutPage {...props} total={total} />}
         />
         <Route
-          exact
           path="/admin"
           render={(props) => <AdminConsole {...props} />}
         />

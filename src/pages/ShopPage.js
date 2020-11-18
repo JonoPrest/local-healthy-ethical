@@ -31,7 +31,7 @@ const ShopPage = ({
 
   return (
     <div>
-      <Header imgName="shop-cover.jpg" />
+      <Header title="Shop" imgName="shop-cover.jpg" />
       {isFetching ? (
         <div
           style={{ height: `calc(60vh - 85px)`, width: "100%" }}
