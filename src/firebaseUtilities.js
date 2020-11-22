@@ -127,7 +127,6 @@ export const getOrdersForGivenMonth = async (month) => {
   snapShot.forEach((snap) => {
     ordersArray.push(snap.data());
   });
-
   return ordersArray;
 };
 

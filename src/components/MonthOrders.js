@@ -3,35 +3,53 @@ import { Switch, Route, Redirect, Link, useRouteMatch } from "react-router-dom";
 import { getOrdersForGivenMonth } from "firebaseUtilities";
 
 import MasterTable from "components/MasterTable";
+import { Button } from "reactstrap";
+import BackButton from "assets/BackButton";
+import IndividualOrders from "./IndividualOrders";
 
 const MonthOrders = ({ month }) => {
   const { url, path } = useRouteMatch();
   const [monthOrders, setMonthOrders] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     getOrdersForGivenMonth(month).then((ordersArray) => {
-      console.log(ordersArray);
       setMonthOrders(ordersArray);
+      setIsLoading(false);
     });
   }, [month]);
   return (
-    <div>
-      <h2>{month}</h2>
+    <div className="text-center">
       <Switch>
         <Route exact path={`/admin/${month}`}>
+          <BackButton />
+          <h1>
+            <strong>{month}</strong>
+          </h1>
           <Link to={`${url}/master-table`}>
-            <h1>See Master Table</h1>
+            <Button className="m-2">See Master Table</Button>
           </Link>
           <Link to={`${url}/orders`}>
-            <h1>See individual Orders</h1>
+            <Button className="m-2">See individual Orders</Button>
           </Link>
         </Route>
         <Route path={`${path}/master-table`}>
-          <h1>Master Table</h1>
-          <MasterTable monthOrdersArray={monthOrders} />
+          <BackButton />
+          <h1>
+            <strong>{month}</strong>
+          </h1>
+          <h2>Master Table</h2>
+          <MasterTable monthOrdersArray={monthOrders} isLoading={isLoading} />
         </Route>
         <Route path={`${path}/orders`}>
-          {/* <IndividualOrders /> */}
-          <h1>Individual orders</h1>
+          <BackButton />
+          <h1>
+            <strong>{month}</strong>
+          </h1>
+          
+          <IndividualOrders
+            monthOrdersArray={monthOrders}
+            isLoading={isLoading}
+          />
         </Route>
       </Switch>
     </div>

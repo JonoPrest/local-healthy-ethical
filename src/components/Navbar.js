@@ -127,6 +127,11 @@ function ExamplesNavbar({ setLoginModal, currentUser, cartItems }) {
               </NavLink>
             </NavItem>
             <NavItem>
+              <NavLink to="/admin" tag={Link}>
+                Admin Console
+              </NavLink>
+            </NavItem>
+            <NavItem>
               <NavLink to="/shop" tag={Link}>
                 SHOP
               </NavLink>

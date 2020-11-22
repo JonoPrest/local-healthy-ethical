@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Table } from "reactstrap";
+import { Spinner, Table } from "reactstrap";
 
-const MasterTable = ({ monthOrdersArray }) => {
+const MasterTable = ({ monthOrdersArray, isLoading }) => {
   const [masterObject, setMasterObject] = useState({});
+  const [total, setTotal] = useState("");
 
   useEffect(() => {
     let masterObj = {};
@@ -19,48 +20,72 @@ const MasterTable = ({ monthOrdersArray }) => {
       });
     });
     setMasterObject(masterObj);
-  }, []);
+    let cumulativeSum = 0;
+    Object.values(masterObj).forEach((value, i) => {
+      cumulativeSum += Number(value.item.Price) * value.quantity;
+    });
+    setTotal(`R${cumulativeSum.toFixed(2)}`);
+  }, [monthOrdersArray]);
 
   return (
-    <div>
-      <Table>
-        <thead>
-          <tr>
-            <th>Category</th>
-            <th>Code</th>
-            <th>Item</th>
-            <th>Supplier</th>
-            <th>Container</th>
-            <th>Quantity</th>
-            <th>Units</th>
-            <th>Price</th>
-            <th>Units to Order</th>
-            <th>Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          {Object.values(masterObject).map((value, i) => (
-            <tr>
-              <th>{value.item.Category}</th>
-              <th>{value.item.Code}</th>
-              <th>{value.item.Item}</th>
-              <th>{value.item.Supplier}</th>
-              <th>{value.item.Container}</th>
-              <th>{value.item.Quantity}</th>
-              <th>{value.item.Units}</th>
-              <th>{value.item.Price}</th>
-              <th>{value.quantity}</th>
-              <th>R{(value.quantity * Number(value.item.Price)).toFixed(2)}</th>
-            </tr>
-          ))}
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-        </tbody>
-      </Table>
+    <div className="my-4 mx-0 px-0">
+     
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <div style={{maxWidth: "90vw", overflowX: "scroll"}}>
+          <Table>
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Code</th>
+                <th>Item</th>
+                <th>Supplier</th>
+                <th>Container</th>
+                <th>Quantity</th>
+                <th>Units</th>
+                <th>Price</th>
+                <th>Units to Order</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Object.values(masterObject).map((value, i) => {
+                return (
+                  <tr>
+                    <th className="text-left">{value.item.Category}</th>
+                    <th className="text-left">{value.item.Code}</th>
+                    <th className="text-left" style={{ maxWidth: "200px" }}>
+                      {value.item.Item}
+                    </th>
+                    <th className="text-left">{value.item.Supplier}</th>
+                    <th className="text-left">{value.item.Container}</th>
+                    <th className="text-right">{value.item.Quantity}</th>
+                    <th className="text-left">{value.item.Units}</th>
+                    <th className="text-right">{value.item.Price}</th>
+                    <th className="text-right">{value.quantity}</th>
+                    <th className="text-right">
+                      R{(value.quantity * Number(value.item.Price)).toFixed(2)}
+                    </th>
+                  </tr>
+                );
+              })}
+              <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th className="text-right">Total:</th>
+                <th className="text-right">{total}</th>
+              </tr>
+            </tbody>
+          </Table>
+        </div>
+      )}
     </div>
   );
 };
