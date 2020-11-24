@@ -11,7 +11,7 @@ const IndividualOrders = ({ monthOrdersArray, isLoading }) => {
         <Route exact path={`${url}`}>
           <h2>Individual Orders</h2>
           {monthOrdersArray.map((order) => (
-            <Link to={`${url}/${order.invoiceNumber}`}>
+            <Link key={order.invoiceNumber} to={`${url}/${order.invoiceNumber}`}>
               <Button className="m-1" color="neutral">
                 {order.user.displayName} - {order.invoiceNumber}
                 <i className="nc-icon nc-minimal-right ml-1" />

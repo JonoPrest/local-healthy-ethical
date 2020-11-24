@@ -4,7 +4,7 @@ import { getOrdersForGivenMonth } from "firebaseUtilities";
 
 import MasterTable from "components/MasterTable";
 import { Button } from "reactstrap";
-import BackButton from "assets/BackButton";
+import BackButton from "components/BackButton";
 import IndividualOrders from "./IndividualOrders";
 
 const MonthOrders = ({ month }) => {

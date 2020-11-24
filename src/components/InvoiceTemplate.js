@@ -7,18 +7,15 @@ const InvoiceTemplate = ({ userOrder }) => {
 
   useEffect(() => {
     const reduceTotal = userOrder.cart.reduce(
-      (accumulator, cartItem) =>
-        accumulator + Number(cartItem.item.Price) * cartItem.quantity,
+      (accumulator, cartItem) => accumulator + Number(cartItem.total),
       0
     );
-
-    
 
     setTotal(reduceTotal.toFixed(2));
   }, [userOrder]);
 
   return (
-    <div className="px-4 border m-4">
+    <div className="px-4 border m-4 invoiceContainer" style={{overflow: "auto", maxWidth: "100vw"}}>
       <div className=" container bootstrap snippets bootdeys">
         <div className="row">
           <div className="col-sm-12">
@@ -75,7 +72,7 @@ const InvoiceTemplate = ({ userOrder }) => {
                     <table className="table table-striped">
                       <thead>
                         <tr>
-                          <th className="text-center" style={{ width: "5%" }} z>
+                          <th className="text-center" style={{ width: "5%" }}>
                             #
                           </th>
                           <th style={{ width: "50%" }}>Item</th>
@@ -93,7 +90,7 @@ const InvoiceTemplate = ({ userOrder }) => {
                       <tbody>
                         {userOrder.cart.map((cartItem, i) => {
                           return (
-                            <tr>
+                            <tr key={`invoiceRow-${i}`}>
                               <td className="text-center">{i + 1}</td>
                               <td>
                                 {cartItem.item.Item} {cartItem.item.Quantity}
@@ -105,13 +102,7 @@ const InvoiceTemplate = ({ userOrder }) => {
                               <td className="text-right">
                                 R{cartItem.item.Price}
                               </td>
-                              <td className="text-right">
-                                R
-                                {(
-                                  Number(cartItem.item.Price) *
-                                  cartItem.quantity
-                                ).toFixed(2)}
-                              </td>
+                              <td className="text-right">R{cartItem.total}</td>
                             </tr>
                           );
                         })}

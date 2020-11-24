@@ -4,35 +4,45 @@ import InvoiceEditingInput from "./InvoiceEditingInput";
 
 const InvoiceTemplateEditable = ({ userOrder, setUserOrder }) => {
   const [total, setTotal] = useState(0);
+  const [editedOrder, setEditedOrder] = useState({
+    invoiceNumber: "",
+    user: {
+      displayName: "",
+    },
+    cart: [],
+  });
 
   useEffect(() => {
-    const reduceTotal = userOrder.cart.reduce(
+    const order = userOrder;
+    setEditedOrder(order);
+  }, [userOrder]);
+
+  useEffect(() => {
+    const reduceTotal = editedOrder.cart.reduce(
       (accumulator, cartItem) =>
         accumulator + Number(cartItem.item.Price) * cartItem.quantity,
       0
     );
 
     setTotal(reduceTotal.toFixed(2));
-  }, [userOrder]);
+  }, [editedOrder]);
 
   const removeItemFromOrder = (i) => {
-    let cart = userOrder.cart;
-    cart.splice(i, 1);
+    const editCart = editedOrder.cart.filter((item, index) => index !== i);
 
-    const updatedUserOrder = {
-      ...userOrder,
-      cart: cart,
+    const updatedEditedOrder = {
+      ...editedOrder,
+      cart: editCart,
     };
 
-    setUserOrder(updatedUserOrder);
+    setEditedOrder(updatedEditedOrder);
+    console.log(userOrder);
   };
 
-  const editItem = (inputValue, cartItem, i, property) => {
-
-  };
+  const changeQuantity = (value) => {};
 
   return (
-    <div className="px-4 border m-4">
+    <div className="px-4 border m-4 invoiceContainer" style={{overflow: "auto", maxWidth: "100vw"}}>
       <div className=" container bootstrap snippets bootdeys">
         <div className="row">
           <div className="col-sm-12">
@@ -43,7 +53,7 @@ const InvoiceTemplateEditable = ({ userOrder, setUserOrder }) => {
 
                   <div className="col-sm-6 top-right">
                     <h3 className="marginright">
-                      INVOICE #{userOrder.invoiceNumber}
+                      INVOICE #{editedOrder.invoiceNumber}
                     </h3>
                     <span className="marginright">14 April 2014</span>
                   </div>
@@ -53,9 +63,9 @@ const InvoiceTemplateEditable = ({ userOrder, setUserOrder }) => {
                     <div className="col-xs-4 to text-left mr-3">
                       <p>To:</p>
                       <strong className="lead marginbottom">
-                        {userOrder.user.displayName}
+                        {editedOrder.user.displayName}
                       </strong>
-                      <p>Email: {userOrder.user.email}</p>
+                      <p>Email: {editedOrder.user.email}</p>
                     </div>
 
                     <div className="col-xs-4 from text-left">
@@ -108,9 +118,9 @@ const InvoiceTemplateEditable = ({ userOrder, setUserOrder }) => {
                         </tr>
                       </thead>
                       <tbody>
-                        {userOrder.cart.map((cartItem, i) => {
+                        {editedOrder.cart.map((cartItem, i) => {
                           return (
-                            <tr>
+                            <tr key={`editableInvoiceRow-${i}`}>
                               <td>
                                 <Button onClick={() => removeItemFromOrder(i)}>
                                   <i className="fa fa-remove" />
@@ -123,15 +133,8 @@ const InvoiceTemplateEditable = ({ userOrder, setUserOrder }) => {
                               </td>
                               <td className="text-right">
                                 <InvoiceEditingInput
-                                  editItem={(inputValue) =>
-                                    editItem(
-                                      inputValue,
-                                      cartItem,
-                                      i,
-                                      "quantity"
-                                    )
-                                  }
                                   initialValue={cartItem.quantity}
+                                  name="quantity"
                                 />
                               </td>
 
@@ -139,8 +142,8 @@ const InvoiceTemplateEditable = ({ userOrder, setUserOrder }) => {
                                 <span className="d-flex align-items-center">
                                   R
                                   <InvoiceEditingInput
-                                    editItem={editItem}
                                     initialValue={cartItem.item.Price}
+                                    name="price"
                                   />
                                 </span>
                               </td>
@@ -148,11 +151,8 @@ const InvoiceTemplateEditable = ({ userOrder, setUserOrder }) => {
                                 <span className="d-flex align-items-center">
                                   R
                                   <InvoiceEditingInput
-                                    editItem={editItem}
-                                    initialValue={(
-                                      Number(cartItem.item.Price) *
-                                      cartItem.quantity
-                                    ).toFixed(2)}
+                                    name="total"
+                                    initialValue={cartItem.total}
                                   />
                                 </span>
                               </td>

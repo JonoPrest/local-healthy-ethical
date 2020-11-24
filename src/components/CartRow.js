@@ -18,6 +18,7 @@ const CartRow = ({ itemInfo, updateItem, updateItemWithInput }) => {
   let quantity = "";
   let units = "";
   let price = "";
+  let totalPrice = "";
 
   if (itemInfo) {
     item = itemInfo.item.Item;
@@ -25,6 +26,7 @@ const CartRow = ({ itemInfo, updateItem, updateItemWithInput }) => {
     quantity = itemInfo.item.Quantity;
     units = itemInfo.item.Units;
     price = Number(itemInfo.item.Price).toFixed(2);
+    totalPrice = itemInfo.total;
   }
 
   return (
@@ -85,7 +87,7 @@ const CartRow = ({ itemInfo, updateItem, updateItemWithInput }) => {
         </div>
       </Col>
       <Col>
-        <strong>R{(totalQuantity * price).toFixed(2)}</strong>
+        <strong>R{totalPrice}</strong>
       </Col>
     </Row>
   );

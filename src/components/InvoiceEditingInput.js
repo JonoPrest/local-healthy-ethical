@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Input } from "reactstrap";
 
-const InvoiceEditingInput = ({ initialValue, editItem }) => {
+const InvoiceEditingInput = ({ initialValue, name }) => {
   const [inputValue, setInputValue] = useState("");
   useEffect(() => {
     setInputValue(initialValue);
@@ -9,12 +9,12 @@ const InvoiceEditingInput = ({ initialValue, editItem }) => {
 
   const handleChange = (e) => {
     setInputValue(e.target.value);
-    editItem(e.target.value);
   };
 
   return (
     <Input
       style={{ maxWidth: "100px", minWidth: "63px", padding: "2px" }}
+      name={name}
       className="mx-1"
       type="text"
       value={inputValue}

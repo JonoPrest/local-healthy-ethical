@@ -34,7 +34,7 @@ const CartPage = ({ cart, updateCart, total }) => {
           {cart.map((item, i) => {
             return (
               <CartRow
-                key={i}
+                key={item.item.Code}
                 index={i}
                 itemInfo={item}
                 updateCart={updateCart}

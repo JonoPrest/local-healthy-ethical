@@ -91,6 +91,7 @@ export const createUserOrder = async (currentUser, cart) => {
     },
   };
 
+  //setting original order and order inside users folder
   const userOrderRef = userRef.collection("orders").doc(`${invoiceNumber}`);
   const dateRef = firestore.collection("orders").doc(dateStr);
   const orderRef = dateRef
@@ -102,6 +103,12 @@ export const createUserOrder = async (currentUser, cart) => {
   batch.set(dateRef, { month: month, year: year });
   batch.set(orderRef, orderObject);
   batch.update(invoiceNumberRef, { totalOrders: invoiceNumber });
+
+  const invoiceOrderRef = firestore
+    .collection("invoices")
+    .doc(`${invoiceNumber}`);
+
+  batch.set(invoiceOrderRef, orderObject);
 
   return await batch.commit();
 };
@@ -128,6 +135,26 @@ export const getOrdersForGivenMonth = async (month) => {
     ordersArray.push(snap.data());
   });
   return ordersArray;
+};
+
+export const getInvoice = async (invoiceNumber) => {
+  const invoiceRef = firestore.collection("invoices").doc(invoiceNumber);
+
+  const invoiceSnapshot = await invoiceRef.get();
+  const invoice = invoiceSnapshot.data();
+
+  return invoice;
+};
+
+export const updateInvoice = async (order, invoiceNumber) => {
+  const invoiceRef = firestore.collection("invoices").doc(invoiceNumber);
+
+  try {
+    await invoiceRef.update(order);
+    return true;
+  } catch (error) {
+    throw error;
+  }
 };
 
 export const getFirebaseUserInfo = async () => {
