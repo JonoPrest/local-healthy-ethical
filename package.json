@@ -18,6 +18,7 @@
     "react-router": "5.2.0",
     "react-router-dom": "5.2.0",
     "react-scripts": "^3.4.4",
+    "react-to-print": "^2.11.0",
     "reactstrap": "8.4.1",
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",

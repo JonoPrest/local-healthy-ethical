@@ -6,6 +6,10 @@ const InvoiceTemplate = ({ userOrder }) => {
   const [date, setDate] = useState("");
 
   useEffect(() => {
+    const invoiceDate = new Date();
+    const formatedDate = invoiceDate.toISOString().slice(0, 10);
+    setDate(formatedDate);
+
     const reduceTotal = userOrder.cart.reduce(
       (accumulator, cartItem) => accumulator + Number(cartItem.total),
       0
@@ -15,7 +19,10 @@ const InvoiceTemplate = ({ userOrder }) => {
   }, [userOrder]);
 
   return (
-    <div className="px-4 border m-4 invoiceContainer" style={{overflow: "auto", maxWidth: "100vw"}}>
+    <div
+      className="px-4 border m-4 invoiceContainer"
+      style={{ overflowX: "auto", maxWidth: "100vw" }}
+    >
       <div className=" container bootstrap snippets bootdeys">
         <div className="row">
           <div className="col-sm-12">
@@ -28,7 +35,7 @@ const InvoiceTemplate = ({ userOrder }) => {
                     <h3 className="marginright">
                       INVOICE #{userOrder.invoiceNumber}
                     </h3>
-                    <span className="marginright">14 April 2014</span>
+  <span className="marginright">{date}</span>
                   </div>
                 </div>
                 <div>
@@ -41,7 +48,7 @@ const InvoiceTemplate = ({ userOrder }) => {
                       <p>Email: {userOrder.user.email}</p>
                     </div>
 
-                    <div className="col-xs-4 from text-left">
+                    <div className="col-xs-4 from text-left mr-4">
                       <p> From :</p>
                       <strong className="lead marginbottom">
                         Local+ Healthy + Ethical
@@ -53,7 +60,7 @@ const InvoiceTemplate = ({ userOrder }) => {
                       <p>Email: obree.kate@gmail.com</p>
                     </div>
 
-                    <div className="col-xs-4 text-left ml-4 payment-details">
+                    <div className="col-xs-4 text-left payment-detailss ml-1">
                       <p className="lead marginbottom payment-info">
                         Payment details
                       </p>

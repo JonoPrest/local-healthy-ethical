@@ -2,20 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Button } from "reactstrap";
 import InvoiceEditingInput from "./InvoiceEditingInput";
 
-const InvoiceTemplateEditable = ({ userOrder, setUserOrder }) => {
+const InvoiceTemplateEditable = ({ editedOrder, setEditedOrder }) => {
   const [total, setTotal] = useState(0);
-  const [editedOrder, setEditedOrder] = useState({
-    invoiceNumber: "",
-    user: {
-      displayName: "",
-    },
-    cart: [],
-  });
-
-  useEffect(() => {
-    const order = userOrder;
-    setEditedOrder(order);
-  }, [userOrder]);
 
   useEffect(() => {
     const reduceTotal = editedOrder.cart.reduce(
@@ -36,13 +24,31 @@ const InvoiceTemplateEditable = ({ userOrder, setUserOrder }) => {
     };
 
     setEditedOrder(updatedEditedOrder);
-    console.log(userOrder);
   };
 
-  const changeQuantity = (value) => {};
+  const handleAddItem = (e) => {
+    e.preventDefault();
+    const blankOrderObject = {
+      item: {
+        Item: false,
+        Price: "00.00",
+      },
+      quantity: 1,
+      total: "00.00",
+    };
+
+    const currentCart = editedOrder.cart;
+    const newCart = [...currentCart, blankOrderObject];
+    const updatedEditedOrder = { ...editedOrder, cart: newCart };
+
+    setEditedOrder(updatedEditedOrder);
+  };
 
   return (
-    <div className="px-4 border m-4 invoiceContainer" style={{overflow: "auto", maxWidth: "100vw"}}>
+    <div
+      className="px-4 border m-4 invoiceContainer"
+      style={{ overflow: "auto", maxWidth: "100vw" }}
+    >
       <div className=" container bootstrap snippets bootdeys">
         <div className="row">
           <div className="col-sm-12">
@@ -127,10 +133,16 @@ const InvoiceTemplateEditable = ({ userOrder, setUserOrder }) => {
                                 </Button>
                               </td>
                               <td className="text-center">{i + 1}</td>
-                              <td>
-                                {cartItem.item.Item} {cartItem.item.Quantity}
-                                {cartItem.item.Units}
-                              </td>
+                              {cartItem.item.Item ? (
+                                <td>
+                                  {cartItem.item.Item} {cartItem.item.Quantity}
+                                  {cartItem.item.Units}
+                                </td>
+                              ) : (
+                                <td>
+                                  <InvoiceEditingInput />
+                                </td>
+                              )}
                               <td className="text-right">
                                 <InvoiceEditingInput
                                   initialValue={cartItem.quantity}
@@ -159,6 +171,19 @@ const InvoiceTemplateEditable = ({ userOrder, setUserOrder }) => {
                             </tr>
                           );
                         })}
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td>
+                            <button
+                              onClick={(e) => handleAddItem(e)}
+                              className="btn btn-secondary m-1"
+                            >
+                              Add Item
+                              <i className="fa fa-plus"></i>{" "}
+                            </button>
+                          </td>
+                        </tr>
                       </tbody>
                     </table>
                   </div>

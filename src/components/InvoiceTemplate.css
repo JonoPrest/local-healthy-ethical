@@ -3,14 +3,24 @@
 .invoice .top-left {
   font-size: 65px;
   color: #3ba0ff;
+}
+
+.invoiceContainer .row {
+  width: 800px;
   
 }
 
- .invoiceContainer .row {
-  width: 800px;
-  display: flex;
-  justify-content: space-between;
+.invoiceContainer .row .to {
+  display: inline-block;
+  width: 250px;
+
 }
+
+.invoiceContainer .row .from {
+  display: inline-block;
+  width: 250px;
+}
+
 
 .invoice .top-right {
   text-align: right;
@@ -25,6 +35,8 @@
 
 .invoice .payment-info {
   font-weight: 500;
+  display: inline-block;
+  width: 250px;
 }
 
 .invoice .table-row .table > thead {
@@ -33,7 +45,7 @@
 
 .invoice .table-row .table > thead > tr > th {
   text-align: left;
-    padding: 8px 20px;
+  padding: 8px 20px;
 
   border-bottom: none;
 }
@@ -103,7 +115,7 @@
   .invoice .to,
   .invoice .payment-details {
     float: none;
-    width: 100%;
+   
     text-align: center;
     margin-bottom: 25px;
   }
@@ -121,8 +133,11 @@
 }
 
 @media print {
-  .invoice {
-    width: 900px;
-    height: 800px;
+  @page {
+    size: auto;
   }
 }
+
+  
+  
+

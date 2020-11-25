@@ -1,6 +1,10 @@
+import React, { useEffect, useRef, useState } from "react";
+
 import { updateInvoice } from "firebaseUtilities";
 import { getInvoice } from "firebaseUtilities";
-import React, { useEffect, useState } from "react";
+
+import { useReactToPrint } from "react-to-print";
+
 import { useParams } from "react-router";
 import { Spinner } from "reactstrap";
 import InvoiceTemplate from "./InvoiceTemplate";
@@ -8,19 +12,23 @@ import InvoiceTemplateEditable from "./InvoiceTemplateEditable";
 
 const IndividualOrderInvoice = () => {
   const { name } = useParams();
-  const [userOrder, setUserOrder] = useState({
+  const orderObject = {
     invoiceNumber: "",
     user: {
       displayName: "",
     },
     cart: [],
-  });
+  };
+  const [userOrder, setUserOrder] = useState(orderObject);
+  const [editedOrder, setEditedOrder] = useState(orderObject);
+
   const [isLoading, setIsLoading] = useState(true);
   const [editingInvoice, setEditingInvoice] = useState(false);
 
   useEffect(() => {
     getInvoice(name).then((res) => {
       setUserOrder(res);
+      setEditedOrder(res);
       setIsLoading(false);
     });
   }, [name]);
@@ -28,7 +36,7 @@ const IndividualOrderInvoice = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const updatedOrderCart = userOrder.cart.map((cartItem, i) => {
+    const updatedOrderCart = editedOrder.cart.map((cartItem, i) => {
       const itemQuantity = Number(e.target.quantity[i].value);
       const itemPrice = Number(e.target.price[i].value).toFixed(2);
       const itemTotal = Number(e.target.total[i].value).toFixed(2);
@@ -40,7 +48,7 @@ const IndividualOrderInvoice = () => {
       };
     });
 
-    const newUserOrder = { ...userOrder, cart: updatedOrderCart };
+    const newUserOrder = { ...editedOrder, cart: updatedOrderCart };
 
     setUserOrder(newUserOrder);
 
@@ -57,6 +65,11 @@ const IndividualOrderInvoice = () => {
       });
   };
 
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
+
   return (
     <div>
       {isLoading ? (
@@ -65,8 +78,8 @@ const IndividualOrderInvoice = () => {
         <div>
           <form onSubmit={(e) => handleSubmit(e)}>
             <InvoiceTemplateEditable
-              userOrder={userOrder}
-              setUserOrder={setUserOrder}
+              editedOrder={editedOrder}
+              setEditedOrder={setEditedOrder}
             />
             <button
               type="submit"
@@ -87,7 +100,10 @@ const IndividualOrderInvoice = () => {
       ) : (
         <div>
           <h2>{userOrder.user.displayName} - Order Invoice</h2>
-          <InvoiceTemplate userOrder={userOrder} />
+          <div ref={componentRef}>
+            <InvoiceTemplate userOrder={userOrder} />
+          </div>
+
           <button
             onClick={() => setEditingInvoice(true)}
             className="btn btn-danger m-1"
@@ -95,9 +111,14 @@ const IndividualOrderInvoice = () => {
           >
             <i className="fa fa-edit"></i> Edit Invoice
           </button>
-          <button className="btn btn-success m-1" id="invoice-print">
+          <button
+            onClick={handlePrint}
+            className="btn btn-success m-1"
+            id="invoice-print"
+          >
             <i className="fa fa-print"></i> Print Invoice
           </button>
+
           <button className="btn btn-secondary m-1">
             <i className="fa fa-envelope-o"></i> Mail Invoice
           </button>
