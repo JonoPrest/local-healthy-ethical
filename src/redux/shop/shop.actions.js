@@ -1,5 +1,7 @@
 import ShopActionTypes from "./shop.types";
 import Papa from "papaparse";
+import { getShopSettings } from "firebaseUtilities";
+import { getShopData } from "firebaseUtilities";
 
 export const fetchShopDataStart = () => ({
   type: ShopActionTypes.FETCH_SHOP_DATA_START,
@@ -15,33 +17,36 @@ export const fetchShopDataFailure = (errorMessage) => ({
   payload: errorMessage,
 });
 
+export const fetchShopSettingsStart = () => ({
+  type: ShopActionTypes.FETCH_SHOP_SETTINGS_START,
+});
+
+export const fetchShopSettingsSuccess = (shopData) => ({
+  type: ShopActionTypes.FETCH_SHOP_SETTINGS_SUCCESS,
+  payload: shopData,
+});
+
+export const fetchShopSettingsFailure = (errorMessage) => ({
+  type: ShopActionTypes.FETCH_SHOP_SETTINGS_FAILURE,
+  payload: errorMessage,
+});
+
 export const fetchShopDataStartAsync = () => {
   return (dispatch) => {
     dispatch(fetchShopDataStart());
 
-    const proxyUrl = "https://agile-anchorage-79298.herokuapp.com/";
-    const apiURL =
-      "https://docs.google.com/spreadsheets/d/1T2EV-ArYBTgchH1h89pqK0ffc77EDTffItpNqoHosd0/export?format=csv";
+    getShopData()
+      .then((res) => dispatch(fetchShopDataSuccess(res)))
+      .catch((err) => dispatch(fetchShopSettingsFailure(err)));
+  };
+};
 
-    // Get google sheet data using papa parse
+export const fetchShopSettingsStartAsync = () => {
+  return (dispatch) => {
+    dispatch(fetchShopSettingsStart());
 
-    Papa.parse(proxyUrl + apiURL, {
-      download: true,
-      header: true,
-      skipEmptyLines: true,
-      comments: "#",
-      complete: function (results) {
-        const data = results.data;
-        //Hack fix because papa parse is giving an empty prop with empty attribute causing issues with firebase
-        const remappedData = data.map((item) => {
-          delete item[""];
-          return item;
-        });
-        dispatch(fetchShopDataSuccess(remappedData));
-      },
-      error: (error) => {
-        dispatch(fetchShopDataFailure(error.message));
-      },
-    });
+    getShopSettings()
+      .then((res) => dispatch(fetchShopSettingsSuccess(res)))
+      .catch((err) => dispatch(fetchShopSettingsFailure(err.message)));
   };
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Spinner, Button } from "reactstrap";
 import { Link, Route, Redirect, Switch } from "react-router-dom";
@@ -19,8 +19,12 @@ const ShopPage = ({
   shopData,
   isFetching,
   errorMessage,
-  fetchShopDataStartAsync
+  fetchShopDataStartAsync,
 }) => {
+  useEffect(() => {
+    fetchShopDataStartAsync();
+  }, [fetchShopDataStartAsync]);
+
   const uniqueCategoryArray = shopData.filter((value, index, self) => {
     return (
       self.findIndex((v) => v.Category === value.Category) === index &&
@@ -32,7 +36,7 @@ const ShopPage = ({
   return (
     <div>
       <Header title="Shop" imgName="shop-cover.jpg" />
-      {isFetching ? (
+      {isFetching && shopData.length === 0 ? (
         <div
           style={{ height: `calc(60vh - 85px)`, width: "100%" }}
           className="d-flex flex-column justify-content-center align-items-center"

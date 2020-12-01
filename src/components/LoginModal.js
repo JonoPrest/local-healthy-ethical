@@ -38,8 +38,13 @@ function LoginModal({ loginModal, setLoginModal }) {
           <h3 className="modal-title text-center">Local Healthy Ethical</h3>
           <p>Log in to your account</p>
         </div>
-        <Button className="btn w-50 mx-auto" color="blue"
-          onClick={signInWithGoogle}
+        <Button
+          className="btn w-50 mx-auto"
+          color="blue"
+          onClick={() => {
+            signInWithGoogle();
+            setLoginModal(false);
+          }}
         >
           Sign in with Google
         </Button>

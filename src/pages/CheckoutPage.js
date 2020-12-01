@@ -11,11 +11,17 @@ import "./CheckoutPage.css";
 // core components
 import Header from "components/Headers/Header";
 
-const CheckoutPage = ({ cart, total, currentUser, clearCart }) => {
+const CheckoutPage = ({
+  cart,
+  total,
+  currentUser,
+  clearCart,
+  orderGroupName,
+}) => {
   const [orderPlaced, setOrderPlaced] = useState(false);
 
   const handleOrder = async () => {
-    createUserOrder(currentUser, cart).then(() => {
+    createUserOrder(currentUser, cart, orderGroupName).then(() => {
       clearCart();
       setOrderPlaced(true);
     });
@@ -100,6 +106,7 @@ const CheckoutPage = ({ cart, total, currentUser, clearCart }) => {
 const mapStateToProps = (state) => ({
   cart: state.cart.cartItems,
   currentUser: state.user.currentUser,
+  orderGroupName: state.shop.shopSettings.orderGroupName,
 });
 
 const mapDispatchToProps = (dispatch) => ({

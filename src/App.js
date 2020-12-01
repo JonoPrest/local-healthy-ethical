@@ -4,7 +4,7 @@ import { Route, Redirect, Switch } from "react-router-dom";
 import { auth, createUserProfileDocument } from "firebaseUtilities";
 
 import { setCurrentUser } from "redux/user/user.actions";
-import { fetchShopDataStartAsync } from "redux/shop/shop.actions";
+import { fetchShopSettingsStartAsync } from "redux/shop/shop.actions";
 
 // styles
 import "assets/css/bootstrap.min.css";
@@ -23,7 +23,13 @@ import AdminConsole from "pages/AdminConsole";
 import DemoFooter from "components/Footer.js";
 import ExamplesNavbar from "components/Navbar.js";
 
-const App = ({ cart, setCurrentUser, fetchShopDataStartAsync }) => {
+const App = ({
+  cart,
+  currentUser,
+  setCurrentUser,
+  fetchShopSettingsStartAsync,
+  shopSettings,
+}) => {
   const [loginModal, setLoginModal] = useState(false);
   const [total, setTotal] = useState("0.00");
 
@@ -38,8 +44,9 @@ const App = ({ cart, setCurrentUser, fetchShopDataStartAsync }) => {
             ...snapShot.data(),
           });
         });
+      } else {
+        setCurrentUser(userAuth);
       }
-      setCurrentUser(userAuth);
     });
 
     return () => {
@@ -48,8 +55,8 @@ const App = ({ cart, setCurrentUser, fetchShopDataStartAsync }) => {
   }, []);
 
   useEffect(() => {
-    fetchShopDataStartAsync();
-  }, [fetchShopDataStartAsync]);
+    fetchShopSettingsStartAsync();
+  }, [fetchShopSettingsStartAsync]);
 
   useEffect(() => {
     let cummulativeTotal = 0;
@@ -72,7 +79,10 @@ const App = ({ cart, setCurrentUser, fetchShopDataStartAsync }) => {
           render={(props) => <NucleoIcons {...props} />}
         />
         <Route exact path="/" render={(props) => <LandingPage {...props} />} />
-        <Route path="/shop" render={(props) => <ShopPage {...props} />} />
+        
+        {shopSettings.shopIsLive && currentUser && currentUser.userAccepted && (
+          <Route path="/shop" render={(props) => <ShopPage {...props} />} />
+        )}
         <Route
           exact
           path="/cart"
@@ -82,10 +92,14 @@ const App = ({ cart, setCurrentUser, fetchShopDataStartAsync }) => {
           path="/cart/checkout"
           render={(props) => <CheckoutPage {...props} total={total} />}
         />
-        <Route
-          path="/admin"
-          render={(props) => <AdminConsole {...props} />}
-        />
+
+        {currentUser && currentUser.administrator && (
+          <Route
+            path="/admin"
+            render={(props) => <AdminConsole {...props} />}
+          />
+        )}
+
         <Route
           path="/register"
           render={(props) => <RegisterPage {...props} />}
@@ -99,11 +113,13 @@ const App = ({ cart, setCurrentUser, fetchShopDataStartAsync }) => {
 
 const mapStateToProps = (state) => ({
   cart: state.cart.cartItems,
+  shopSettings: state.shop.shopSettings,
+  currentUser: state.user.currentUser,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (userAuth) => dispatch(setCurrentUser(userAuth)),
-  fetchShopDataStartAsync: () => dispatch(fetchShopDataStartAsync()),
+  fetchShopSettingsStartAsync: () => dispatch(fetchShopSettingsStartAsync()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

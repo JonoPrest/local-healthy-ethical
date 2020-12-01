@@ -24,7 +24,7 @@ import { Row, Container } from "reactstrap";
 
 function DemoFooter() {
   return (
-    <footer className="footer footer-black footer-white bg-dark">
+    <footer style={{width: "100vw", position: "absolute", marginBottom: "0px"}} className="footer footer-black footer-white bg-dark">
       <Container>
         <Row>
           <nav className="footer-nav">

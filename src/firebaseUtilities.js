@@ -2,6 +2,7 @@
 // must be listed before other Firebase SDKs
 import firebase from "firebase/app";
 
+
 // Add the Firebase services that you want to use
 import "firebase/auth";
 import "firebase/firestore";
@@ -25,6 +26,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
 
   const userRef = firestore.doc(`users/${userAuth.uid}`);
+  const userRequestRef = firestore.doc(`user-requests/${userAuth.uid}`);
 
   const snapShot = await userRef.get();
 
@@ -32,15 +34,26 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
     const { displayName, email } = userAuth;
     const createdAt = new Date();
     const ordersPlaced = 0;
+    const userAccepted = false;
+    const administrator = false;
+
+    const newUserObj = {
+      displayName,
+      email,
+      createdAt,
+      ordersPlaced,
+      userAccepted,
+      administrator,
+      ...additionalData,
+    };
+
+    const batch = firestore.batch();
 
     try {
-      await userRef.set({
-        displayName,
-        email,
-        createdAt,
-        ordersPlaced,
-        ...additionalData,
-      });
+      batch.set(userRef, newUserObj);
+      batch.set(userRequestRef, newUserObj);
+
+      await batch.commit();
     } catch (error) {
       console.log("error creating user", error.message);
     }
@@ -49,24 +62,37 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef;
 };
 
-export const getUserRef = (userAuth) => {
-  if (!userAuth) return;
+export const getShopSettings = async () => {
+  const shopSettingsRef = firestore.doc("shop/shop-settings");
 
-  const userRef = firestore.doc(`users/${userAuth.uid}`);
+  try {
+    const snapShot = await shopSettingsRef.get();
+    const shopSettings = snapShot.data();
 
-  return userRef;
+    return shopSettings;
+  } catch (err) {
+    throw err;
+  }
 };
 
-export const createUserOrder = async (currentUser, cart) => {
+export const getShopData = async () => {
+  const shopDataRef = firestore.doc("shop/shop-data");
+
+  try {
+    const snapShot = await shopDataRef.get();
+    const shopData = snapShot.data();
+
+    return shopData.shopItems;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const createUserOrder = async (currentUser, cart, orderGroupName) => {
   const batch = firestore.batch();
   const userRef = firestore.doc(`users/${currentUser.id}`);
   const userOrderNumber = currentUser.ordersPlaced + 1;
   const date = new Date();
-
-  //create date for categorising orders by month
-  const month = date.getMonth() + 1;
-  const year = date.getFullYear();
-  const dateStr = year + "-" + month;
 
   //Get invoice number
   const invoiceNumberRef = firestore.doc("orders/info");
@@ -93,14 +119,14 @@ export const createUserOrder = async (currentUser, cart) => {
 
   //setting original order and order inside users folder
   const userOrderRef = userRef.collection("orders").doc(`${invoiceNumber}`);
-  const dateRef = firestore.collection("orders").doc(dateStr);
-  const orderRef = dateRef
+  const orderGroupRef = firestore.collection("orders").doc(orderGroupName);
+  const orderRef = orderGroupRef
     .collection("orders-this-month")
     .doc(`${invoiceNumber}`);
 
   batch.set(userOrderRef, userOrderObject);
   batch.update(userRef, { ordersPlaced: userOrderNumber });
-  batch.set(dateRef, { month: month, year: year });
+  batch.set(orderGroupRef, { id: orderGroupName });
   batch.set(orderRef, orderObject);
   batch.update(invoiceNumberRef, { totalOrders: invoiceNumber });
 
@@ -110,17 +136,99 @@ export const createUserOrder = async (currentUser, cart) => {
 
   batch.set(invoiceOrderRef, orderObject);
 
-  return await batch.commit();
+  try {
+    return await batch.commit();
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const setShopArray = async (shopData) => {
+  const shopDataRef = firestore.doc("shop/shop-data");
+
+  try {
+    await shopDataRef.set({ shopItems: shopData });
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const getShopIsLive = async () => {
+  const shopSettingsRef = firestore.doc("shop/shop-settings");
+  try {
+    const snapShot = await shopSettingsRef.get();
+    const shopSettingsData = snapShot.data();
+
+    return shopSettingsData.shopIsLive ? true : false;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const updateShopIsLive = async (booleanValue) => {
+  const shopSettingsRef = firestore.doc("shop/shop-settings");
+
+  try {
+    await shopSettingsRef.update({ shopIsLive: booleanValue });
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const updateCurrentOrderGroupName = async (newName) => {
+  const shopSettingsRef = firestore.doc("shop/shop-settings");
+
+  try {
+    await shopSettingsRef.update({ orderGroupName: newName });
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const getUserRequests = async () => {
+  try {
+    const snapShot = await firestore.collection("user-requests").get();
+
+    let userRequestsArray = [];
+    snapShot.forEach((snap) => {
+      const data = snap.data();
+      userRequestsArray.push({ ...data, id: snap.id });
+    });
+    console.log(userRequestsArray);
+    return userRequestsArray;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const acceptUserRequest = async (user) => {
+  const userRequestRef = firestore.doc(`user-requests/${user.id}`);
+  const userRef = firestore.doc(`users/${user.id}`);
+
+  try {
+    const batch = firestore.batch();
+
+    batch.update(userRef, { userAccepted: true });
+    batch.delete(userRequestRef);
+
+    return await batch.commit();
+  } catch (err) {
+    throw err;
+  }
 };
 
 export const getOrderMonths = async () => {
-  const snapShot = await firestore.collection("orders").get();
+  try {
+    const snapShot = await firestore.collection("orders").get();
 
-  let monthsArray = [];
-  snapShot.forEach((snap) =>
-    snap.id === "info" ? null : monthsArray.push(snap.id)
-  );
-  return monthsArray;
+    let monthsArray = [];
+    snapShot.forEach((snap) =>
+      snap.id === "info" ? null : monthsArray.push(snap.id)
+    );
+    return monthsArray;
+  } catch (err) {
+    throw err;
+  }
 };
 
 export const getOrdersForGivenMonth = async (month) => {
@@ -128,13 +236,17 @@ export const getOrdersForGivenMonth = async (month) => {
     `orders/${month}/orders-this-month`
   );
 
-  const snapShot = await monthOrdersRef.get();
+  try {
+    const snapShot = await monthOrdersRef.get();
 
-  let ordersArray = [];
-  snapShot.forEach((snap) => {
-    ordersArray.push(snap.data());
-  });
-  return ordersArray;
+    let ordersArray = [];
+    snapShot.forEach((snap) => {
+      ordersArray.push(snap.data());
+    });
+    return ordersArray;
+  } catch (err) {
+    throw err;
+  }
 };
 
 export const getInvoice = async (invoiceNumber) => {
@@ -155,26 +267,6 @@ export const updateInvoice = async (order, invoiceNumber) => {
   } catch (error) {
     throw error;
   }
-};
-
-export const getFirebaseUserInfo = async () => {
-  let everyOrderArray = [];
-  await firestore
-    .collection("users")
-    .get()
-    .then((userSnapshot) => {
-      userSnapshot.forEach((user) => {
-        const userOrdersRef = firestore.collection(`users/${user.id}/orders`);
-        userOrdersRef.get().then((orderSnapshot) =>
-          orderSnapshot.forEach((order) => {
-            const orderData = order.data();
-            const { id, displayName, email } = user;
-            everyOrderArray.push(order.data());
-          })
-        );
-      });
-    });
-  return everyOrderArray;
 };
 
 export const auth = firebase.auth();

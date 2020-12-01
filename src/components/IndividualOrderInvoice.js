@@ -36,24 +36,10 @@ const IndividualOrderInvoice = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const updatedOrderCart = editedOrder.cart.map((cartItem, i) => {
-      const itemQuantity = Number(e.target.quantity[i].value);
-      const itemPrice = Number(e.target.price[i].value).toFixed(2);
-      const itemTotal = Number(e.target.total[i].value).toFixed(2);
-
-      return {
-        item: { ...cartItem.item, Price: itemPrice },
-        total: itemTotal,
-        quantity: itemQuantity,
-      };
-    });
-
-    const newUserOrder = { ...editedOrder, cart: updatedOrderCart };
-
-    setUserOrder(newUserOrder);
+    setUserOrder(editedOrder);
 
     setIsLoading(true);
-    updateInvoice(newUserOrder, name)
+    updateInvoice(editedOrder, name)
       .then(() => {
         setEditingInvoice(false);
         setIsLoading(false);

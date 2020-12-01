@@ -35,7 +35,12 @@ import {
   Badge,
 } from "reactstrap";
 
-function ExamplesNavbar({ setLoginModal, currentUser, cartItems }) {
+function ExamplesNavbar({
+  setLoginModal,
+  currentUser,
+  cartItems,
+  shopSettings,
+}) {
   const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
   const [navbarCollapse, setNavbarCollapse] = React.useState(false);
   const [cartCount, setCartCount] = React.useState(0);
@@ -96,7 +101,8 @@ function ExamplesNavbar({ setLoginModal, currentUser, cartItems }) {
                   className="nc-icon nc-single-02 mr-2"
                   style={{ fontSize: "15px" }}
                 />
-                {currentUser.displayName}
+                {currentUser.displayName} {"  "}
+                {!currentUser.userAccepted && <span> (Awaiting Approval)</span>}
               </div>
             ) : (
               "Welcome"
@@ -126,16 +132,20 @@ function ExamplesNavbar({ setLoginModal, currentUser, cartItems }) {
                 HOME
               </NavLink>
             </NavItem>
-            <NavItem>
-              <NavLink to="/admin" tag={Link}>
-                Admin Console
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink to="/shop" tag={Link}>
-                SHOP
-              </NavLink>
-            </NavItem>
+            {currentUser && currentUser.administrator && (
+              <NavItem>
+                <NavLink to="/admin" tag={Link}>
+                  Admin Console
+                </NavLink>
+              </NavItem>
+            )}
+            {shopSettings.shopIsLive && currentUser && currentUser.userAccepted && (
+              <NavItem>
+                <NavLink to="/shop" tag={Link}>
+                  SHOP
+                </NavLink>
+              </NavItem>
+            )}
             <NavItem>
               {currentUser ? (
                 <NavLink
@@ -182,6 +192,7 @@ function ExamplesNavbar({ setLoginModal, currentUser, cartItems }) {
 const mapStateToProps = (state) => ({
   cartItems: state.cart.cartItems,
   currentUser: state.user.currentUser,
+  shopSettings: state.shop.shopSettings,
 });
 
 export default connect(mapStateToProps)(ExamplesNavbar);

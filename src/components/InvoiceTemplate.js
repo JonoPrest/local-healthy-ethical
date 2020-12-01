@@ -35,7 +35,7 @@ const InvoiceTemplate = ({ userOrder }) => {
                     <h3 className="marginright">
                       INVOICE #{userOrder.invoiceNumber}
                     </h3>
-  <span className="marginright">{date}</span>
+                    <span className="marginright">{date}</span>
                   </div>
                 </div>
                 <div>
@@ -104,10 +104,22 @@ const InvoiceTemplate = ({ userOrder }) => {
                                 {cartItem.item.Units}
                               </td>
                               <td className="text-right">
-                                {cartItem.quantity}
+                                {cartItem.item.PricePerKg
+                                  ? `${
+                                      cartItem.item.Quantity * cartItem.quantity
+                                    }${cartItem.item.Units}`
+                                  : cartItem.quantity}
                               </td>
+
                               <td className="text-right">
-                                R{cartItem.item.Price}
+                                {cartItem.item.PricePerKg ? (
+                                  <span className="d-flex align-items-center">
+                                    R{cartItem.item.PricePerKg} <br />
+                                    (Per kg)
+                                  </span>
+                                ) : (
+                                  <span>R{cartItem.item.Price}</span>
+                                )}
                               </td>
                               <td className="text-right">R{cartItem.total}</td>
                             </tr>
