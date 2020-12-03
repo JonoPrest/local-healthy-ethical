@@ -36,6 +36,7 @@ const App = ({
   useEffect(() => {
     const unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
+        console.log("userAuth")
         const userRef = await createUserProfileDocument(userAuth);
 
         userRef.onSnapshot((snapShot) => {
@@ -45,6 +46,7 @@ const App = ({
           });
         });
       } else {
+        
         setCurrentUser(userAuth);
       }
     });
@@ -52,7 +54,7 @@ const App = ({
     return () => {
       unsubscribeFromAuth();
     };
-  }, []);
+  }, [setCurrentUser]);
 
   useEffect(() => {
     fetchShopSettingsStartAsync();
@@ -93,12 +95,12 @@ const App = ({
           render={(props) => <CheckoutPage {...props} total={total} />}
         />
 
-        {currentUser && currentUser.administrator && (
+        {/* {currentUser && currentUser.administrator && ( */}
           <Route
             path="/admin"
             render={(props) => <AdminConsole {...props} />}
           />
-        )}
+        {/* )} */}
 
         <Route
           path="/register"

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Switch, Route, Redirect, Link, useRouteMatch } from "react-router-dom";
+import { Switch, Route, Link, useRouteMatch } from "react-router-dom";
 import { getOrdersForGivenMonth } from "firebaseUtilities";
 
 import MasterTable from "components/MasterTable";

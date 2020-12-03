@@ -1,21 +1,23 @@
 .categoryCard {
-   
-    margin: 20px;
-    cursor: pointer;
+  margin: 20px;
+  cursor: pointer;
 
-    & img {
-        width: 400px;
-        height: 300px;
-        object-fit: cover;
-    }
+  & img {
+    width: 400px;
+    height: 300px;
+    object-fit: cover;
+  }
 
-    & h1 {
-        text-align: center;
-        color: white;
-        text-shadow:
-         -1px -1px 0 #000,  
-          1px -1px 0 #000,
-          -1px 1px 0 #000,
-           1px 1px 0 #000;
-    }
+  & .title {
+    color: white;
+  }
+
+  & h2 {
+    text-align: center;
+    color: white;
+    // text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    //   1px 1px 0 #000;
+    margin: 0;
+    max-width: 350px;
+  }
 }

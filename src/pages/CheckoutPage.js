@@ -10,6 +10,7 @@ import "./CheckoutPage.css";
 
 // core components
 import Header from "components/Headers/Header";
+import BackButton from "components/BackButton";
 
 const CheckoutPage = ({
   cart,
@@ -17,6 +18,7 @@ const CheckoutPage = ({
   currentUser,
   clearCart,
   orderGroupName,
+  marketDayFee,
 }) => {
   const [orderPlaced, setOrderPlaced] = useState(false);
 
@@ -30,7 +32,7 @@ const CheckoutPage = ({
   return (
     <>
       <Header title="Checkout" imgName="cart-cover.jpeg" />
-
+      <BackButton />
       {cart.length === 0 ? (
         <div
           style={{ height: `calc(60vh - 85px)`, width: "100%" }}
@@ -85,11 +87,19 @@ const CheckoutPage = ({
                   );
                 })}
 
+                <tr>
+                  <td>1</td>
+                  <td>Market Day Fee</td>
+                  <td>{`R${marketDayFee}`}</td>
+                </tr>
+
                 <tr className="total">
                   <td></td>
                   <td></td>
 
-                  <td>{`Total: R${total}`}</td>
+                  <td>{`Total: R${(
+                    Number(total) + Number(marketDayFee)
+                  ).toFixed(2)}`}</td>
                 </tr>
               </tbody>
             </table>
@@ -107,6 +117,7 @@ const mapStateToProps = (state) => ({
   cart: state.cart.cartItems,
   currentUser: state.user.currentUser,
   orderGroupName: state.shop.shopSettings.orderGroupName,
+  marketDayFee: state.shop.shopSettings.marketDayFee,
 });
 
 const mapDispatchToProps = (dispatch) => ({

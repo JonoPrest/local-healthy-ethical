@@ -2,7 +2,6 @@
 // must be listed before other Firebase SDKs
 import firebase from "firebase/app";
 
-
 // Add the Firebase services that you want to use
 import "firebase/auth";
 import "firebase/firestore";
@@ -101,6 +100,32 @@ export const createUserOrder = async (currentUser, cart, orderGroupName) => {
   const totalOrders = data.totalOrders;
   const invoiceNumber = totalOrders + 1;
 
+  //add blank returns for invoicing
+  const addedJarsAndBags = [
+    {
+      item: { Item: "Return Mysthill Jar", Price: "-10.00" },
+      quantity: 0,
+      total: "0.00",
+    },
+    {
+      item: { Item: "Return Honey Jar", Price: "-5.00" },
+      quantity: 0,
+      total: "0.00",
+    },
+    {
+      item: { Item: "Return All Natural Jar", Price: "-5.00" },
+      quantity: 0,
+      total: "0.00",
+    },
+    {
+      item: { Item: "Komati Biodegradable Bag", Price: "2.00" },
+      quantity: 0,
+      total: "0.00",
+    },
+  ];
+
+  const invoiceCart = [...cart, ...addedJarsAndBags];
+
   const userOrderObject = {
     date: date,
     cart: cart,
@@ -116,6 +141,8 @@ export const createUserOrder = async (currentUser, cart, orderGroupName) => {
       ordersPlaced: userOrderNumber,
     },
   };
+
+  const invoiceOrderObject = { ...orderObject, cart: invoiceCart };
 
   //setting original order and order inside users folder
   const userOrderRef = userRef.collection("orders").doc(`${invoiceNumber}`);
@@ -134,7 +161,7 @@ export const createUserOrder = async (currentUser, cart, orderGroupName) => {
     .collection("invoices")
     .doc(`${invoiceNumber}`);
 
-  batch.set(invoiceOrderRef, orderObject);
+  batch.set(invoiceOrderRef, invoiceOrderObject);
 
   try {
     return await batch.commit();
@@ -194,7 +221,6 @@ export const getUserRequests = async () => {
       const data = snap.data();
       userRequestsArray.push({ ...data, id: snap.id });
     });
-    console.log(userRequestsArray);
     return userRequestsArray;
   } catch (err) {
     throw err;

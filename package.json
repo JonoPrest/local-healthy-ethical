@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.4.0",
+    "axios": "^0.21.0",
     "classnames": "2.2.6",
     "firebase": "^7.24.0",
     "moment": "2.26.0",

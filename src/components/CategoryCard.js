@@ -2,20 +2,19 @@ import React from "react";
 
 import "./CategoryCard.scss";
 
-import { Card, CardImgOverlay, CardImg } from "reactstrap";
+import { Card, CardImg, CardBody, CardTitle } from "reactstrap";
 
 const noImage = require("assets/img/no-image.jpg");
 
 const CategoryCard = ({ title, imgUrl }) => {
   return (
-    <Card className="bg-dark text-white categoryCard">
-      <CardImg
-        src={imgUrl ? imgUrl : noImage}
-        alt="..."
-      />
-      <CardImgOverlay>
-        <h1>{title}</h1>
-      </CardImgOverlay>
+    <Card className="bg-primary categoryCard">
+      <CardImg src={imgUrl ? imgUrl : noImage} alt="..." />
+      <CardBody>
+        <CardTitle className="title">
+          <h2>{title}</h2>
+        </CardTitle>
+      </CardBody>
     </Card>
   );
 };

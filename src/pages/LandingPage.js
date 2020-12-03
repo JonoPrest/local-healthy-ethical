@@ -16,7 +16,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React, { useState } from "react";
 
 // reactstrap components
 import {
@@ -33,10 +33,12 @@ import {
   Container,
   Row,
   Col,
+  Spinner,
 } from "reactstrap";
 
 // core components
 import LandingPageHeader from "components/Headers/LandingPageHeader.js";
+import { sendMail } from "mailUtils";
 
 function LandingPage() {
   document.documentElement.classList.remove("nav-open");
@@ -46,6 +48,43 @@ function LandingPage() {
       document.body.classList.remove("profile-page");
     };
   });
+
+  const [mailButton, setMailButton] = useState({
+    message: "SEND MESSAGE",
+    color: "primary",
+  });
+
+  const handleContactSubmit = (e) => {
+    e.preventDefault();
+
+    setMailButton({ message: "SENDING", color: "primary" });
+
+    const { name, emailContent, email } = e.target;
+    const mail = {
+      name: name.value,
+      emailContent: emailContent.value,
+      email: email.value,
+    };
+    console.log(mail);
+
+    sendMail(mail)
+      .then(() => {
+        setMailButton({ message: "SENT", color: "success" });
+        const form = document.getElementById("contact-form");
+        form.reset();
+        setTimeout(
+          () => setMailButton({ message: "SEND MESSAGE", color: "primary" }),
+          1500
+        );
+      })
+      .catch(() => {
+        setMailButton({ message: "SOMETHING WENT WRONG", color: "danger" });
+        setTimeout(
+          () => setMailButton({ message: "SEND MESSAGE", color: "primary" }),
+          1500
+        );
+      });
+  };
   return (
     <>
       <LandingPageHeader />
@@ -299,7 +338,11 @@ function LandingPage() {
             <Row>
               <Col className="ml-auto mr-auto" md="8">
                 <h2 className="text-center">Get in Touch!</h2>
-                <Form className="contact-form">
+                <Form
+                  onSubmit={handleContactSubmit}
+                  className="contact-form"
+                  id="contact-form"
+                >
                   <Row>
                     <Col md="6">
                       <label>Name</label>
@@ -309,7 +352,7 @@ function LandingPage() {
                             <i className="nc-icon nc-single-02" />
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input placeholder="Name" type="text" />
+                        <Input name="name" placeholder="Name" type="text" required/>
                       </InputGroup>
                     </Col>
                     <Col md="6">
@@ -320,20 +363,36 @@ function LandingPage() {
                             <i className="nc-icon nc-email-85" />
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input placeholder="Email" type="text" />
+                        <Input name="email" placeholder="Email" type="email" required/>
                       </InputGroup>
                     </Col>
                   </Row>
                   <label>Message</label>
                   <Input
+                    name="emailContent"
                     placeholder="Tell us your thoughts and feelings..."
                     type="textarea"
                     rows="4"
+                    required
                   />
                   <Row>
                     <Col className="ml-auto mr-auto" md="4">
-                      <Button className="btn-fill" color="danger" size="lg">
-                        Send Message
+                      <Button
+                        type="submit"
+                        className="btn-fill"
+                        color={mailButton.color}
+                        size="lg"
+                      >
+                        {mailButton.message}
+                        {mailButton.message === "SENDING" && (
+                          <Spinner size="sm" className="ml-2" />
+                        )}
+                        {mailButton.message === "SENT" && (
+                          <i className="ml-2 nc-icon nc-check-2" />
+                        )}
+                        {mailButton.message === "SOMETHING WENT WRONG" && (
+                          <i className="ml-2 nc-icon nc-simple-remove" />
+                        )}
                       </Button>
                     </Col>
                   </Row>

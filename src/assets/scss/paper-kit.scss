@@ -15,8 +15,8 @@
 
  */
 
-@import 'paper-kit/variables';
-@import 'paper-kit/mixins';
+@import "paper-kit/variables";
+@import "paper-kit/mixins";
 
 // Plugins CSS
 @import "paper-kit/plugins/plugin-bootstrap-switch";
@@ -58,8 +58,10 @@
 @import "paper-kit/examples";
 @import "paper-kit/sections";
 
-
 @import "paper-kit/responsive";
 
 // React Differences
-@import "react/react-differences.scss"
+@import "react/react-differences.scss";
+
+//Custom scss
+@import "../../components/CategoryCard.scss";

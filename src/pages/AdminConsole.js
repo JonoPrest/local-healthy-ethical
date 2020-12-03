@@ -50,7 +50,7 @@ const AdminConsole = ({
       .then((monthsArray) => setMonths(monthsArray))
       .then(() => fetchShopSettingsStartAsync())
       .catch(console.log);
-  }, []);
+  }, [fetchShopSettingsStartAsync]);
 
   useEffect(() => {
     if (months.length > 0 && userRequests && !isFetchingSettings) {
@@ -120,7 +120,7 @@ const AdminConsole = ({
     acceptUserRequest(user)
       .then(() => getUserRequests())
       .then((res) => {
-        setUserRequests(res);
+      setUserRequests(res);
       })
       .catch(console.log);
   };
@@ -198,6 +198,7 @@ const AdminConsole = ({
                     </Form>
                   </div>
                 </Col>
+                
                 <Col
                   md="3"
                   style={{ minHeight: "500px" }}
@@ -218,7 +219,7 @@ const AdminConsole = ({
                     </DropdownToggle>
                     <DropdownMenu aria-labelledby="dropdownMenuButton">
                       {userRequests.map((user, i) => (
-                        <DropdownItem>
+                        <DropdownItem key={user.id}>
                           <div>
                             <p>
                               <strong>{user.displayName}</strong>

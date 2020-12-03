@@ -1,5 +1,9 @@
 /*Invoice*/
 
+.invoiceContainer {
+  max-width: 100vw;
+}
+
 .invoice .top-left {
   font-size: 65px;
   color: #3ba0ff;
@@ -7,20 +11,17 @@
 
 .invoiceContainer .row {
   width: 800px;
-  
 }
 
 .invoiceContainer .row .to {
   display: inline-block;
   width: 250px;
-
 }
 
 .invoiceContainer .row .from {
   display: inline-block;
   width: 250px;
 }
-
 
 .invoice .top-right {
   text-align: right;
@@ -53,6 +54,10 @@
 .invoice .table > tbody > tr > td {
   text-align: left;
   padding: 8px 20px;
+}
+
+.invoice .table > tbody > tr > td .rightAlign {
+  text-align: right;
 }
 
 .invoice .invoice-total {
@@ -115,7 +120,7 @@
   .invoice .to,
   .invoice .payment-details {
     float: none;
-   
+
     text-align: center;
     margin-bottom: 25px;
   }
@@ -137,7 +142,3 @@
     size: auto;
   }
 }
-
-  
-  
-

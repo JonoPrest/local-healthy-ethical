@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Button, Input } from "reactstrap";
-import { updateItemInCart } from "redux/cart/cart.utils";
 import InvoiceEditingInput from "./InvoiceEditingInput";
 
-const InvoiceTemplateEditable = ({ editedOrder, setEditedOrder }) => {
+const InvoiceTemplateEditable = ({
+  editedOrder,
+  setEditedOrder,
+  shopSettings,
+}) => {
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
@@ -252,6 +255,18 @@ const InvoiceTemplateEditable = ({ editedOrder, setEditedOrder }) => {
                         })}
                         <tr>
                           <td></td>
+                          <td>{editedOrder.cart.length + 1}</td>
+                          <td>Market Day Fee</td>
+                          <td>1</td>
+                          <td>
+                            <span>R{shopSettings.marketDayFee}</span>
+                          </td>
+                          <td>
+                            <span>R{shopSettings.marketDayFee}</span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td></td>
                           <td></td>
                           <td>
                             <button
@@ -262,6 +277,9 @@ const InvoiceTemplateEditable = ({ editedOrder, setEditedOrder }) => {
                               <i className="fa fa-plus"></i>{" "}
                             </button>
                           </td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
                         </tr>
                       </tbody>
                     </table>

@@ -491,10 +491,10 @@
         & .navbar-collapse{
             @include transform-translate-x(0px);
         }
-        & .wrapper{
-            left: 0;
-            @include transform-translate-x(-230px);
-        }
+        // & .wrapper{
+        //     left: 0;
+        //     @include transform-translate-x(-230px);
+        // }
         & .navbar-translate{
             @include transform-translate-x(-230px);
         }

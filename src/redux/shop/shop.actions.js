@@ -1,5 +1,4 @@
 import ShopActionTypes from "./shop.types";
-import Papa from "papaparse";
 import { getShopSettings } from "firebaseUtilities";
 import { getShopData } from "firebaseUtilities";
 

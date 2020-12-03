@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./InvoiceTemplate.css";
 
-const InvoiceTemplate = ({ userOrder }) => {
+const InvoiceTemplate = ({ userOrder, shopSettings }) => {
   const [total, setTotal] = useState(0);
   const [date, setDate] = useState("");
 
@@ -15,7 +15,9 @@ const InvoiceTemplate = ({ userOrder }) => {
       0
     );
 
-    setTotal(reduceTotal.toFixed(2));
+    const newTotal = reduceTotal + Number(shopSettings.marketDayFee);
+
+    setTotal(newTotal.toFixed(2));
   }, [userOrder]);
 
   return (
@@ -39,7 +41,7 @@ const InvoiceTemplate = ({ userOrder }) => {
                   </div>
                 </div>
                 <div>
-                  <div className="row">
+                  <div className="row detailsRow">
                     <div className="col-xs-4 to text-left mr-3">
                       <p>To:</p>
                       <strong className="lead marginbottom">
@@ -60,7 +62,7 @@ const InvoiceTemplate = ({ userOrder }) => {
                       <p>Email: obree.kate@gmail.com</p>
                     </div>
 
-                    <div className="col-xs-4 text-left payment-detailss ml-1">
+                    <div className="col-xs-4 text-left payment-details ml-1">
                       <p className="lead marginbottom payment-info">
                         Payment details
                       </p>
@@ -78,64 +80,89 @@ const InvoiceTemplate = ({ userOrder }) => {
                   <div className="row table-row">
                     <table className="table table-striped">
                       <thead>
-                        <tr>
+                        <tr className="tr">
                           <th className="text-center" style={{ width: "5%" }}>
                             #
                           </th>
                           <th style={{ width: "50%" }}>Item</th>
-                          <th className="text-right" style={{ width: "15%" }}>
+                          <th className="text-right rightAlign" style={{ width: "15%" }}>
                             Quantity
                           </th>
-                          <th className="text-right" style={{ width: "15%" }}>
+                          <th className="text-right rightAlign" style={{ width: "15%" }}>
                             Unit Price
                           </th>
-                          <th className="text-right" style={{ width: "15%" }}>
+                          <th className="text-right rightAlign" style={{ width: "15%" }}>
                             Total Price
                           </th>
                         </tr>
                       </thead>
                       <tbody>
                         {userOrder.cart.map((cartItem, i) => {
+                          const {
+                            Item,
+                            Quantity,
+                            PricePerKg,
+                            Units,
+                            Price,
+                          } = cartItem.item;
                           return (
-                            <tr key={`invoiceRow-${i}`}>
+                            <tr key={`invoiceRow-${i}`} className="tr">
                               <td className="text-center">{i + 1}</td>
                               <td>
-                                {cartItem.item.Item} {cartItem.item.Quantity}
-                                {cartItem.item.Units}
+                                {Item} {Quantity}
+                                {Units}
                               </td>
-                              <td className="text-right">
-                                {cartItem.item.PricePerKg
-                                  ? `${
-                                      cartItem.item.Quantity * cartItem.quantity
-                                    }${cartItem.item.Units}`
+                              <td className="text-right rightAlign">
+                                {PricePerKg
+                                  ? `${Quantity * cartItem.quantity}${Units}`
                                   : cartItem.quantity}
                               </td>
 
-                              <td className="text-right">
-                                {cartItem.item.PricePerKg ? (
-                                  <span className="d-flex align-items-center">
-                                    R{cartItem.item.PricePerKg} <br />
+                              <td className="text-right rightAlign">
+                                {PricePerKg ? (
+                                  <span className="d-flex justify-content-end rightAlign">
+                                    R{PricePerKg} <br />
                                     (Per kg)
                                   </span>
                                 ) : (
-                                  <span>R{cartItem.item.Price}</span>
+                                  <span className="text-right rightAlign">
+                                    {Price < 0 && "- "}R
+                                    {Price < 0
+                                      ? (Price * -1).toFixed(2)
+                                      : Price}
+                                  </span>
                                 )}
                               </td>
-                              <td className="text-right">R{cartItem.total}</td>
+                              <td className="text-right rightAlign">
+                                {cartItem.total < 0
+                                  ? `-R${(cartItem.total * -1).toFixed(2)}`
+                                  : `R${cartItem.total}`}
+                              </td>
                             </tr>
                           );
                         })}
+                        <tr className="text-right tr">
+                          <td>{userOrder.cart.length + 1}</td>
+                          <td>Market Day Fee</td>
+                          <td className="text-right rightAlign">1</td>
+                          <td className="text-right rightAlign">
+                            <span>R{shopSettings.marketDayFee}</span>
+                          </td>
+                          <td className="text-right rightAlign">
+                            <span>R{shopSettings.marketDayFee}</span>
+                          </td>
+                        </tr>
                       </tbody>
                     </table>
                   </div>
 
-                  <div className="">
+                  <div className="BottomText">
                     <div className="col-xs-6 text-right invoice-total ">
                       <h3>Total: R{total} </h3>
                     </div>
 
-                    <div className="col-xs-6 margintop ">
-                      <p className="lead marginbottom">THANK YOU!</p>
+                    <div className="col-xs-6 margintop thanks">
+                      <h4 className="lead marginbottom">THANK YOU!</h4>
                     </div>
                   </div>
                 </div>

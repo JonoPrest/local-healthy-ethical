@@ -6,11 +6,13 @@ import { Link } from "react-router-dom";
 // core components
 import Header from "components/Headers/Header";
 import CartRow from "components/CartRow";
+import BackButton from "components/BackButton";
 
 const CartPage = ({ cart, updateCart, total }) => {
   return (
     <div>
       <Header title="Cart" imgName="cart-cover.jpeg" />
+      <BackButton />
       {cart.length < 1 ? (
         <div
           style={{ height: `calc(60vh - 85px)`, width: "100%" }}
