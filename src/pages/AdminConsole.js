@@ -40,6 +40,7 @@ const AdminConsole = ({
   const [syncMessage, setSyncMessage] = useState("Sync");
 
   useEffect(() => {
+    console.log("render");
     getUserRequests()
       .then((res) => {
         console.log(res);
@@ -120,7 +121,7 @@ const AdminConsole = ({
     acceptUserRequest(user)
       .then(() => getUserRequests())
       .then((res) => {
-      setUserRequests(res);
+        setUserRequests(res);
       })
       .catch(console.log);
   };
@@ -198,7 +199,7 @@ const AdminConsole = ({
                     </Form>
                   </div>
                 </Col>
-                
+
                 <Col
                   md="3"
                   style={{ minHeight: "500px" }}

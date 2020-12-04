@@ -17,6 +17,7 @@
 
 */
 import React from "react";
+import { connect } from "react-redux";
 
 // reactstrap components
 import { Button, Container } from "reactstrap";
@@ -25,7 +26,7 @@ import { Link } from "react-router-dom";
 
 // core components
 
-function LandingPageHeader() {
+function LandingPageHeader({ currentUser, shopSettings, setLoginModal }) {
   let pageHeader = React.createRef();
 
   React.useEffect(() => {
@@ -56,18 +57,32 @@ function LandingPageHeader() {
         <div className="filter" />
         <Container>
           <div className="motto text-center">
-            <h1 style={{letterSpacing: "5px"}}>Local  Healthy  Ethical</h1>
+            <h1 style={{ letterSpacing: "5px" }}>Local Healthy Ethical</h1>
             <h3>Buying good food made easy.</h3>
             <br />
-            <Button
-              to="/shop"
-              tag={Link}
-              className="btn-round mr-1"
-              color="neutral"
-              outline
-            >
-              SHOP NOW
-            </Button>
+
+            {shopSettings.shopIsLive &&
+            currentUser &&
+            currentUser.userAccepted ? (
+              <Button
+                to="/shop"
+                tag={Link}
+                className="btn-round mr-1"
+                color="neutral"
+                outline
+              >
+                SHOP NOW
+              </Button>
+            ) : (
+              <Button
+                onClick={() => setLoginModal(true)}
+                className="btn-round mr-1"
+                color="neutral"
+                outline
+              >
+                SIGN IN
+              </Button>
+            )}
           </div>
         </Container>
       </div>
@@ -75,4 +90,9 @@ function LandingPageHeader() {
   );
 }
 
-export default LandingPageHeader;
+const mapStateToProps = (state) => ({
+  currentUser: state.user.currentUser,
+  shopSettings: state.shop.shopSettings,
+});
+
+export default connect(mapStateToProps)(LandingPageHeader);

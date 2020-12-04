@@ -36,7 +36,6 @@ const App = ({
   useEffect(() => {
     const unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
-        console.log("userAuth")
         const userRef = await createUserProfileDocument(userAuth);
 
         userRef.onSnapshot((snapShot) => {
@@ -46,7 +45,6 @@ const App = ({
           });
         });
       } else {
-        
         setCurrentUser(userAuth);
       }
     });
@@ -80,27 +78,38 @@ const App = ({
           path="/nucleo-icons"
           render={(props) => <NucleoIcons {...props} />}
         />
-        <Route exact path="/" render={(props) => <LandingPage {...props} />} />
-        
+        <Route
+          exact
+          path="/"
+          render={(props) => (
+            <LandingPage {...props} setLoginModal={setLoginModal} />
+          )}
+        />
+
         {shopSettings.shopIsLive && currentUser && currentUser.userAccepted && (
           <Route path="/shop" render={(props) => <ShopPage {...props} />} />
         )}
-        <Route
-          exact
-          path="/cart"
-          render={(props) => <CartPage {...props} total={total} />}
-        />
-        <Route
-          path="/cart/checkout"
-          render={(props) => <CheckoutPage {...props} total={total} />}
-        />
 
-        {/* {currentUser && currentUser.administrator && ( */}
+        {shopSettings.shopIsLive && currentUser && currentUser.userAccepted && (
+          <Route
+            exact
+            path="/cart"
+            render={(props) => <CartPage {...props} total={total} />}
+          />
+        )}
+        {shopSettings.shopIsLive && currentUser && currentUser.userAccepted && (
+          <Route
+            path="/cart/checkout"
+            render={(props) => <CheckoutPage {...props} total={total} />}
+          />
+        )}
+
+        {currentUser && currentUser.administrator && (
           <Route
             path="/admin"
             render={(props) => <AdminConsole {...props} />}
           />
-        {/* )} */}
+        )}
 
         <Route
           path="/register"

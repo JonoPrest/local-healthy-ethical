@@ -139,13 +139,15 @@ function ExamplesNavbar({
                 </NavLink>
               </NavItem>
             )}
-            {shopSettings.shopIsLive && currentUser && currentUser.userAccepted && (
-              <NavItem>
-                <NavLink to="/shop" tag={Link}>
-                  SHOP
-                </NavLink>
-              </NavItem>
-            )}
+            {shopSettings.shopIsLive &&
+              currentUser &&
+              currentUser.userAccepted && (
+                <NavItem>
+                  <NavLink to="/shop" tag={Link}>
+                    SHOP
+                  </NavLink>
+                </NavItem>
+              )}
             <NavItem>
               {currentUser ? (
                 <NavLink
@@ -163,25 +165,29 @@ function ExamplesNavbar({
                 </NavLink>
               )}
             </NavItem>
-            <NavItem>
-              <NavLink
-                to="/cart"
-                tag={Link}
-                alt={`${cartCount} items in your cart`}
-                className="d-flex align-items-center"
-              >
-                <i
-                  className="nc-icon nc-cart-simple"
-                  style={{ fontSize: "20px" }}
-                />
-                <p className="d-lg-none ml-2 ">Cart</p>
-                {cartCount > 0 && (
-                  <Badge color="danger" className="ml-1 px-1">
-                    {cartCount}
-                  </Badge>
-                )}
-              </NavLink>
-            </NavItem>
+            {shopSettings.shopIsLive &&
+              currentUser &&
+              currentUser.userAccepted && (
+                <NavItem>
+                  <NavLink
+                    to="/cart"
+                    tag={Link}
+                    alt={`${cartCount} items in your cart`}
+                    className="d-flex align-items-center"
+                  >
+                    <i
+                      className="nc-icon nc-cart-simple"
+                      style={{ fontSize: "20px" }}
+                    />
+                    <p className="d-lg-none ml-2 ">Cart</p>
+                    {cartCount > 0 && (
+                      <Badge color="danger" className="ml-1 px-1">
+                        {cartCount}
+                      </Badge>
+                    )}
+                  </NavLink>
+                </NavItem>
+              )}
           </Nav>
         </Collapse>
       </Container>

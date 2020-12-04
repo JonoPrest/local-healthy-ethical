@@ -24,7 +24,6 @@ export const sendMail = (emailObject) => {
 };
 
 export const sendInvoice = (userOrder, emailContent) => {
-  console.log("called");
   const { email, displayName } = userOrder.user;
 
   const mailDetails = {
@@ -45,6 +44,25 @@ export const sendInvoice = (userOrder, emailContent) => {
     });
 };
 
-// sendConfirmation
+export const sendOrderConfirmation = (currentUser, emailContent) => {
+  const { displayName, email } = currentUser;
+
+  const mailDetails = {
+    from: "localhealthyethical@gmail.com",
+    to: ["localhealthyethical@gmail.com", email],
+    subject: `Your Local Healthy Ethical Order`,
+    html: `<p>Dear ${displayName},</p>
+    <p>Thank you, your order was received!</p>
+    <p>This is what you ordered:</p>
+    ${emailContent}`,
+  };
+
+  return axios
+    .post(serverUrl, mailDetails)
+    .then((res) => res)
+    .catch((err) => {
+      throw err;
+    });
+};
 
 // sendOrdersToSuppliers

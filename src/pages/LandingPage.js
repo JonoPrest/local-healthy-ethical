@@ -40,7 +40,7 @@ import {
 import LandingPageHeader from "components/Headers/LandingPageHeader.js";
 import { sendMail } from "mailUtils";
 
-function LandingPage() {
+function LandingPage({ setLoginModal }) {
   document.documentElement.classList.remove("nav-open");
   React.useEffect(() => {
     document.body.classList.add("profile-page");
@@ -87,7 +87,7 @@ function LandingPage() {
   };
   return (
     <>
-      <LandingPageHeader />
+      <LandingPageHeader setLoginModal={setLoginModal} />
       <div className="main">
         <div className="section text-center">
           <Container>
@@ -352,7 +352,12 @@ function LandingPage() {
                             <i className="nc-icon nc-single-02" />
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input name="name" placeholder="Name" type="text" required/>
+                        <Input
+                          name="name"
+                          placeholder="Name"
+                          type="text"
+                          required
+                        />
                       </InputGroup>
                     </Col>
                     <Col md="6">
@@ -363,7 +368,12 @@ function LandingPage() {
                             <i className="nc-icon nc-email-85" />
                           </InputGroupText>
                         </InputGroupAddon>
-                        <Input name="email" placeholder="Email" type="email" required/>
+                        <Input
+                          name="email"
+                          placeholder="Email"
+                          type="email"
+                          required
+                        />
                       </InputGroup>
                     </Col>
                   </Row>

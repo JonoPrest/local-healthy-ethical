@@ -8,7 +8,7 @@ import Header from "components/Headers/Header";
 import CartRow from "components/CartRow";
 import BackButton from "components/BackButton";
 
-const CartPage = ({ cart, updateCart, total }) => {
+const CartPage = ({ cart, updateCart, total, marketDayFee }) => {
   return (
     <div>
       <Header title="Cart" imgName="cart-cover.jpeg" />
@@ -44,17 +44,47 @@ const CartPage = ({ cart, updateCart, total }) => {
             );
           })}
 
-          <Row className="mt-4">
+          <Row className="mt-4 text-right">
             <Col></Col>
             <Col></Col>
-            <Col></Col>
+
             <Col>
-              <h4>
-                <strong>Total:</strong>
-              </h4>
+              <h5>
+                <strong>Subtotal:</strong>
+              </h5>
             </Col>
             <Col>
-              <h4>R{total}</h4>
+              <h5>R{total}</h5>
+            </Col>
+          </Row>
+
+          <Row className="mt-4 text-right">
+            <Col></Col>
+            <Col></Col>
+
+            <Col>
+              <h5>
+                <strong>Market Day Fee:</strong>
+              </h5>
+            </Col>
+            <Col>
+              <h5>R{marketDayFee}</h5>
+            </Col>
+          </Row>
+
+          <Row className="mt-4 text-right">
+            <Col></Col>
+            <Col></Col>
+           
+            <Col>
+              <h3>
+                <strong>Total:</strong>
+              </h3>
+            </Col>
+            <Col>
+              <h3 >
+                R{(Number(total) + Number(marketDayFee)).toFixed(2)}
+              </h3>
               <Button className="my-3" to="/cart/checkout" tag={Link}>
                 Checkout
               </Button>
@@ -79,6 +109,7 @@ const CartPage = ({ cart, updateCart, total }) => {
 
 const mapStateToProps = (state) => ({
   cart: state.cart.cartItems,
+  marketDayFee: state.shop.shopSettings.marketDayFee,
 });
 
 export default connect(mapStateToProps)(CartPage);
