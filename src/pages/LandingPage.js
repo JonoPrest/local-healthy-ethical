@@ -38,7 +38,7 @@ import {
 
 // core components
 import LandingPageHeader from "components/Headers/LandingPageHeader.js";
-import { sendMail } from "mailUtils";
+import { sendMail } from "../utils/mailUtils";
 
 function LandingPage({ setLoginModal }) {
   document.documentElement.classList.remove("nav-open");

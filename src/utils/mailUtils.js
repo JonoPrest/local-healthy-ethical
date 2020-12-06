@@ -65,4 +65,41 @@ export const sendOrderConfirmation = (currentUser, emailContent) => {
     });
 };
 
+export const mailToSuppliers = (orderArray, supplier) => {
+  const orderRowsArray = orderArray
+    .filter((orderItem) => orderItem.item.Supplier === supplier.name)
+    .map(
+      (orderItem) =>
+        `${orderItem.quantity}x%20${orderItem.item.Quantity}${orderItem.item.Units}%20${orderItem.item.Item}`
+    );
+
+  const orderString = orderRowsArray.join("%0D%0A");
+
+  const emailBody = `Dear%0D%0A${supplier.name}%2C%0D%0AI would like to place the following order%3A%0D%0A${orderString}%0D%0AMany thanks and kind regards%2C%0D%0AKate`;
+
+  const mailToLink = `mailto:${supplier.email}?subject=Local%20Healthy%20Ethical%20Food%20Club%20Order&body=${emailBody}`;
+
+  return mailToLink;
+
+  //   let emailRowsArray = [];
+  //   const timesTableBody = document.getElementById("timesTableBody");
+  //   const tableRowsArray = timesTableBody.children;
+  //   for (let i = 0; i < tableRowsArray.length; i++) {
+  //     const rowArray = Array.from(tableRowsArray[i].children);
+  //     let filteredArray = [];
+  //     rowArray.forEach((col) => {
+  //       if (col.className !== "num" && col.className !== "delete") {
+  //         filteredArray.push(col.innerText);
+  //       }
+  //     });
+  //     emailRowsArray.push(filteredArray.join(","));
+  //   }
+  //   const emailBody = emailRowsArray.join("%0D%0A");
+  //   let emailAddress = e.target[0].value;
+  //   window.open(
+  //     `mailto:${emailAddress}?subject=${year}/${month}/${day}:%203Style%20Trainer%20Session&body=${emailBody}`,
+  //     "_blank"
+  //   );
+};
+
 // sendOrdersToSuppliers

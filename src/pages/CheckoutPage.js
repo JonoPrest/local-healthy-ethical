@@ -12,7 +12,7 @@ import "./CheckoutPage.css";
 import Header from "components/Headers/Header";
 import BackButton from "components/BackButton";
 import { addHtmlAndStylingToOrder } from "utils/hml-and-styling-for-nodemailer";
-import { sendOrderConfirmation } from "mailUtils";
+import { sendOrderConfirmation } from "../utils/mailUtils";
 import { setCurrentUser } from "redux/user/user.actions";
 
 const CheckoutPage = ({

@@ -12,7 +12,7 @@ import { Spinner } from "reactstrap";
 import InvoiceTemplate from "./InvoiceTemplate";
 import InvoiceTemplateEditable from "./InvoiceTemplateEditable";
 import { addHtmlAndStyling } from "./InvoiceTemplateStylingHtml";
-import { sendInvoice } from "mailUtils";
+import { sendInvoice } from "../utils/mailUtils";
 
 const IndividualOrderInvoice = ({ shopSettings }) => {
   const { name } = useParams();

@@ -1,12 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
-import { Spinner, Table } from "reactstrap";
+import {
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  Spinner,
+  Table,
+  UncontrolledDropdown,
+} from "reactstrap";
+import { mailToSuppliers } from "utils/mailUtils";
 
 import "./MasterTable.css";
 
 const MasterTable = ({ monthOrdersArray, isLoading }) => {
   const [masterObject, setMasterObject] = useState({});
   const [masterArray, setMasterArray] = useState([]);
+  const [suppliersArray, setSuppliersArray] = useState([]);
   const [total, setTotal] = useState("");
 
   useEffect(() => {
@@ -43,6 +52,22 @@ const MasterTable = ({ monthOrdersArray, isLoading }) => {
     const initialArray = Object.values(masterObject).map((value) => value);
     setMasterArray(initialArray);
   }, [masterObject]);
+
+  //sets up the list of suppliers
+  useEffect(() => {
+    const filteredSuppliersArray = masterArray.filter((value, index, self) => {
+      return (
+        self.findIndex((v) => v.item.Supplier === value.item.Supplier) ===
+          index && value.Category !== ""
+      );
+    });
+
+    const newSuppliersArray = filteredSuppliersArray.map((item) => ({
+      name: item.item.Supplier,
+      email: item.item.SupplierEmail,
+    }));
+    setSuppliersArray(newSuppliersArray);
+  }, [masterArray]);
 
   const reorderArray = (e) => {
     const { innerText } = e.target;
@@ -117,6 +142,28 @@ const MasterTable = ({ monthOrdersArray, isLoading }) => {
               </tbody>
             </Table>
           </div>
+          <UncontrolledDropdown>
+            <DropdownToggle
+              aria-expanded={false}
+              aria-haspopup={true}
+              caret
+              color="secondary"
+              data-toggle="dropdown"
+              id="dropdownMenuButton"
+              type="button"
+            >
+              Email individual suppliers
+            </DropdownToggle>
+            <DropdownMenu aria-labelledby="dropdownMenuButton">
+              {suppliersArray.map((supplier) => (
+                <DropdownItem key={supplier.email}>
+                  <a href={mailToSuppliers(masterArray, supplier)}>
+                    {supplier.name}
+                  </a>
+                </DropdownItem>
+              ))}
+            </DropdownMenu>
+          </UncontrolledDropdown>
           <button
             onClick={handlePrint}
             className="btn btn-success m-1"
