@@ -75,7 +75,7 @@ export const mailToSuppliers = (orderArray, supplier) => {
 
   const orderString = orderRowsArray.join("%0D%0A");
 
-  const emailBody = `Dear%0D%0A${supplier.name}%2C%0D%0AI would like to place the following order%3A%0D%0A${orderString}%0D%0AMany thanks and kind regards%2C%0D%0AKate`;
+  const emailBody = `Dear%20${supplier.name}%2C%0D%0A%0D%0AI would like to place the following order%3A%0D%0A%0D%0A${orderString}%0D%0A%0D%0AMany thanks and kind regards%2C%0D%0AKate`;
 
   const mailToLink = `mailto:${supplier.email}?subject=Local%20Healthy%20Ethical%20Food%20Club%20Order&body=${emailBody}`;
 

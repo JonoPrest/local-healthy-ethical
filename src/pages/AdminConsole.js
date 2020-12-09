@@ -7,17 +7,7 @@ import Switch from "react-bootstrap-switch";
 
 import { getOrderMonths } from "firebaseUtilities";
 
-import {
-  Col,
-  Button,
-  Spinner,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  Input,
-  Form,
-} from "reactstrap";
+import { Col, Button, Spinner, Input, Form } from "reactstrap";
 
 import Header from "components/Headers/Header";
 import MonthOrders from "components/MonthOrders";
@@ -33,7 +23,7 @@ const AdminConsole = ({
   shopSettings,
   isFetchingSettings,
 }) => {
-  const [months, setMonths] = useState([]);
+  const [months, setMonths] = useState(null);
   const [userRequests, setUserRequests] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isSyncing, setIsSyncing] = useState(false);
@@ -43,7 +33,6 @@ const AdminConsole = ({
     console.log("render");
     getUserRequests()
       .then((res) => {
-        console.log(res);
         setUserRequests(res);
       })
       .catch(console.log);
@@ -54,7 +43,7 @@ const AdminConsole = ({
   }, [fetchShopSettingsStartAsync]);
 
   useEffect(() => {
-    if (months.length > 0 && userRequests && !isFetchingSettings) {
+    if (months && userRequests && !isFetchingSettings) {
       setIsLoading(false);
     }
   }, [months, isFetchingSettings, userRequests]);
@@ -152,9 +141,12 @@ const AdminConsole = ({
                 className="d-flex flex-wrap justify-content-around w-100"
               >
                 <Col
-                  md="5"
+                  xl="4"
+                  lg="8"
+                  md="8"
+                  sm="8"
+                  xs="8"
                   className="d-flex flex-column align-items-center "
-                  style={{ width: "400px" }}
                 >
                   <div className="d-flex flex-column align-items-center border-bottom w-100 p-4">
                     <h2>Set Shop Live</h2>
@@ -169,10 +161,7 @@ const AdminConsole = ({
                   </div>
                   <div className="border-bottom d-flex flex-column align-items-center p-4">
                     <h2 className="text-center">Sync Shop With Google Sheet</h2>
-                    <Button
-                      onClick={() => getGoogleSheetData()}
-                      className="mt-3"
-                    >
+                    <Button onClick={getGoogleSheetData} className="mt-3">
                       <span>{syncMessage}</span>
                       {isSyncing ? (
                         <Spinner
@@ -201,75 +190,58 @@ const AdminConsole = ({
                 </Col>
 
                 <Col
-                  md="3"
-                  style={{ minHeight: "500px" }}
-                  className="d-flex flex-column align-items-center p-4 border-bottom"
+                  xl="4"
+                  lg="5"
+                  md="6"
+                  sm="8"
+                  xs="8"
+                  className="d-flex flex-column p-4 border-bottom"
                 >
                   <h2>User Requests:</h2>
-                  <UncontrolledDropdown>
-                    <DropdownToggle
-                      aria-expanded={false}
-                      aria-haspopup={true}
-                      caret
-                      color="secondary"
-                      data-toggle="dropdown"
-                      id="dropdownMenuButton"
-                      type="button"
-                    >
-                      Select User
-                    </DropdownToggle>
-                    <DropdownMenu aria-labelledby="dropdownMenuButton">
-                      {userRequests.map((user, i) => (
-                        <DropdownItem key={user.id}>
-                          <div>
-                            <p>
-                              <strong>{user.displayName}</strong>
-                            </p>
-                            <p> {user.email}</p>
-                          </div>
-                          <div>
-                            <Button
-                              className="m-1"
-                              color="success"
-                              onClick={(e) => handleAcceptUserRequest(user, e)}
-                            >
-                              <i className="fa fa-check"></i>
-                            </Button>
-                            <Button className="m-1" color="danger">
-                              <i className="fa fa-remove" />
-                            </Button>
-                          </div>
-                        </DropdownItem>
-                      ))}
-                    </DropdownMenu>
-                  </UncontrolledDropdown>
+                  <div  style={{ height: "500px", overflowY: "auto" }}>
+                    {userRequests.map((user, i) => (
+                      <div className="card p-2">
+                        <div>
+                          <p>
+                            <strong>{user.displayName}</strong>
+                          </p>
+                          <p> {user.email}</p>
+                        </div>
+                        <div>
+                          <Button
+                            className="m-1"
+                            color="success"
+                            onClick={(e) => handleAcceptUserRequest(user, e)}
+                          >
+                            <i className="fa fa-check"></i>
+                          </Button>
+                          <Button className="m-1" color="danger">
+                            <i className="fa fa-remove" />
+                          </Button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </Col>
                 <Col
-                  md="3"
-                  style={{ minHeight: "500px" }}
-                  className="d-flex flex-column align-items-center p-4 border-bottom"
+                  xl="4"
+                  lg="5"
+                  md="6"
+                  sm="8"
+                  xs="8"
+                  className="d-flex flex-column  p-4 border-bottom"
                 >
                   <h2>Select Orders:</h2>
-                  <UncontrolledDropdown>
-                    <DropdownToggle
-                      aria-expanded={false}
-                      aria-haspopup={true}
-                      caret
-                      color="secondary"
-                      data-toggle="dropdown"
-                      id="dropdownMenuButton"
-                      type="button"
-                    >
-                      Choose Month
-                    </DropdownToggle>
-                    <DropdownMenu aria-labelledby="dropdownMenuButton">
-                      {months.map((month, i) => (
-                        <Link key={i} to={`/admin/${month}`}>
-                          <DropdownItem>{month}</DropdownItem>
-                        </Link>
-                      ))}
-                    </DropdownMenu>
-                  </UncontrolledDropdown>
+                  <div
+                    className="d-flex flex-column"
+                    style={{ height: "500px", overflowY: "auto" }}
+                  >
+                    {months.map((month, i) => (
+                      <Link className="card p-2" key={i} to={`/admin/${month}`}>
+                        <h5 style={{ margin: "0" }}>{month}</h5>
+                      </Link>
+                    ))}
+                  </div>
                 </Col>
               </div>
             )}

@@ -1,5 +1,6 @@
 {
   "name": "paper-kit-react",
+  "homepage": "https://jonoprest.github.io/local-healthy-ethical",
   "version": "1.2.0",
   "private": true,
   "dependencies": {
@@ -7,6 +8,7 @@
     "axios": "^0.21.0",
     "classnames": "2.2.6",
     "firebase": "^7.24.0",
+    "gh-pages": "^3.1.0",
     "moment": "2.26.0",
     "node-sass": "4.14.1",
     "nouislider": "14.5.0",
@@ -27,6 +29,8 @@
     "uuid": "^8.3.0"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build && gulp licenses",
     "test": "react-scripts test",
@@ -56,6 +60,7 @@
   },
   "devDependencies": {
     "gulp": "4.0.2",
-    "gulp-append-prepend": "1.0.8"
+    "gulp-append-prepend": "1.0.8",
+    "prettier": "2.2.1"
   }
 }
