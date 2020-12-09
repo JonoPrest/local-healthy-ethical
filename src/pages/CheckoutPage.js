@@ -96,7 +96,9 @@ const CheckoutPage = ({
           style={{ height: `calc(60vh - 85px)`, width: "100%" }}
           className="d-flex flex-column justify-content-center align-items-center"
         >
-          <h2 style={{  maxWidth: "800px" }} className="p-3 text-center">{screenMessage}</h2>
+          <h2 style={{ maxWidth: "800px" }} className="p-3 text-center">
+            {screenMessage}
+          </h2>
           {orderStatus === "error" ? (
             <Button
               to="/cart/checkout"

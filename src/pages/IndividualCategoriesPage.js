@@ -17,10 +17,7 @@ const IndividualCategoriesPage = ({ products, title }) => {
         </h2>
         <div className="w-50 border border-secondary mb-5 mx-auto"></div>
         <div className="d-flex flex-wrap justify-content-center">
-          <ProductCategory
-            title={title}
-            products={products}
-          />
+          <ProductCategory title={title} products={products} />
         </div>
         <div className="d-flex my-5">
           <Button className="m-1" color="neutral" to="/shop" tag={Link}>

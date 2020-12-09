@@ -50,7 +50,7 @@ function Header({ imgName, title }) {
         ref={pageHeader}
       >
         <div className="filter" />
-      <h1 className="motto border px-3">{title}</h1>
+        <h1 className="motto border px-3">{title}</h1>
       </div>
     </>
   );

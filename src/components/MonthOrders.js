@@ -45,7 +45,7 @@ const MonthOrders = ({ month }) => {
           <h1>
             <strong>{month}</strong>
           </h1>
-          
+
           <IndividualOrders
             monthOrdersArray={monthOrders}
             isLoading={isLoading}

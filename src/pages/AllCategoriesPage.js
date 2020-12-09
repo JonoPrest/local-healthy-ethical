@@ -23,10 +23,7 @@ const AllCategoriesPage = ({ data, uniqueCategoryArray }) => {
               </h2>
               <div className="w-50 border border-secondary mb-5 mx-auto"></div>
               <div className="d-flex overflow-auto" style={{ width: "95vw" }}>
-                <ProductCategory
-                  key={i}
-                  products={products}
-                />
+                <ProductCategory key={i} products={products} />
               </div>
             </div>
           );

@@ -75,16 +75,14 @@ const CartPage = ({ cart, updateCart, total, marketDayFee }) => {
           <Row className="mt-4 text-right">
             <Col></Col>
             <Col></Col>
-           
+
             <Col>
               <h3>
                 <strong>Total:</strong>
               </h3>
             </Col>
             <Col>
-              <h3 >
-                R{(Number(total) + Number(marketDayFee)).toFixed(2)}
-              </h3>
+              <h3>R{(Number(total) + Number(marketDayFee)).toFixed(2)}</h3>
               <Button className="my-3" to="/cart/checkout" tag={Link}>
                 Checkout
               </Button>

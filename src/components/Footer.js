@@ -24,7 +24,7 @@ import { Row, Container } from "reactstrap";
 
 function DemoFooter() {
   return (
-    <footer  className="footer footer-black footer-white bg-dark">
+    <footer className="footer footer-black footer-white bg-dark">
       <Container>
         <Row>
           <nav className="footer-nav">
@@ -36,7 +36,10 @@ function DemoFooter() {
                   target="_blank"
                   title="Like us on Facebook"
                 >
-                  <i className="fa fa-facebook-square" style={{fontSize: "20px"}}/>
+                  <i
+                    className="fa fa-facebook-square"
+                    style={{ fontSize: "20px" }}
+                  />
                   {/* <p className="d-lg-none">Facebook</p> */}
                 </a>
               </li>
@@ -47,7 +50,7 @@ function DemoFooter() {
                   target="_blank"
                   title="Follow us on Instagram"
                 >
-                  <i className="fa fa-instagram" style={{fontSize: "20px"}}/>
+                  <i className="fa fa-instagram" style={{ fontSize: "20px" }} />
                   {/* <p className="d-lg-none">Instagram</p> */}
                 </a>
               </li>

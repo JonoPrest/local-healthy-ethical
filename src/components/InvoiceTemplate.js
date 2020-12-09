@@ -85,13 +85,22 @@ const InvoiceTemplate = ({ userOrder, shopSettings }) => {
                             #
                           </th>
                           <th style={{ width: "50%" }}>Item</th>
-                          <th className="text-right rightAlign" style={{ width: "15%" }}>
+                          <th
+                            className="text-right rightAlign"
+                            style={{ width: "15%" }}
+                          >
                             Quantity
                           </th>
-                          <th className="text-right rightAlign" style={{ width: "15%" }}>
+                          <th
+                            className="text-right rightAlign"
+                            style={{ width: "15%" }}
+                          >
                             Unit Price
                           </th>
-                          <th className="text-right rightAlign" style={{ width: "15%" }}>
+                          <th
+                            className="text-right rightAlign"
+                            style={{ width: "15%" }}
+                          >
                             Total Price
                           </th>
                         </tr>
