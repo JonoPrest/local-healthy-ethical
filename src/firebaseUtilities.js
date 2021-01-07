@@ -315,6 +315,23 @@ export const updateInvoice = async (order, invoiceNumber) => {
 	}
 };
 
+export const getAllInvoices = async () => {
+	const invoicesRef = firestore.collection("invoices");
+
+	try {
+		const snapShot = await invoicesRef.get();
+
+		let invoicesArray = [];
+		snapShot.forEach((snap) => {
+			invoicesArray.push(snap.data());
+		});
+		console.log(invoicesArray);
+		return invoicesArray;
+	} catch (err) {
+		throw err;
+	}
+};
+
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
