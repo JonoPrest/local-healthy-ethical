@@ -93,7 +93,26 @@ function LandingPage({ setLoginModal, currentUser }) {
 				<div className="section text-center">
 					<Container>
 						<Row>
+							<blockquote class="trello-card">
+								<a href="https://trello.com/c/NI3lkHYe/213-terms-and-conditions">
+									Terms and conditions
+								</a>
+							</blockquote>
+							<script src="https://p.trellocdn.com/embed.min.js"></script>
 							<Col className="ml-auto mr-auto" md="8">
+								<iframe
+									src="https://trello.com/c/OKVduwHL.html"
+									frameBorder="0"
+									width="340"
+									height="220"
+								></iframe>
+
+								<iframe
+									src="https://trello.com/c/NI3lkHYe.html"
+									frameBorder="0"
+									width="100%"
+									height="600"
+								></iframe>
 								<h2 className="title">Welcome!</h2>
 								<h5 className="description">
 									<p>

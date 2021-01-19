@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/local-healthy-ethical/static/css/main.6c5750e1.chunk.css",
-    "main.js": "/local-healthy-ethical/static/js/main.bbc0a033.chunk.js",
-    "main.js.map": "/local-healthy-ethical/static/js/main.bbc0a033.chunk.js.map",
+    "main.css": "/local-healthy-ethical/static/css/main.cb40889f.chunk.css",
+    "main.js": "/local-healthy-ethical/static/js/main.3fd1e97c.chunk.js",
+    "main.js.map": "/local-healthy-ethical/static/js/main.3fd1e97c.chunk.js.map",
     "runtime-main.js": "/local-healthy-ethical/static/js/runtime-main.975698df.js",
     "runtime-main.js.map": "/local-healthy-ethical/static/js/runtime-main.975698df.js.map",
-    "static/js/2.419bc2c0.chunk.js": "/local-healthy-ethical/static/js/2.419bc2c0.chunk.js",
-    "static/js/2.419bc2c0.chunk.js.map": "/local-healthy-ethical/static/js/2.419bc2c0.chunk.js.map",
+    "static/js/2.516b2377.chunk.js": "/local-healthy-ethical/static/js/2.516b2377.chunk.js",
+    "static/js/2.516b2377.chunk.js.map": "/local-healthy-ethical/static/js/2.516b2377.chunk.js.map",
     "index.html": "/local-healthy-ethical/index.html",
-    "precache-manifest.a83a602957837568e60274bddc56cf14.js": "/local-healthy-ethical/precache-manifest.a83a602957837568e60274bddc56cf14.js",
+    "precache-manifest.66e474250db89f42fce1bfce31724237.js": "/local-healthy-ethical/precache-manifest.66e474250db89f42fce1bfce31724237.js",
     "service-worker.js": "/local-healthy-ethical/service-worker.js",
-    "static/css/main.6c5750e1.chunk.css.map": "/local-healthy-ethical/static/css/main.6c5750e1.chunk.css.map",
-    "static/js/2.419bc2c0.chunk.js.LICENSE.txt": "/local-healthy-ethical/static/js/2.419bc2c0.chunk.js.LICENSE.txt",
-    "static/js/main.bbc0a033.chunk.js.LICENSE.txt": "/local-healthy-ethical/static/js/main.bbc0a033.chunk.js.LICENSE.txt",
+    "static/css/main.cb40889f.chunk.css.map": "/local-healthy-ethical/static/css/main.cb40889f.chunk.css.map",
+    "static/js/2.516b2377.chunk.js.LICENSE.txt": "/local-healthy-ethical/static/js/2.516b2377.chunk.js.LICENSE.txt",
+    "static/js/main.3fd1e97c.chunk.js.LICENSE.txt": "/local-healthy-ethical/static/js/main.3fd1e97c.chunk.js.LICENSE.txt",
     "static/media/antoine-barres.jpg": "/local-healthy-ethical/static/media/antoine-barres.dfbf459c.jpg",
     "static/media/avatar.jpg": "/local-healthy-ethical/static/media/avatar.7257a1a9.jpg",
     "static/media/ayo-ogunseinde-2.jpg": "/local-healthy-ethical/static/media/ayo-ogunseinde-2.bfc688ca.jpg",
@@ -53,8 +53,8 @@
   },
   "entrypoints": [
     "static/js/runtime-main.975698df.js",
-    "static/js/2.419bc2c0.chunk.js",
-    "static/css/main.6c5750e1.chunk.css",
-    "static/js/main.bbc0a033.chunk.js"
+    "static/js/2.516b2377.chunk.js",
+    "static/css/main.cb40889f.chunk.css",
+    "static/js/main.3fd1e97c.chunk.js"
   ]
 }
