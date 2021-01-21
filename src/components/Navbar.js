@@ -92,7 +92,11 @@ function ExamplesNavbar({
 		>
 			<Container>
 				<div className="navbar-translate">
-					<NavbarBrand data-placement="bottom" title="Local Healthy Ethical">
+					<NavbarBrand
+						data-placement="bottom"
+						title="Local Healthy Ethical"
+						tag={Link}
+					>
 						{currentUser ? (
 							<div>
 								<i
