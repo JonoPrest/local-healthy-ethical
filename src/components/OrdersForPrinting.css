@@ -1,0 +1,33 @@
+.ordersForPrinting {
+	margin: 30px;
+}
+
+.ordersForPrinting .invoiceName {
+	display: flex;
+	justify-content: space-between;
+	margin: 20px;
+}
+
+.ordersForPrinting table {
+	border: 1px solid #ddd !important;
+	text-align: left;
+}
+
+.ordersForPrinting .checkbox {
+	border: 1px solid #ddd;
+	padding-left: 50px;
+}
+
+@media print {
+	@page {
+		size: A4 portrait;
+	}
+
+	.ordersForPrinting {
+		margin: 50px;
+	}
+
+	.ordersForPrinting .individualInvoice {
+		page-break-after: always;
+	}
+}

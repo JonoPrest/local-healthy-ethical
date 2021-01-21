@@ -41,6 +41,7 @@ import {
 // core components
 import LandingPageHeader from "components/Headers/LandingPageHeader.js";
 import { sendMail } from "../utils/mailUtils";
+import LongScrollingModal from "components/LongScrollingModal";
 
 function LandingPage({ setLoginModal, currentUser }) {
 	React.useEffect(() => {
@@ -93,27 +94,8 @@ function LandingPage({ setLoginModal, currentUser }) {
 				<div className="section text-center">
 					<Container>
 						<Row>
-							<blockquote class="trello-card">
-								<a href="https://trello.com/c/NI3lkHYe/213-terms-and-conditions">
-									Terms and conditions
-								</a>
-							</blockquote>
-							<script src="https://p.trellocdn.com/embed.min.js"></script>
 							<Col className="ml-auto mr-auto" md="8">
-								<iframe
-									src="https://trello.com/c/OKVduwHL.html"
-									frameBorder="0"
-									width="340"
-									height="220"
-								></iframe>
-
-								<iframe
-									src="https://trello.com/c/NI3lkHYe.html"
-									frameBorder="0"
-									width="100%"
-									height="600"
-								></iframe>
-								<h2 className="title">Welcome!</h2>
+								<h2 className="title text-center">Welcome!</h2>
 								<h5 className="description">
 									<p>
 										Buying local (from as nearby as possible), healthy (as
@@ -125,100 +107,126 @@ function LandingPage({ setLoginModal, currentUser }) {
 										oblivious to the practices around how we get to eat what we
 										eat.
 									</p>
-
-									<p>The Local + Healthy + Ethical group</p>
-
-									<p>
-										A desire to bring the food experience from similar groups
-										we've been part of (Good Food Clubs as started by Liesl
-										Stewart) inspired the start of this group. Our experience of
-										eating wholesome food with a good story behind it brings
-										peace to our plates, and enables us to "vote with our
-										wallets" as to the kinds of businesses we want to support
-										and see growth in in our country.
-									</p>
-
-									<p>
-										Buying from food and goods producers as directly as
-										possible, discovering who the local farmers are,
-										prioritising black-owned business and female owned business,
-										buying organic or non-gmo, asking questions about ethical
-										wages for workers, prioritizing good treatment of animals
-										and the environment are the things we’re grappling with as
-										we choose and work with suppliers.
-									</p>
-
-									<p>
-										We are not an exclusive or gourmet food club, but an
-										alternative way of shopping. In some cases, this will mean
-										buying organic, in others, non-gmo. In other ways it means
-										prioritising ethical or local buying. The idea here is not
-										to buy foods that are the best bargain, but rather to buy
-										“better”.
-									</p>
-
-									<p>
-										Sometimes the food is more expensive than at the
-										supermarket, but sometimes it is cheaper. We’re finding that
-										a lot of the time it is cheaper. It is very hard (almost
-										impossible) to buy perfectly, so here’s to doing the best we
-										can!
-									</p>
-
-									<p>
-										Another massive value we like to practice is kindness - we
-										are a human-run club and we still have a lot to learn. Our
-										suppliers are human too, so we do all we can do be a
-										different kind of consumer.
-									</p>
-
-									<p>
-										Please check and double check your invoices that everything
-										is correct. Our new website will be up from January 2021
-										which will hopefully sort out some of our admin faux paux's!
-										Please also understand that some months certain things might
-										not arrive because they’re not in stock. The food may also
-										not be as you expect it to be - the milk may be too creamy,
-										and the lack of preservatives in certain items may mean a
-										shorter shelf life.
-									</p>
-
-									<p>
-										We do hope you will find many things that work for you. You
-										may have to try a few things out! Buying good food is not
-										necessarily always convenient :) so please keep this in
-										mind.
-									</p>
-
-									<p>
-										Please follow the links provided on this board to find out
-										more about the products you are ordering. We have provided
-										some basic detail, but the rest is up to you.
-									</p>
-
-									<p>
-										Lastly, we’d love to hear your feedback, your questions and
-										the things that matter to you, and in as much as is possible
-										we will try to incorporate them into our practices. We are
-										by no means food gurus, but we’re excited to walk alongside
-										you and figure things out along the way.
-									</p>
-
-									<p>Peace and good food to you!</p>
-
-									<p>❤️</p>
-
-									<p>Kate</p>
 								</h5>
 								<br />
-								<Button
-									className="btn-round"
-									color="primary"
-									href="#pablo"
-									onClick={(e) => e.preventDefault()}
+
+								<LongScrollingModal
+									buttonText="Read more about us"
+									title="Welcome!"
+									buttonClassName="btn-round btn-primary"
 								>
-									See Details
-								</Button>
+									<h5>
+										<p>
+											Buying local (from as nearby as possible), healthy (as
+											little chemical interference as possible) and ethical food
+											(in as much as we can gather is kind to people who harvest
+											it, the environment and animals) is a bit of a challenge
+											these days as we find ourselves so busy and often
+											disconnected from where our food comes from. We’re often
+											so oblivious to the practices around how we get to eat
+											what we eat.
+										</p>
+										<br />
+										<p>The Local + Healthy + Ethical group</p>
+										<br />
+
+										<p>
+											A desire to bring the food experience from similar groups
+											we've been part of (Good Food Clubs as started by Liesl
+											Stewart) inspired the start of this group. Our experience
+											of eating wholesome food with a good story behind it
+											brings peace to our plates, and enables us to "vote with
+											our wallets" as to the kinds of businesses we want to
+											support and see growth in in our country.
+										</p>
+										<br />
+
+										<p>
+											Buying from food and goods producers as directly as
+											possible, discovering who the local farmers are,
+											prioritising black-owned business and female owned
+											business, buying organic or non-gmo, asking questions
+											about ethical wages for workers, prioritizing good
+											treatment of animals and the environment are the things
+											we’re grappling with as we choose and work with suppliers.
+										</p>
+										<br />
+
+										<p>
+											We are not an exclusive or gourmet food club, but an
+											alternative way of shopping. In some cases, this will mean
+											buying organic, in others, non-gmo. In other ways it means
+											prioritising ethical or local buying. The idea here is not
+											to buy foods that are the best bargain, but rather to buy
+											“better”.
+										</p>
+										<br />
+
+										<p>
+											Sometimes the food is more expensive than at the
+											supermarket, but sometimes it is cheaper. We’re finding
+											that a lot of the time it is cheaper. It is very hard
+											(almost impossible) to buy perfectly, so here’s to doing
+											the best we can!
+										</p>
+										<br />
+
+										<p>
+											Another massive value we like to practice is kindness - we
+											are a human-run club and we still have a lot to learn. Our
+											suppliers are human too, so we do all we can do be a
+											different kind of consumer.
+										</p>
+										<br />
+
+										<p>
+											Please check and double check your invoices that
+											everything is correct. Our new website will be up from
+											January 2021 which will hopefully sort out some of our
+											admin faux paux's! Please also understand that some months
+											certain things might not arrive because they’re not in
+											stock. The food may also not be as you expect it to be -
+											the milk may be too creamy, and the lack of preservatives
+											in certain items may mean a shorter shelf life.
+										</p>
+										<br />
+
+										<p>
+											We do hope you will find many things that work for you.
+											You may have to try a few things out! Buying good food is
+											not necessarily always convenient :) so please keep this
+											in mind.
+										</p>
+										<br />
+
+										<p>
+											Please follow the links provided on this board to find out
+											more about the products you are ordering. We have provided
+											some basic detail, but the rest is up to you.
+										</p>
+										<br />
+
+										<p>
+											Lastly, we’d love to hear your feedback, your questions
+											and the things that matter to you, and in as much as is
+											possible we will try to incorporate them into our
+											practices. We are by no means food gurus, but we’re
+											excited to walk alongside you and figure things out along
+											the way.
+										</p>
+										<br />
+
+										<p>Peace and good food to you!</p>
+										<br />
+
+										<p>❤️</p>
+										<br />
+
+										<p>Kate</p>
+										<br />
+									</h5>
+									<br />
+								</LongScrollingModal>
 							</Col>
 						</Row>
 						<br />
@@ -226,179 +234,261 @@ function LandingPage({ setLoginModal, currentUser }) {
 						<Row>
 							<Col md="6">
 								<div className="primary">
-									<div className="icon icon-info">
-										<i className="nc-icon nc-alert-circle-i" />
+									<div className="icon icon-primary">
+										<i
+											className="nc-icon nc-alert-circle-i"
+											style={{ fontSize: "40px" }}
+										/>
 									</div>
 									<div className="description">
 										<h4 className="info-title">How the Group Works</h4>
-										<p className="description">
-											Planning on buying just one or two things, or not every
-											month? Not a problem. Skipping a month? Also fine...
+										<p className="description text-justify">
+											Please send me a request to login on the Local Healthy
+											Ethical website, so that I can approve your request.
+											Please note that this is a private membership only club
+											with a limit of 35 spaces. If there isn't sufficient
+											space, I will let you know as soon as there is! Should you
+											not wish to order every month, that is not a problem -
+											however after 6 months of...
 										</p>
-										<Button className="btn-link" color="primary" href="#pablo">
-											See more
-										</Button>
+										<LongScrollingModal
+											title="How the Group Works"
+											buttonText="see more"
+											buttonClassName="btn-link btn-primary"
+										>
+											<p>
+												Please send me a request to login on the Local Healthy
+												Ethical website, so that I can approve your request.
+												Please note that this is a private membership only club
+												with a limit of 35 spaces. If there isn't sufficient
+												space, I will let you know as soon as there is! Should
+												you not wish to order every month, that is not a problem
+												- however after 6 months of not ordering I'll get in
+												touch to find out if you're happy for me to give your
+												place to someone else.
+											</p>
+											<br />
+											<p>
+												Wait for the Watsapp announcement that orders are open
+												(usually for the first week of each month)
+											</p>
+											<br />
+											<p>
+												Login to the website and add the goods to your cart,
+												bearing in mind that you are shopping for a whole month
+												so you need to buy four times the amount you'd buy in a
+												week
+											</p>
+											<br />
+											<p>
+												Add anything else during the week to your order, should
+												you have any other epiphanies of what you might need
+											</p>
+											<br />
+											<p>
+												Come with all your bags and cool boxes and collect your
+												goods on Market Day (usually on the 2nd Friday of each
+												month). Collection is between 2pm and 6pm, with your
+												specific time to be confirmed individually. If you know
+												that you are going to be away on market day, rather
+												don't order that month as we can't promise that our pup
+												Sulwe won't get involved with your shopping if it hangs
+												around!
+											</p>
+											<br />
+
+											<p>
+												After market day I will send you an invoice. This helps
+												us to calculate the final amounts of goods that need
+												weighing.
+											</p>
+											<br />
+											<p>
+												Please check and double check your invoices that
+												everything is correct. Please also understand that some
+												months certain things might not arrive because they’re
+												not in stock. The food may also not be as you expect it
+												to be - the milk may be too creamy, and the lack of
+												preservatives in certain items may mean a shorter shelf
+												life. Good food is not always the most convenient!
+											</p>
+											<br />
+
+											<p>
+												Payments can be made into Kate’s account no later than
+												two days after you have received your invoice.
+											</p>
+											<br />
+											<p>
+												Please note that we have marked up all the goods by a
+												small amount ( it won't ever exceed 10%) to cover some
+												of the time and practical resources this good food stuff
+												takes.
+											</p>
+											<br />
+											<p>
+												We do hope you will find many things that work for you.
+												We have provided some basic detail on products but any
+												more information or clarity is for you to find out. All
+												of the website links of suppliers are available.
+											</p>
+											<br />
+											<p>
+												We'd love to hear your feedback, your questions and the
+												things that matter to you, or concern you. These
+												suppliers are yours as much as they are ours so please
+												feel free to raise any issues.
+											</p>
+											<br />
+											<p>Peace and good food to you all.</p>
+											<br />
+											<p>Kate</p>
+											<br />
+										</LongScrollingModal>
 									</div>
 								</div>
 							</Col>
 							<Col md="6">
 								<div className="primary">
-									<div className="icon icon-info">
-										<i className="nc-icon nc-paper" />
+									<div className="icon icon-primary">
+										<i
+											className="nc-icon nc-paper"
+											style={{ fontSize: "40px" }}
+										/>
 									</div>
 									<div className="description">
-										<h4 className="info-title">Ts & Cs</h4>
-										<p>
-											Terms and Conditions Local + Healthy + Ethical is a
-											private solidarity purchasing group run from a private
-											home in Lakeside, Cape Town. We are a community of people
-											who are committed to source food from various producers as
-											locally, directly and ethically as possible...
+										<h4 className="info-title">Terms & Conditions</h4>
+										<p className="description text-justify">
+											Local + Healthy + Ethical is a private solidarity
+											purchasing group run from a private home in Lakeside, Cape
+											Town. We are a community of people who are committed to
+											source food from various producers as locally, directly
+											and ethically as possible...
 										</p>
-										<Button className="btn-link" color="primary" href="#pablo">
-											See more
-										</Button>
+										<LongScrollingModal
+											title="Terms and Conditions"
+											buttonText="see more"
+											buttonClassName="btn-link btn-primary"
+										>
+											<p>
+												Local + Healthy + Ethical is a private solidarity
+												purchasing group run from a private home in Lakeside,
+												Cape Town. We are a community of people who are
+												committed to source healthy food from various producers
+												as locally, directly and ethically as possible.
+											</p>
+											<br />
+											<p>
+												Our group shares in the risk associated with
+												non-delivery or below-standard produce.
+											</p>
+											<br />
+											<p>
+												All purchases and consumption or use of any product/s
+												are done so entirely at your own risk.
+											</p>
+											<br />
+											<p>
+												If you order any kind of animal product through LHE
+												(whether meat, dairy, fish or eggs), you do so at your
+												own risk. We do order chicken, raw milk products, which
+												you must pay special attention to keeping the cold chain
+												unbroken if you order. It is your responsibility to
+												bring cool boxes and ice bricks when you collect your
+												orders.
+											</p>
+											<br />
+											<p>
+												By ordering through this group, you agree to take all
+												risks associated with any food spoilage and related or
+												unrelated sickness or illness that may occur as a result
+												of consuming any products purchased through the Local +
+												Healthy + Ethical group. You also agree to not hold any
+												person, agent, supplier or customer of, whether related
+												or unrelated to the Local + Healthy + Ethical Club,
+												responsible for any injury, sickness or financial loss
+												that may occur from any interaction with the Local +
+												Healthy + Ethical group and its agents.
+											</p>
+											<br />
+											<p>
+												To contribute towards admin and time resources spent on
+												this, a small markup has been added to products where it
+												is reasonable. This will be kept as low as possible and
+												gives us the little pat we need on our back for all this
+												admin, and covers some of our valuable time and resource
+												costs.
+											</p>
+											<br />
+											<p>
+												It is one of our highest values to pay our suppliers as
+												quickly as we can. Therefore, it is important that all
+												members pay their invoices within 2 days of receipt. It
+												is your responsibility to look through your final
+												invoice to ensure that you received what you have been
+												invoiced for, and you are charged for what you received.
+												If there are problems with your invoice, issues must be
+												raised within 24 hours of receiving that invoice.
+											</p>
+											<br />
+											<p>
+												By placing an order with the Local + Healthy + Ethical
+												Club, you agree to all these Terms & Conditions and
+												agree to not hold the Local + Healthy + Ethical Group,
+												Kate Obree or any other person associated with the club,
+												liable for any related or unrelated consequences or
+												sicknesses that may or may not occur as a result of
+												non-delivery or faulty/below-standard food or goods.
+											</p>
+											<br />
+										</LongScrollingModal>
 									</div>
 								</div>
 							</Col>
 						</Row>
 					</Container>
 				</div>
-				<blockquote className="trello-card">
-					<a href="https://trello.com/c/fyaJKT6Y/1-localhealthyethical-the-concept">
-						Local+healthy+Ethical - The concept
-					</a>
-				</blockquote>
-				<script src="https://p.trellocdn.com/embed.min.js"></script>
+
 				<div className="section section-dark text-center">
 					<Container>
-						<h2 className="title">The Team</h2>
+						<h2 className="title text-center m-auto">The Team</h2>
 						<Row>
-							<Col md="4">
+							<Col>
 								<Card className="card-profile card-plain">
 									<div className="card-avatar">
 										<a href="#pablo" onClick={(e) => e.preventDefault()}>
 											<img
 												alt="..."
-												src={require("assets/img/faces/clem-onojeghuo-3.jpg")}
+												src={require("assets/img/kate-profile.jpg")}
 											/>
 										</a>
 									</div>
 									<CardBody>
 										<a href="#pablo" onClick={(e) => e.preventDefault()}>
 											<div className="author">
-												<CardTitle tag="h4">Henry Ford</CardTitle>
-												<h6 className="card-category">Product Manager</h6>
+												<CardTitle tag="h4">Kate Obree</CardTitle>
+												<h6 className="card-category">Founder</h6>
 											</div>
 										</a>
-										<p className="card-description text-center">
-											Teamwork is so important that it is virtually impossible
-											for you to reach the heights of your capabilities or make
-											the money that you want without becoming very good at it.
-										</p>
-									</CardBody>
-									<CardFooter className="text-center">
-										<Button
-											className="btn-just-icon btn-neutral"
-											color="link"
-											href="#pablo"
-											onClick={(e) => e.preventDefault()}
-										>
-											<i className="fa fa-twitter" />
-										</Button>
-										<Button
-											className="btn-just-icon btn-neutral ml-1"
-											color="link"
-											href="#pablo"
-											onClick={(e) => e.preventDefault()}
-										>
-											<i className="fa fa-google-plus" />
-										</Button>
-										<Button
-											className="btn-just-icon btn-neutral ml-1"
-											color="link"
-											href="#pablo"
-											onClick={(e) => e.preventDefault()}
-										>
-											<i className="fa fa-linkedin" />
-										</Button>
-									</CardFooter>
-								</Card>
-							</Col>
-							<Col md="4">
-								<Card className="card-profile card-plain">
-									<div className="card-avatar">
-										<a href="#pablo" onClick={(e) => e.preventDefault()}>
-											<img
-												alt="..."
-												src={require("assets/img/faces/joe-gardner-2.jpg")}
-											/>
-										</a>
-									</div>
-									<CardBody>
-										<a href="#pablo" onClick={(e) => e.preventDefault()}>
-											<div className="author">
-												<CardTitle tag="h4">Sophie West</CardTitle>
-												<h6 className="card-category">Designer</h6>
-											</div>
-										</a>
-										<p className="card-description text-center">
-											A group becomes a team when each member is sure enough of
-											himself and his contribution to praise the skill of the
-											others. No one can whistle a symphony. It takes an
-											orchestra to play it.
-										</p>
-									</CardBody>
-									<CardFooter className="text-center">
-										<Button
-											className="btn-just-icon btn-neutral"
-											color="link"
-											href="#pablo"
-											onClick={(e) => e.preventDefault()}
-										>
-											<i className="fa fa-twitter" />
-										</Button>
-										<Button
-											className="btn-just-icon btn-neutral ml-1"
-											color="link"
-											href="#pablo"
-											onClick={(e) => e.preventDefault()}
-										>
-											<i className="fa fa-google-plus" />
-										</Button>
-										<Button
-											className="btn-just-icon btn-neutral ml-1"
-											color="link"
-											href="#pablo"
-											onClick={(e) => e.preventDefault()}
-										>
-											<i className="fa fa-linkedin" />
-										</Button>
-									</CardFooter>
-								</Card>
-							</Col>
-							<Col md="4">
-								<Card className="card-profile card-plain">
-									<div className="card-avatar">
-										<a href="#pablo" onClick={(e) => e.preventDefault()}>
-											<img
-												alt="..."
-												src={require("assets/img/faces/erik-lucatero-2.jpg")}
-											/>
-										</a>
-									</div>
-									<CardBody>
-										<a href="#pablo" onClick={(e) => e.preventDefault()}>
-											<div className="author">
-												<CardTitle tag="h4">Robert Orben</CardTitle>
-												<h6 className="card-category">Developer</h6>
-											</div>
-										</a>
-										<p className="card-description text-center">
-											The strength of the team is each individual member. The
-											strength of each member is the team. If you can laugh
-											together, you can work together, silence isn’t golden,
-											it’s deadly.
+										<p className="card-description text-justify">
+											Hi there! I’m Kate. I live with my husband Robbie, my
+											daughter Vicky and our sweet hound Sulwe, on the gorgeous
+											mountain slopes of Lakeside. I’m a creative sort who has
+											dabbled in a few fields, dipping most happily and heavily
+											into the parenting one. I feel most fortunate to be
+											surrounded daily by so much beauty, and I would count
+											myself even more fortunate if I was able to share this
+											beauty with all South Africans, many of whom live lives
+											that are scarred by the inequality of our city. One of the
+											ways I have learnt to do this is by sourcing food that is
+											not only healthy for me, but pays wages worthy of hours
+											worked. Staying out of the shops and being able to afford
+											such great food are added bonuses – although I need to
+											stress that affordability is not the point. Buying better
+											is. There is much to be learnt from our side still, and
+											I’m thankful for your interest while I learn on the job. I
+											look forward to seeing you on Market Day and having you on
+											this food journey. Love, Kate
 										</p>
 									</CardBody>
 									<CardFooter className="text-center">

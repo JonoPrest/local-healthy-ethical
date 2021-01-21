@@ -1,27 +1,17 @@
 export const addHtmlAndStylingToOrder = (htmlString) =>
-  `<html>
+	`<html>
         <head>
             <title></title>
             <style>
-            .checkout-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+           
 
-.title {
-  max-width: 800px;
-  margin: 20px;
-  text-align: justify;
-}
 
-.title h1 {
-  text-align: center;
+tr {
+	border-bottom: 1px solid #eee;
 }
 
 
 .invoice-box {
-  max-width: 800px;
   margin: 20px;
   padding: 30px;
   border: 1px solid #eee;
@@ -126,7 +116,7 @@ export const addHtmlAndStylingToOrder = (htmlString) =>
     </html>`;
 
 export const addHtmlAndStylingToInvoice = (htmlString) =>
-  `<html>
+	`<html>
     <head>
       <title></title>
       <style>

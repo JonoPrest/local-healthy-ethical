@@ -32,7 +32,7 @@ export const sendInvoice = (userOrder, emailContent) => {
 		subject: `Local Healthy Ethical - Invoice #${userOrder.invoiceNumber} for ${displayName}`,
 		html: `
     <h4>Dear ${displayName},</h4>
-    <h4>Thank you for ordering with us. Please find your invoice below</h4>
+    <h4>Thank you for ordering with us. Please find your invoice below:</h4>
     ${emailContent}`,
 	};
 
@@ -59,7 +59,7 @@ export const sendOrderConfirmation = (currentUser, emailContent) => {
 
 	return axios
 		.post(serverUrl, mailDetails)
-		.then((res) => res)
+		.then((res) => console.log(res))
 		.catch((err) => {
 			throw err;
 		});
@@ -75,7 +75,7 @@ export const mailToSuppliers = (orderArray, supplier) => {
 
 	const orderString = orderRowsArray.join("%0D%0A");
 
-	const emailBody = `Dear%20${supplier.name}%2C%0D%0A%0D%0AI would like to place the following order%3A%0D%0A%0D%0A${orderString}%0D%0A%0D%0AMany thanks and kind regards%2C%0D%0AKate`;
+	const emailBody = `Dear%20${supplier.name}%2C%0D%0A%0D%0AI would like to place the following order for the month of ***%3A%0D%0A%0D%0A${orderString}%0D%0A%0D%0AOur market day this month will be on Friday the ***%0D%0A%0D%0APlease would you deliver before ***%0D%0A%0D%0AMany thanks and kind regards	%2C%2C%0D%0AKate`;
 
 	const mailToLink = `mailto:${supplier.email}?subject=Local%20Healthy%20Ethical%20Food%20Club%20Order&body=${emailBody}`;
 

@@ -171,7 +171,10 @@ const InvoiceTemplate = ({ userOrder, shopSettings }) => {
 										</div>
 
 										<div className="col-xs-6 margintop thanks">
-											<h4 className="lead marginbottom">THANK YOU!</h4>
+											<h4 className="lead marginbottom">
+												Thank you for buying better with us. Kindly pay for your
+												goods within two days of receipt.
+											</h4>
 										</div>
 									</div>
 								</div>

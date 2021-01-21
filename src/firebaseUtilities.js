@@ -90,7 +90,7 @@ export const getShopData = async () => {
 		const snapShot = await shopDataRef.get();
 		const shopData = snapShot.data();
 
-		return shopData.shopItems;
+		return shopData;
 	} catch (err) {
 		throw err;
 	}
@@ -183,7 +183,17 @@ export const setShopArray = async (shopData) => {
 	const shopDataRef = firestore.doc("shop/shop-data");
 
 	try {
-		await shopDataRef.set({ shopItems: shopData });
+		await shopDataRef.update({ shopItems: shopData });
+	} catch (err) {
+		throw err;
+	}
+};
+
+export const setSupplierInfoArray = async (supplierInfo) => {
+	const shopDataRef = firestore.doc("shop/shop-data");
+
+	try {
+		await shopDataRef.update({ supplierInfo: supplierInfo });
 	} catch (err) {
 		throw err;
 	}
