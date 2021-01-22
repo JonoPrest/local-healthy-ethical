@@ -63,7 +63,7 @@ const AdminConsole = ({
 		setShopSyncMessage("Syncing");
 		const proxyUrl = "https://agile-anchorage-79298.herokuapp.com/";
 		const apiURL =
-			"https://docs.google.com/spreadsheets/d/1T2EV-ArYBTgchH1h89pqK0ffc77EDTffItpNqoHosd0/export?format=csv";
+			"https://docs.google.com/spreadsheets/d/1JsCaULpLOrwYNtvyTb6MBbhQHFGBseocIwQsuw880Dg/export?format=csv";
 
 		// Get google sheet data using papa parse
 
@@ -104,7 +104,7 @@ const AdminConsole = ({
 		setSupplierSync(true);
 		const proxyUrl = "https://agile-anchorage-79298.herokuapp.com/";
 		const apiURL =
-			"https://docs.google.com/spreadsheets/d/1vPpKuq_r8e5uw1plCGrGRI-98RN827UT98a4sbkc8Nk/export?format=csv";
+			"https://docs.google.com/spreadsheets/d/1GaM71LiqxDxjhaK7_ml_9BmZNo1RlLi1DOf6v_ZPJnw/export?format=csv";
 
 		// Get google sheet data using papa parse
 

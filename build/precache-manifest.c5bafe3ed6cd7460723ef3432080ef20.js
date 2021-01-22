@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "916389c3bce457ed15a91db5e8b5221d",
+    "revision": "dbad7440ca8ec690a2bc5350bb0e1f48",
     "url": "/local-healthy-ethical/index.html"
   },
   {
-    "revision": "9f242614f9704fa8f67b",
+    "revision": "0a48f1e5daabcc9983e7",
     "url": "/local-healthy-ethical/static/css/main.6cdac7a0.chunk.css"
   },
   {
@@ -16,12 +16,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/local-healthy-ethical/static/js/2.5a75cb7c.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "9f242614f9704fa8f67b",
-    "url": "/local-healthy-ethical/static/js/main.5969082d.chunk.js"
+    "revision": "0a48f1e5daabcc9983e7",
+    "url": "/local-healthy-ethical/static/js/main.07a1b3cd.chunk.js"
   },
   {
     "revision": "30f942bb7783c4b076a0017ec0876fab",
-    "url": "/local-healthy-ethical/static/js/main.5969082d.chunk.js.LICENSE.txt"
+    "url": "/local-healthy-ethical/static/js/main.07a1b3cd.chunk.js.LICENSE.txt"
   },
   {
     "revision": "8a3a8094f3578e2b306f",

@@ -420,7 +420,7 @@ function LandingPage({ setLoginModal, currentUser }) {
 
 				<div className="section section-dark text-center">
 					<Container>
-						<h2 className="title text-center m-auto">The Team</h2>
+						<h2 className="title text-center m-auto">The Coordinator</h2>
 						<Row>
 							<Col>
 								<Card className="card-profile card-plain">
@@ -436,7 +436,7 @@ function LandingPage({ setLoginModal, currentUser }) {
 										<a href="#pablo" onClick={(e) => e.preventDefault()}>
 											<div className="author">
 												<CardTitle tag="h4">Kate Obree</CardTitle>
-												<h6 className="card-category">Founder</h6>
+												{/* <h6 className="card-category">Founder</h6> */}
 											</div>
 										</a>
 										<p className="card-description text-justify">
