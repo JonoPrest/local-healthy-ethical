@@ -308,10 +308,28 @@ export const getOrdersForGivenMonth = async (month) => {
 export const getInvoice = async (invoiceNumber) => {
 	const invoiceRef = firestore.collection("invoices").doc(invoiceNumber);
 
-	const invoiceSnapshot = await invoiceRef.get();
-	const invoice = invoiceSnapshot.data();
+	try {
+		const invoiceSnapshot = await invoiceRef.get();
+		const invoice = invoiceSnapshot.data();
 
-	return invoice;
+		return invoice;
+	} catch (err) {
+		throw err;
+	}
+};
+
+export const getInvoicesForGivenMonth = async (monthOrdersArray) => {
+	try {
+		const invoiceArray = await Promise.all(
+			monthOrdersArray.map(
+				async (order) => await getInvoice(`${order.invoiceNumber}`)
+			)
+		);
+		console.log(invoiceArray);
+		return invoiceArray;
+	} catch (err) {
+		throw err;
+	}
 };
 
 export const updateInvoice = async (order, invoiceNumber) => {

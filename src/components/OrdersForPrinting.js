@@ -1,24 +1,24 @@
 import React, { useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
-import { getAllInvoices } from "firebaseUtilities";
 import { useReactToPrint } from "react-to-print";
 import { Button } from "reactstrap";
 import "./OrdersForPrinting.css";
 import Spinner from "reactstrap/lib/Spinner";
+import { getInvoicesForGivenMonth } from "firebaseUtilities";
 
-const OrdersForPrinting = ({ shopSettings }) => {
+const OrdersForPrinting = ({ shopSettings, monthOrdersArray }) => {
 	const [invoicesArray, setInvoicesArray] = useState([]);
 	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		setLoading(true);
-		getAllInvoices()
+		getInvoicesForGivenMonth(monthOrdersArray)
 			.then((res) => {
 				setInvoicesArray(res);
 				setLoading(false);
 			})
-			.catch((res) => {
-				console.log(res);
+			.catch((err) => {
+				console.log(err);
 				setLoading(false);
 			});
 	}, []);
@@ -32,7 +32,9 @@ const OrdersForPrinting = ({ shopSettings }) => {
 		<Spinner />
 	) : (
 		<>
-			<Button onClick={handlePrint}>Print</Button>
+			<Button onClick={handlePrint}>
+				<i className="fa fa-print mr-1"></i>Print
+			</Button>
 			<div ref={componentRef}>
 				<div className="ordersForPrinting">
 					{invoicesArray.map((invoice) => {

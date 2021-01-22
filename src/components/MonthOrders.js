@@ -6,7 +6,6 @@ import MasterTable from "components/MasterTable";
 import { Button } from "reactstrap";
 import BackButton from "components/BackButton";
 import IndividualOrders from "./IndividualOrders";
-import { getAllInvoices } from "firebaseUtilities";
 import OrdersForPrinting from "./OrdersForPrinting";
 
 const MonthOrders = ({ month }) => {
@@ -33,7 +32,7 @@ const MonthOrders = ({ month }) => {
 					<Link to={`${url}/orders`}>
 						<Button className="m-2">See individual Orders</Button>
 					</Link>
-					<Link onClick={getAllInvoices} to={`${url}/ordersforprinting`}>
+					<Link to={`${url}/ordersforprinting`}>
 						<Button className="m-2">Print all orders</Button>
 					</Link>
 				</Route>
@@ -61,7 +60,10 @@ const MonthOrders = ({ month }) => {
 					<h1>
 						<strong>{month}</strong>
 					</h1>
-					<OrdersForPrinting />
+					<OrdersForPrinting
+						monthOrdersArray={monthOrders}
+						isLoading={isLoading}
+					/>
 				</Route>
 			</Switch>
 		</div>
