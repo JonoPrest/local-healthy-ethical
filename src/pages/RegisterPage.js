@@ -16,7 +16,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import {
 	auth,
@@ -26,8 +26,11 @@ import {
 
 // reactstrap components
 import { Button, Card, Form, Input, Container, Row, Col } from "reactstrap";
+import Spinner from "reactstrap/lib/Spinner";
 
 function RegisterPage() {
+	const [loading, setLoading] = useState(false);
+	const [message, setMessage] = useState("");
 	const history = useHistory();
 
 	React.useEffect(() => {
@@ -39,6 +42,7 @@ function RegisterPage() {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		setLoading(true);
 
 		let displayName = e.target[0].value;
 		let email = e.target[1].value;
@@ -46,7 +50,8 @@ function RegisterPage() {
 		let confirmPassword = e.target[3].value;
 
 		if (password !== confirmPassword) {
-			alert("passwords don't match");
+			setMessage("Passwords don't match.");
+			setLoading(false);
 			return;
 		}
 
@@ -57,10 +62,13 @@ function RegisterPage() {
 			);
 
 			await createUserProfileDocument(user, { displayName });
+			setLoading(false);
 
 			history.push("/");
 		} catch (error) {
 			console.error(error);
+			setMessage(error.message);
+			setLoading(false);
 		}
 	};
 
@@ -117,13 +125,14 @@ function RegisterPage() {
 										name="confirmPassword"
 										required
 									/>
+									<h4>{message}</h4>
 									<Button
 										type="submit"
 										block
 										className="btn-round"
 										color="primary"
 									>
-										Register
+										{loading ? <Spinner size="small" /> : "Register"}
 									</Button>
 								</Form>
 							</Card>

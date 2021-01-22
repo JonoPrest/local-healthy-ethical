@@ -117,13 +117,10 @@ function LandingPage({ setLoginModal, currentUser }) {
 								>
 									<h5>
 										<p>
-											Buying local (from as nearby as possible), healthy (as
-											little chemical interference as possible) and ethical food
-											(in as much as we can gather is kind to people who harvest
-											it, the environment and animals) is a bit of a challenge
-											these days as we find ourselves so busy and often
+											Buying local, healthy and ethically produced food is a bit
+											of a challenge these days as we find ourselves
 											disconnected from where our food comes from. We’re often
-											so oblivious to the practices around how we get to eat
+											oblivious to the practices a how around how we get to eat
 											what we eat.
 										</p>
 										<br />
@@ -131,99 +128,71 @@ function LandingPage({ setLoginModal, currentUser }) {
 										<br />
 
 										<p>
-											A desire to bring the food experience from similar groups
-											we've been part of (Good Food Clubs as started by Liesl
-											Stewart) inspired the start of this group. Our experience
-											of eating wholesome food with a good story behind it
-											brings peace to our plates, and enables us to "vote with
-											our wallets" as to the kinds of businesses we want to
-											support and see growth in in our country.
+											This group stems from a desire to bring the food
+											experience from similar groups we've been part of (Good
+											Food Clubs as started by Liesl Stewart) to our own home
+											and community in Lakeside. Eating wholesome food with a
+											good, transparent story behind it brings peace to our
+											plates. It does this because we get to know what goes into
+											our food, specifically who we are supporting when we buy
+											the food, and what the impact of our consumption on the
+											natural world is. It's empowering.
+										</p>
+										<br />
+
+										<p>How does this work?</p>
+										<br />
+
+										<p>
+											We buy food and goods directly from producers (farmers,
+											bakers, creators) with a few priorities. We source goods
+											that are locally made, with as little chemical
+											interference as possible (we can understand all the
+											ingredients on the label) and we look for suppliers that
+											pay their employees fairly and treat the earth and animals
+											with respect. We love supporting start-ups and black-owned
+											businesses too.
+										</p>
+										<br />
+
+										<p>Are all the goods local, healthy and ethical?</p>
+										<br />
+
+										<p>
+											Local // All the suppliers are South African and reside in
+											the Western Cape. Two suppliers source a portion of their
+											goods internationally, but we've taken the decision to
+											support their businesses given that a) the goods they sell
+											aren't locally available and b) they are employing a local
+											workforce, making a significant contribution to our
+											economy in that way.
 										</p>
 										<br />
 
 										<p>
-											Buying from food and goods producers as directly as
-											possible, discovering who the local farmers are,
-											prioritising black-owned business and female owned
-											business, buying organic or non-gmo, asking questions
-											about ethical wages for workers, prioritizing good
-											treatment of animals and the environment are the things
-											we’re grappling with as we choose and work with suppliers.
+											Healthy // The food we buy is as free-range, organic
+											(although often uncertified) and with as little chemical
+											interference as possible. As previously mentioned, the
+											labels are understandable and the produce is hormone,
+											pesticide and GMO free.
 										</p>
 										<br />
 
 										<p>
-											We are not an exclusive or gourmet food club, but an
-											alternative way of shopping. In some cases, this will mean
-											buying organic, in others, non-gmo. In other ways it means
-											prioritising ethical or local buying. The idea here is not
-											to buy foods that are the best bargain, but rather to buy
-											“better”.
+											Ethical // We want to support suppliers that are giving
+											their employees a fair share of the profits, and a wage
+											that is worthy of the time worked. We do as much as we can
+											to understand what the business relationships are like
+											behind the scenes while acknowledging that there is more
+											work to be done. We will continue to ask our suppliers the
+											difficult questions as our relationships progress.
 										</p>
 										<br />
 
 										<p>
-											Sometimes the food is more expensive than at the
-											supermarket, but sometimes it is cheaper. We’re finding
-											that a lot of the time it is cheaper. It is very hard
-											(almost impossible) to buy perfectly, so here’s to doing
-											the best we can!
+											It's very hard to buy perfectly, but it is 100% worth
+											trying. Will you join us?
 										</p>
-										<br />
-
-										<p>
-											Another massive value we like to practice is kindness - we
-											are a human-run club and we still have a lot to learn. Our
-											suppliers are human too, so we do all we can do be a
-											different kind of consumer.
-										</p>
-										<br />
-
-										<p>
-											Please check and double check your invoices that
-											everything is correct. Our new website will be up from
-											January 2021 which will hopefully sort out some of our
-											admin faux paux's! Please also understand that some months
-											certain things might not arrive because they’re not in
-											stock. The food may also not be as you expect it to be -
-											the milk may be too creamy, and the lack of preservatives
-											in certain items may mean a shorter shelf life.
-										</p>
-										<br />
-
-										<p>
-											We do hope you will find many things that work for you.
-											You may have to try a few things out! Buying good food is
-											not necessarily always convenient :) so please keep this
-											in mind.
-										</p>
-										<br />
-
-										<p>
-											Please follow the links provided on this board to find out
-											more about the products you are ordering. We have provided
-											some basic detail, but the rest is up to you.
-										</p>
-										<br />
-
-										<p>
-											Lastly, we’d love to hear your feedback, your questions
-											and the things that matter to you, and in as much as is
-											possible we will try to incorporate them into our
-											practices. We are by no means food gurus, but we’re
-											excited to walk alongside you and figure things out along
-											the way.
-										</p>
-										<br />
-
-										<p>Peace and good food to you!</p>
-										<br />
-
-										<p>❤️</p>
-										<br />
-
-										<p>Kate</p>
-										<br />
 									</h5>
 									<br />
 								</LongScrollingModal>

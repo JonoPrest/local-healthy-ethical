@@ -14,8 +14,8 @@ function LoginModal({ loginModal, setLoginModal }) {
 	}, [loginModal]);
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		let email = e.target[0].value;
-		let password = e.target[1].value;
+		let email = e.target.email.value;
+		let password = e.target.password.value;
 		auth
 			.signInWithEmailAndPassword(email, password)
 			.then(() => {
@@ -53,8 +53,7 @@ function LoginModal({ loginModal, setLoginModal }) {
 					<p>Log in to your account</p>
 				</div>
 				<Button
-					className="btn w-50 mx-auto"
-					style={{ backgroundColor: "#4885ed	" }}
+					className="btn  w-50 mx-auto"
 					onClick={() => {
 						signInWithGoogle();
 						setLoginModal(false);
@@ -67,21 +66,31 @@ function LoginModal({ loginModal, setLoginModal }) {
 						<form onSubmit={handleSubmit}>
 							<FormGroup>
 								<label>Email</label>
-								<Input defaultValue="" placeholder="Email" type="text" />
+								<Input
+									defaultValue=""
+									placeholder="Email"
+									type="text"
+									name="email"
+								/>
 							</FormGroup>
 							<FormGroup>
 								<label>Password</label>
-								<a
+								<Button
+									className="btn-link"
 									onClick={(e) => {
 										e.preventDefault();
 										setForgotPassword(true);
 									}}
-									href="#"
 									style={{ float: "right" }}
 								>
 									Forgot Password?
-								</a>
-								<Input defaultValue="" placeholder="Password" type="password" />
+								</Button>
+								<Input
+									defaultValue=""
+									placeholder="Password"
+									type="password"
+									name="password"
+								/>
 							</FormGroup>
 							<Button block className="btn-round" color="primary" type="submit">
 								Sign In
@@ -91,7 +100,8 @@ function LoginModal({ loginModal, setLoginModal }) {
 						<form onSubmit={handleForgotPassword}>
 							<FormGroup>
 								<label>Which email would you like to reset?</label>
-								<a
+								<Button
+									className="btn-link"
 									onClick={(e) => {
 										e.preventDefault();
 										setForgotPassword(false);
@@ -100,7 +110,7 @@ function LoginModal({ loginModal, setLoginModal }) {
 									style={{ float: "right" }}
 								>
 									Return to Sign In
-								</a>
+								</Button>
 								<Input
 									defaultValue=""
 									placeholder="Email"
@@ -117,7 +127,7 @@ function LoginModal({ loginModal, setLoginModal }) {
 				</div>
 				<div className="modal-footer no-border-footer">
 					<span className="text-muted text-center">
-						Looking{" "}
+						Looking to{" "}
 						<Link to="/register" onClick={() => setLoginModal(false)}>
 							create an account
 						</Link>

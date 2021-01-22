@@ -105,6 +105,7 @@ function ExamplesNavbar({
 								/>
 								{currentUser.displayName} {"  "}
 								{!currentUser.userAccepted && <span> (Awaiting Approval)</span>}
+								{currentUser.userRejected && <span> (Access Not Granted)</span>}
 							</div>
 						) : (
 							"Welcome"
