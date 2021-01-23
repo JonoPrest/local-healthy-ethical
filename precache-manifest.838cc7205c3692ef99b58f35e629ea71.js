@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a39000b28d246bf004875e2b0b84d7e0",
+    "revision": "adbcb22a67a23a5b8657c1b4e2f3d2ba",
     "url": "/local-healthy-ethical/index.html"
   },
   {
-    "revision": "4654779490d754ca8b90",
+    "revision": "c393425b403a1e6c00fe",
     "url": "/local-healthy-ethical/static/css/main.6cdac7a0.chunk.css"
   },
   {
-    "revision": "2c7bfa5341d38ebac7b5",
-    "url": "/local-healthy-ethical/static/js/2.5a75cb7c.chunk.js"
+    "revision": "acceebcf948a03e051d8",
+    "url": "/local-healthy-ethical/static/js/2.b9b27edd.chunk.js"
   },
   {
     "revision": "caa56f837e27bfbaf4c7d6faee441a7a",
-    "url": "/local-healthy-ethical/static/js/2.5a75cb7c.chunk.js.LICENSE.txt"
+    "url": "/local-healthy-ethical/static/js/2.b9b27edd.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "4654779490d754ca8b90",
-    "url": "/local-healthy-ethical/static/js/main.289ce1b3.chunk.js"
+    "revision": "c393425b403a1e6c00fe",
+    "url": "/local-healthy-ethical/static/js/main.5a6b988b.chunk.js"
   },
   {
     "revision": "30f942bb7783c4b076a0017ec0876fab",
-    "url": "/local-healthy-ethical/static/js/main.289ce1b3.chunk.js.LICENSE.txt"
+    "url": "/local-healthy-ethical/static/js/main.5a6b988b.chunk.js.LICENSE.txt"
   },
   {
     "revision": "8a3a8094f3578e2b306f",
@@ -48,8 +48,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/local-healthy-ethical/static/media/bruno-abatti.80954654.jpg"
   },
   {
-    "revision": "db2e35283e605fd6424a891eaebc54a5",
-    "url": "/local-healthy-ethical/static/media/cart-cover.db2e3528.jpeg"
+    "revision": "f8a35f9424b2b92462fe4d6366fc2b2b",
+    "url": "/local-healthy-ethical/static/media/cart-cover.f8a35f94.jpeg"
   },
   {
     "revision": "bb4b9ac9fd07e48f86c719495b65341c",
@@ -172,8 +172,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/local-healthy-ethical/static/media/ryan.f217f346.jpg"
   },
   {
-    "revision": "272595a7540c49f00a3ecce172d29aff",
-    "url": "/local-healthy-ethical/static/media/shop-cover.272595a7.jpg"
+    "revision": "db2e35283e605fd6424a891eaebc54a5",
+    "url": "/local-healthy-ethical/static/media/shop-cover.db2e3528.jpg"
   },
   {
     "revision": "29df8117c07250e9b1ea8e3a67627f67",

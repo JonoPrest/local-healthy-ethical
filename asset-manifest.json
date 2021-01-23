@@ -1,24 +1,24 @@
 {
   "files": {
     "main.css": "/local-healthy-ethical/static/css/main.6cdac7a0.chunk.css",
-    "main.js": "/local-healthy-ethical/static/js/main.289ce1b3.chunk.js",
-    "main.js.map": "/local-healthy-ethical/static/js/main.289ce1b3.chunk.js.map",
+    "main.js": "/local-healthy-ethical/static/js/main.5a6b988b.chunk.js",
+    "main.js.map": "/local-healthy-ethical/static/js/main.5a6b988b.chunk.js.map",
     "runtime-main.js": "/local-healthy-ethical/static/js/runtime-main.975698df.js",
     "runtime-main.js.map": "/local-healthy-ethical/static/js/runtime-main.975698df.js.map",
-    "static/js/2.5a75cb7c.chunk.js": "/local-healthy-ethical/static/js/2.5a75cb7c.chunk.js",
-    "static/js/2.5a75cb7c.chunk.js.map": "/local-healthy-ethical/static/js/2.5a75cb7c.chunk.js.map",
+    "static/js/2.b9b27edd.chunk.js": "/local-healthy-ethical/static/js/2.b9b27edd.chunk.js",
+    "static/js/2.b9b27edd.chunk.js.map": "/local-healthy-ethical/static/js/2.b9b27edd.chunk.js.map",
     "index.html": "/local-healthy-ethical/index.html",
-    "precache-manifest.1d6decaa213eba81e9164ef4049a52c1.js": "/local-healthy-ethical/precache-manifest.1d6decaa213eba81e9164ef4049a52c1.js",
+    "precache-manifest.838cc7205c3692ef99b58f35e629ea71.js": "/local-healthy-ethical/precache-manifest.838cc7205c3692ef99b58f35e629ea71.js",
     "service-worker.js": "/local-healthy-ethical/service-worker.js",
     "static/css/main.6cdac7a0.chunk.css.map": "/local-healthy-ethical/static/css/main.6cdac7a0.chunk.css.map",
-    "static/js/2.5a75cb7c.chunk.js.LICENSE.txt": "/local-healthy-ethical/static/js/2.5a75cb7c.chunk.js.LICENSE.txt",
-    "static/js/main.289ce1b3.chunk.js.LICENSE.txt": "/local-healthy-ethical/static/js/main.289ce1b3.chunk.js.LICENSE.txt",
+    "static/js/2.b9b27edd.chunk.js.LICENSE.txt": "/local-healthy-ethical/static/js/2.b9b27edd.chunk.js.LICENSE.txt",
+    "static/js/main.5a6b988b.chunk.js.LICENSE.txt": "/local-healthy-ethical/static/js/main.5a6b988b.chunk.js.LICENSE.txt",
     "static/media/antoine-barres.jpg": "/local-healthy-ethical/static/media/antoine-barres.dfbf459c.jpg",
     "static/media/avatar.jpg": "/local-healthy-ethical/static/media/avatar.7257a1a9.jpg",
     "static/media/ayo-ogunseinde-2.jpg": "/local-healthy-ethical/static/media/ayo-ogunseinde-2.bfc688ca.jpg",
     "static/media/blurred-image-1.jpg": "/local-healthy-ethical/static/media/blurred-image-1.0e3525dc.jpg",
     "static/media/bruno-abatti.jpg": "/local-healthy-ethical/static/media/bruno-abatti.80954654.jpg",
-    "static/media/cart-cover.jpeg": "/local-healthy-ethical/static/media/cart-cover.db2e3528.jpeg",
+    "static/media/cart-cover.jpeg": "/local-healthy-ethical/static/media/cart-cover.f8a35f94.jpeg",
     "static/media/clem-onojeghuo-2.jpg": "/local-healthy-ethical/static/media/clem-onojeghuo-2.bb4b9ac9.jpg",
     "static/media/clem-onojeghuo-3.jpg": "/local-healthy-ethical/static/media/clem-onojeghuo-3.ae11d928.jpg",
     "static/media/clouds.png": "/local-healthy-ethical/static/media/clouds.61c4e000.png",
@@ -46,15 +46,15 @@
     "static/media/placeholder.jpg": "/local-healthy-ethical/static/media/placeholder.83f3f36d.jpg",
     "static/media/profile-page.png": "/local-healthy-ethical/static/media/profile-page.ed812899.png",
     "static/media/ryan.jpg": "/local-healthy-ethical/static/media/ryan.f217f346.jpg",
-    "static/media/shop-cover.jpg": "/local-healthy-ethical/static/media/shop-cover.272595a7.jpg",
+    "static/media/shop-cover.jpg": "/local-healthy-ethical/static/media/shop-cover.db2e3528.jpg",
     "static/media/soroush-karimi.jpg": "/local-healthy-ethical/static/media/soroush-karimi.29df8117.jpg",
     "static/media/splash-image.jpg": "/local-healthy-ethical/static/media/splash-image.8fae9197.jpg",
     "static/media/uriel-soberanes.jpg": "/local-healthy-ethical/static/media/uriel-soberanes.fe3a7838.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.975698df.js",
-    "static/js/2.5a75cb7c.chunk.js",
+    "static/js/2.b9b27edd.chunk.js",
     "static/css/main.6cdac7a0.chunk.css",
-    "static/js/main.289ce1b3.chunk.js"
+    "static/js/main.5a6b988b.chunk.js"
   ]
 }
