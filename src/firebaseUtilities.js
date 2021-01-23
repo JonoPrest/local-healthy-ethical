@@ -325,7 +325,6 @@ export const getInvoicesForGivenMonth = async (monthOrdersArray) => {
 				async (order) => await getInvoice(`${order.invoiceNumber}`)
 			)
 		);
-		console.log(invoiceArray);
 		return invoiceArray;
 	} catch (err) {
 		throw err;
@@ -353,7 +352,6 @@ export const getAllInvoices = async () => {
 		snapShot.forEach((snap) => {
 			invoicesArray.push(snap.data());
 		});
-		console.log(invoicesArray);
 		return invoicesArray;
 	} catch (err) {
 		throw err;

@@ -7,6 +7,7 @@ import { Button } from "reactstrap";
 import BackButton from "components/BackButton";
 import IndividualOrders from "./IndividualOrders";
 import OrdersForPrinting from "./OrdersForPrinting";
+import BalanceSheet from "./BalanceSheet";
 
 const MonthOrders = ({ month }) => {
 	const { url, path } = useRouteMatch();
@@ -34,6 +35,9 @@ const MonthOrders = ({ month }) => {
 					</Link>
 					<Link to={`${url}/ordersforprinting`}>
 						<Button className="m-2">Print all orders</Button>
+					</Link>
+					<Link to={`${url}/balancesheet`}>
+						<Button className="m-2">Balance Sheet</Button>
 					</Link>
 				</Route>
 				<Route path={`${path}/master-table`}>
@@ -64,6 +68,13 @@ const MonthOrders = ({ month }) => {
 						monthOrdersArray={monthOrders}
 						isLoading={isLoading}
 					/>
+				</Route>
+				<Route path={`${path}/balancesheet`}>
+					<BackButton />
+					<h1>
+						<strong>{month}</strong>
+					</h1>
+					<BalanceSheet monthOrdersArray={monthOrders} isLoading={isLoading} />
 				</Route>
 			</Switch>
 		</div>

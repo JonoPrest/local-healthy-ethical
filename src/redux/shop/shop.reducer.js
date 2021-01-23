@@ -5,7 +5,7 @@ const INITIAL_STATE = {
 	supplierInfo: [],
 	isFetching: false,
 	errorMessage: undefined,
-	shopSettings: { shopIsLive: false, orderGroupName: "" },
+	shopSettings: { shopIsLive: false, orderGroupName: "", marketDayFee: null },
 	isFetchingSettings: false,
 };
 

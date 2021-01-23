@@ -423,22 +423,18 @@ function LandingPage({ setLoginModal, currentUser }) {
 						<h2 className="title text-center m-auto">The Coordinator</h2>
 						<Row>
 							<Col>
-								<Card className="card-profile card-plain">
+								<Card className="card-profile card-plain card-product">
 									<div className="card-avatar">
-										<a href="#pablo" onClick={(e) => e.preventDefault()}>
-											<img
-												alt="..."
-												src={require("assets/img/kate-profile.jpg")}
-											/>
-										</a>
+										<img
+											alt="..."
+											src={require("assets/img/kate-profile.jpg")}
+										/>
 									</div>
 									<CardBody>
-										<a href="#pablo" onClick={(e) => e.preventDefault()}>
-											<div className="author">
-												<CardTitle tag="h4">Kate Obree</CardTitle>
-												{/* <h6 className="card-category">Founder</h6> */}
-											</div>
-										</a>
+										<div className="author">
+											<CardTitle tag="h4">Kate Obree</CardTitle>
+											{/* <h6 className="card-category">Founder</h6> */}
+										</div>
 										<p className="card-description text-justify">
 											Hi there! I’m Kate. I live with my husband Robbie, my
 											daughter Vicky and our sweet hound Sulwe, on the gorgeous
@@ -491,7 +487,7 @@ function LandingPage({ setLoginModal, currentUser }) {
 						</Row>
 					</Container>
 				</div>
-				<div className="section landing-section">
+				<div className="section landing-section" id="contact">
 					<Container>
 						<Row>
 							<Col className="ml-auto mr-auto" md="8">
