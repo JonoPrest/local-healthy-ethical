@@ -34,12 +34,14 @@ import {
 	Container,
 	Badge,
 } from "reactstrap";
+import ProfileModal from "./ProfileModal";
 
 function ExamplesNavbar({
 	setLoginModal,
 	currentUser,
 	cartItems,
 	shopSettings,
+	shopIsVisible,
 }) {
 	const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
 	const [navbarCollapse, setNavbarCollapse] = React.useState(false);
@@ -92,25 +94,31 @@ function ExamplesNavbar({
 		>
 			<Container>
 				<div className="navbar-translate">
-					<NavbarBrand
-						data-placement="bottom"
-						title="Local Healthy Ethical"
-						tag={Link}
-					>
-						{currentUser ? (
-							<div>
-								<i
-									className="nc-icon nc-single-02 mr-2"
-									style={{ fontSize: "15px" }}
-								/>
-								{currentUser.displayName} {"  "}
-								{!currentUser.userAccepted && <span> (Awaiting Approval)</span>}
-								{currentUser.userRejected && <span> (Access Not Granted)</span>}
-							</div>
-						) : (
-							"Welcome"
-						)}
-					</NavbarBrand>
+					<ProfileModal>
+						<NavbarBrand
+							data-placement="bottom"
+							title="Local Healthy Ethical"
+							tag={Link}
+						>
+							{currentUser ? (
+								<div>
+									<i
+										className="nc-icon nc-single-02 mr-2"
+										style={{ fontSize: "15px" }}
+									/>
+									{currentUser.displayName} {"  "}
+									{!currentUser.userAccepted && (
+										<span> (Awaiting Approval)</span>
+									)}
+									{currentUser.userRejected && (
+										<span> (Access Not Granted)</span>
+									)}
+								</div>
+							) : (
+								"Welcome"
+							)}
+						</NavbarBrand>
+					</ProfileModal>
 
 					<button
 						aria-expanded={navbarCollapse}
@@ -142,20 +150,22 @@ function ExamplesNavbar({
 								</NavLink>
 							</NavItem>
 						)}
-						{shopSettings.shopIsLive &&
-							currentUser &&
-							currentUser.userAccepted && (
-								<NavItem>
-									<NavLink onClick={toggleNavbarCollapse} to="/shop" tag={Link}>
-										SHOP
-									</NavLink>
-								</NavItem>
-							)}
+						{shopIsVisible && (
+							<NavItem>
+								<NavLink onClick={toggleNavbarCollapse} to="/shop" tag={Link}>
+									SHOP{" "}
+									{!shopSettings.shopIsLive && (
+										<span>(Visible to admin only)</span>
+									)}
+								</NavLink>
+							</NavItem>
+						)}
 						<NavItem>
 							{currentUser ? (
 								<NavLink
 									onClick={() => {
 										auth.signOut();
+
 										toggleNavbarCollapse();
 									}}
 									style={{ cursor: "pointer" }}
@@ -174,30 +184,28 @@ function ExamplesNavbar({
 								</NavLink>
 							)}
 						</NavItem>
-						{shopSettings.shopIsLive &&
-							currentUser &&
-							currentUser.userAccepted && (
-								<NavItem>
-									<NavLink
-										onClick={toggleNavbarCollapse}
-										to="/cart"
-										tag={Link}
-										alt={`${cartCount} items in your cart`}
-										className="d-flex align-items-center"
-									>
-										<i
-											className="nc-icon nc-cart-simple"
-											style={{ fontSize: "20px" }}
-										/>
-										<p className="d-lg-none ml-2 ">Cart</p>
-										{cartCount > 0 && (
-											<Badge color="danger" className="ml-1 px-1">
-												{cartCount}
-											</Badge>
-										)}
-									</NavLink>
-								</NavItem>
-							)}
+						{shopIsVisible && (
+							<NavItem>
+								<NavLink
+									onClick={toggleNavbarCollapse}
+									to="/cart"
+									tag={Link}
+									alt={`${cartCount} items in your cart`}
+									className="d-flex align-items-center"
+								>
+									<i
+										className="nc-icon nc-cart-simple"
+										style={{ fontSize: "20px" }}
+									/>
+									<p className="d-lg-none ml-2 ">Cart</p>
+									{cartCount > 0 && (
+										<Badge color="danger" className="ml-1 px-1">
+											{cartCount}
+										</Badge>
+									)}
+								</NavLink>
+							</NavItem>
+						)}
 					</Nav>
 				</Collapse>
 			</Container>
