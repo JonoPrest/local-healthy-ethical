@@ -66,7 +66,10 @@ const ProductCard = ({ product, addItem, supplierInfo }) => {
 						{foundSupplierInfo.Website && (
 							<div>
 								<p>For more info visit their website:</p>
-								<a href={foundSupplierInfo.Website}>
+								<a
+									href={`https://${foundSupplierInfo.Website}`}
+									target="_blank"
+								>
 									{foundSupplierInfo.Website}
 								</a>
 							</div>
