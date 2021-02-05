@@ -76,13 +76,13 @@ export const mailToSuppliers = (orderArray, supplier) => {
 		});
 
 	const orderString = orderRowsArray.join("%0D%0A");
-	const formattedForAmbersand = orderString.replace("&", "%26");
 
-	const emailBody = `Dear%20${supplier.name}%2C%0D%0A%0D%0AI would like to place the following order for the month of ***%3A%0D%0A%0D%0A${formattedForAmbersand}%0D%0A%0D%0AOur market day this month will be on Friday the ***%0D%0A%0D%0APlease would you deliver before ***%0D%0A%0D%0AMany thanks and kind regards%2C%0D%0AKate`;
+	const emailBody = `Dear%20${supplier.name}%2C%0D%0A%0D%0AI would like to place the following order for the month of ***%3A%0D%0A%0D%0A${orderString}%0D%0A%0D%0AOur market day this month will be on Friday the ***%0D%0A%0D%0APlease would you deliver before ***%0D%0A%0D%0AMany thanks and kind regards%2C%0D%0AKate`;
 
+	const formattedForAmbersand = emailBody.replace("&", "%26");
 	const uriEncodedEmailAddress = encodeURI(supplier.email);
 
-	const mailToLink = `mailto:${uriEncodedEmailAddress}?subject=Local%20Healthy%20Ethical%20Food%20Club%20Order&body=${emailBody}`;
+	const mailToLink = `mailto:${uriEncodedEmailAddress}?subject=Local%20Healthy%20Ethical%20Food%20Club%20Order&body=${formattedForAmbersand}`;
 
 	return mailToLink;
 };
