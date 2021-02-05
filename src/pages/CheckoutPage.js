@@ -155,10 +155,11 @@ const CheckoutPage = ({
 									<table cellPadding="0" cellSpacing="0">
 										<tbody>
 											<tr className="heading">
-												<td>Quantity</td>
-												<td>Item</td>
+												<th>Quantity</th>
+												<th>Item</th>
 
-												<td>Price</td>
+												<th>Price</th>
+												<th>Total</th>
 											</tr>
 
 											{cart.map((item, i) => {
@@ -172,7 +173,10 @@ const CheckoutPage = ({
 																item.item.Units +
 																")"}
 														</td>
-														<td>{`R${item.item.Price}`}</td>
+														<td>R{item.item.Price}</td>
+														<td>
+															R{(item.item.Price * item.quantity).toFixed(2)}
+														</td>
 													</tr>
 												);
 											})}
@@ -180,13 +184,14 @@ const CheckoutPage = ({
 											<tr>
 												<td>1</td>
 												<td>Market Day Fee</td>
+												<td></td>
 												<td>{`R${marketDayFee}`}</td>
 											</tr>
 
 											<tr className="total">
 												<td></td>
 												<td></td>
-
+												<td></td>
 												<td>{`Total: R${(
 													Number(total) + Number(marketDayFee)
 												).toFixed(2)}`}</td>

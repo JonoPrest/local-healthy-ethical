@@ -77,7 +77,7 @@ const OrdersForPrinting = ({ shopSettings, monthOrdersArray }) => {
 												Total Price
 											</th>
 											<th></th>
-											<th></th>
+											<th>(#{invoice.invoiceNumber})</th>
 										</tr>
 									</thead>
 									<tbody>

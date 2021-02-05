@@ -46,10 +46,10 @@ const ProductCard = ({ product, addItem, supplierInfo }) => {
 				top
 				src={product.Image !== "" ? product.Image : noImage}
 				alt="..."
-				style={{ height: "14rem", objectFit: "cover" }}
+				style={{ height: "12rem", objectFit: "cover" }}
 			/>
 			<CardBody>
-				<h4>{product.Item}</h4>
+				<h4 style={{ marginTop: "0", paddingTop: "0" }}>{product.Item}</h4>
 				<CardText>
 					<LongScrollingModal
 						buttonClassName="btn-link btn-primary ml-0 pl-0"
@@ -66,7 +66,10 @@ const ProductCard = ({ product, addItem, supplierInfo }) => {
 						{foundSupplierInfo.Website && (
 							<div>
 								<p>For more info visit their website:</p>
-								<a href={foundSupplierInfo.Website}>
+								<a
+									href={`https://${foundSupplierInfo.Website}`}
+									target="_blank"
+								>
 									{foundSupplierInfo.Website}
 								</a>
 							</div>

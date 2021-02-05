@@ -21,10 +21,7 @@
 @media print {
 	@page {
 		size: A4 portrait;
-	}
-
-	.ordersForPrinting {
-		margin: 50px;
+		margin: 12mm;
 	}
 
 	.ordersForPrinting .individualInvoice {
