@@ -21,7 +21,7 @@ const OrdersForPrinting = ({ shopSettings, monthOrdersArray }) => {
 				console.log(err);
 				setLoading(false);
 			});
-	}, []);
+	}, [monthOrdersArray]);
 
 	const componentRef = useRef();
 	const handlePrint = useReactToPrint({
