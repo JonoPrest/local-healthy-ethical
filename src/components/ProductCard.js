@@ -2,10 +2,8 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { addItem } from "redux/cart/cart.actions";
 
-import { Card, CardImg, CardBody, CardText, Button } from "reactstrap";
+import { Card, CardBody, CardText, Button } from "reactstrap";
 import LongScrollingModal from "./LongScrollingModal";
-
-const noImage = require("assets/img/no-image.jpg");
 
 const ProductCard = ({ product, addItem, supplierInfo }) => {
 	const [foundSupplierInfo, setFoundSupplierInfo] = useState({});
@@ -42,12 +40,7 @@ const ProductCard = ({ product, addItem, supplierInfo }) => {
 			className="mx-3 card-product"
 			style={{ width: "20rem", minWidth: "20rem" }}
 		>
-			<CardImg
-				top
-				src={product.Image !== "" ? product.Image : noImage}
-				alt="..."
-				style={{ height: "12rem", objectFit: "cover" }}
-			/>
+			
 			<CardBody>
 				<h4 style={{ marginTop: "0", paddingTop: "0" }}>{product.Item}</h4>
 				<CardText>

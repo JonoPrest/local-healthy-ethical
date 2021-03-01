@@ -94,9 +94,6 @@ function LandingPage({ setLoginModal, currentUser }) {
 			<div className="main">
 				<div className="section text-center">
 					<Container>
-						<LongScrollingModal buttonText="Press me">
-							<ProfileModal />
-						</LongScrollingModal>
 						<Row>
 							<Col className="ml-auto mr-auto" md="8">
 								<h2 className="title text-center">Welcome!</h2>

@@ -14,12 +14,12 @@ const AllCategoriesPage = ({ data, uniqueCategoryArray }) => {
       <div className="w-100 d-flex flex-column align-items-center">
         {uniqueCategoryArray.map((uniqueCategory, i) => {
           const products = data.filter((value) => {
-            return value.Category === uniqueCategory.Category;
+            return value.Category === uniqueCategory.Item;
           });
           return (
             <div key={i}>
               <h2 className="text-center p-4 text-secondary">
-                <strong>{uniqueCategory.Category}</strong>
+                <strong>{uniqueCategory.Item}</strong>
               </h2>
               <div className="w-50 border border-secondary mb-5 mx-auto"></div>
               <div className="d-flex overflow-auto" style={{ width: "95vw" }}>

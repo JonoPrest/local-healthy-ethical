@@ -12,7 +12,6 @@ import "assets/scss/paper-kit.scss?v=1.2.0";
 import "assets/demo/demo.css?v=1.2.0";
 // pages
 import LoginModal from "components/LoginModal";
-import NucleoIcons from "pages/NucleoIcons.js";
 import LandingPage from "pages/LandingPage.js";
 import ShopPage from "pages/ShopPage.js";
 import CartPage from "pages/CartPage.js";
