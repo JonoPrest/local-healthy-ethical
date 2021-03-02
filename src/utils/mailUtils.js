@@ -67,10 +67,9 @@ export const sendOrderConfirmation = (currentUser, emailContent) => {
 
 export const mailToSuppliers = (orderArray, supplier) => {
 	const orderRowsArray = orderArray
-		.filter((orderItem) => orderItem.item.Supplier === supplier.name)
+		.filter((orderItem) => orderItem.itemInfo.item.Supplier === supplier.name)
 		.map((orderItem) => {
-			const row = `${orderItem.quantity}x ${orderItem.item.Quantity}${orderItem.item.Units} ${orderItem.item.Item}`;
-			console.log(row);
+			const row = `${orderItem.itemInfo.quantity}x ${orderItem.itemInfo.item.Quantity}${orderItem.itemInfo.item.Units} ${orderItem.itemInfo.item.Item}`;
 			const encodedRow = encodeURI(row);
 			return encodedRow;
 		});
