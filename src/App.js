@@ -35,15 +35,11 @@ const App = ({
 
 	useEffect(() => {
 		const unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-			console.log("app useEffect called");
-			console.log(userAuth);
 			if (userAuth) {
-				console.log("If triggered");
 				const userRef = await createUserProfileDocument(userAuth);
 
 				userRef.onSnapshot((snapShot) => {
 					if (userAuth) {
-						console.log(userAuth);
 						setCurrentUser({
 							id: snapShot.id,
 							...snapShot.data(),

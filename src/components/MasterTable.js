@@ -49,7 +49,6 @@ const MasterTable = ({ monthOrdersArray, isLoading }) => {
         };
       });
     });
-    console.log(masterObj);
     setMasterObject(masterObj);
     let cumulativeSum = 0;
     Object.values(masterObj).forEach((value, i) => {
@@ -154,7 +153,6 @@ const MasterTable = ({ monthOrdersArray, isLoading }) => {
                           <LongScrollingModal
                             buttonText={value.itemInfo.quantity}
                             title={value.itemInfo.item.Item}
-                            
                           >
                             {Object.values(value.userInfo).map((userValue) => {
                               return (
