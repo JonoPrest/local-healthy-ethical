@@ -158,7 +158,7 @@ const MasterTable = ({ monthOrdersArray, isLoading }) => {
                               return (
                                 <div>
                                   <p>
-                                    {userValue.quantity}x {userValue.user}{" "}
+                                    {userValue.quantity}x {userValue.user} 
                                   </p>
                                 </div>
                               );
@@ -202,7 +202,6 @@ const MasterTable = ({ monthOrdersArray, isLoading }) => {
             <h2>Email Supplier:</h2>
             <div
               className="d-flex flex-column"
-              style={{ maxHeight: "500px", overflowY: "auto" }}
             >
               {suppliersArray.map((supplier) => (
                 <a

@@ -139,6 +139,6 @@
 
 @media print {
   @page {
-    size: auto;
+    size: A4 portrait;
   }
 }

@@ -37,7 +37,7 @@ const IndividualOrderInvoice = ({ shopSettings }) => {
 	useEffect(() => {
 		//print settings
 		const style = document.createElement("style");
-		style.innerHTML = `@page {size: portrait}`;
+		style.innerHTML = `@page {size: A4 portrait}`;
 		style.id = "page-orientation";
 		document.head.appendChild(style);
 

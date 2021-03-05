@@ -11,7 +11,14 @@ const OrdersForPrinting = ({ shopSettings, monthOrdersArray }) => {
 	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
+
 		setLoading(true);
+		 //Print settings
+		 const style = document.createElement("style");
+		 style.innerHTML = `@page {size: A4 Portrait}`;
+		 style.id = "page-orientation";
+		 document.head.appendChild(style);
+	 
 		getInvoicesForGivenMonth(monthOrdersArray)
 			.then((res) => {
 				setInvoicesArray(res);
