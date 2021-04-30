@@ -67,16 +67,16 @@ export const sendOrderConfirmation = (currentUser, emailContent) => {
 
 export const mailToSuppliers = (orderArray, supplier) => {
   const orderRowsArray = orderArray
-    .filter((orderItem) => orderItem.item.Supplier === supplier.name)
+    .filter((orderItem) => orderItem.itemInfo.item.Supplier === supplier.name)
     .map((orderItem) => {
-      const row = `${orderItem.quantity}x ${orderItem.item.Quantity}${orderItem.item.Units} ${orderItem.item.Item}`;
+      const row = `${orderItem.itemInfo.quantity}x ${orderItem.itemInfo.item.Quantity}${orderItem.itemInfo.item.Units} ${orderItem.itemInfo.item.Item}`;
 
       return row;
     });
 
   const orderString = orderRowsArray.join("\n");
 
-  const emailBody = `Dear ${supplier.name},\n\nWe would like to place the following order:\n\n${orderString}\n\nOur market day this month will be on Friday the ***\n\nKindly let us know if you would be able to deliver by Wednesday next week.\n\nKind regards,\n\[name]\n\nLocal Healthy Ethical`;
+  const emailBody = `Dear ${supplier.personalName},\n\nWe would like to place the following order:\n\n${orderString}\n\nOur market day this month will be on Friday the ***\n\nKindly let us know if you would be able to deliver by Wednesday next week.\n\nKind regards,\n\[name]\n\nLocal Healthy Ethical`;
 
   const encodedBody = encodeURIComponent(emailBody);
 
