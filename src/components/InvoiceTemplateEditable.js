@@ -66,7 +66,7 @@ const InvoiceTemplateEditable = ({
             : currentCart[i].item.Quantity);
 
         currentCart[i].item.Price = price.toFixed(2);
-        currentCart[i].total = price;
+        currentCart[i].total = price.toFixed(2);
         break;
       case "Price":
         currentCart[i].item[name] = value;
@@ -253,18 +253,7 @@ const InvoiceTemplateEditable = ({
                             </tr>
                           );
                         })}
-                        <tr>
-                          <td></td>
-                          <td>{editedOrder.cart.length + 1}</td>
-                          <td>Market Day Fee</td>
-                          <td>1</td>
-                          <td>
-                            <span>R{shopSettings.marketDayFee}</span>
-                          </td>
-                          <td>
-                            <span>R{shopSettings.marketDayFee}</span>
-                          </td>
-                        </tr>
+
                         <tr>
                           <td></td>
                           <td></td>

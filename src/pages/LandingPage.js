@@ -42,6 +42,7 @@ import {
 import LandingPageHeader from "components/Headers/LandingPageHeader.js";
 import { sendMail } from "../utils/mailUtils";
 import LongScrollingModal from "components/LongScrollingModal";
+import ProfileModal from "components/ProfileModal";
 
 function LandingPage({ setLoginModal, currentUser }) {
 	React.useEffect(() => {

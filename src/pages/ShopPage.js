@@ -25,11 +25,18 @@ const ShopPage = ({
 		fetchShopDataStartAsync();
 	}, [fetchShopDataStartAsync]);
 
-	const uniqueCategoryArray = shopData.filter((value, index, self) => {
-		return (
-			self.findIndex((v) => v.Category === value.Category) === index &&
-			value.Category !== "" &&
-			value.Category !== "Title"
+	// The code below sorted all the unique categories from the list, right now we are getting that data from the category headings.
+	// const uniqueCategoryArray = shopData.filter((value, index, self) => {
+	// 	return (
+	// 		self.findIndex((v) => v.Category === value.Category) === index &&
+	// 		value.Category !== "" &&
+	// 		value.Category !== "Title"
+	// 	);
+	// });
+	
+	const uniqueCategoryArray = shopData.filter((value) => {
+		return (		
+			value.Category === "Heading"
 		);
 	});
 
@@ -72,10 +79,10 @@ const ShopPage = ({
 										</Link>
 										{uniqueCategoryArray.map((category, i) => {
 											return (
-												<Link key={i} to={`/shop/${category.Category}`}>
+												<Link key={i} to={`/shop/${category.Item}`}>
 													<CategoryCard
 														{...props}
-														title={category.Category}
+														title={category.Item}
 														imgUrl={category.Image}
 													/>
 												</Link>
@@ -98,17 +105,17 @@ const ShopPage = ({
 
 						{uniqueCategoryArray.map((category, i) => {
 							const products = shopData.filter((value) => {
-								return value.Category === category.Category;
+								return value.Category === category.Item;
 							});
 							return (
 								<Route
 									key={i}
-									path={`/shop/${category.Category}`}
+									path={`/shop/${category.Item}`}
 									render={(props) => (
 										<IndividualCategoriesPage
 											{...props}
 											products={products}
-											title={category.Category}
+											title={category.Item}
 										/>
 									)}
 								/>
