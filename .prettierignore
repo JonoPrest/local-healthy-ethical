@@ -1,0 +1,7 @@
+build
+Documentation
+/src/assets
+node_modules
+/.firebase
+/.github
+/.vscode

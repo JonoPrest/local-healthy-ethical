@@ -5,13 +5,17 @@ import IndividualOrderInvoice from "./IndividualOrderInvoice";
 
 const IndividualOrders = ({ monthOrdersArray, isLoading }) => {
   const { url, path } = useRouteMatch();
+  const alphabeticalMonthOrdersArray = [...monthOrdersArray].sort((a, b) =>
+    a.user.displayName > b.user.displayName ? 1 : -1
+  );
+  console.log(alphabeticalMonthOrdersArray);
   return (
     <div>
       <Switch>
         <Route exact path={`${url}`}>
           <h2>Individual Orders</h2>
           <div className="d-flex flex-column">
-            {monthOrdersArray.map((order) => (
+            {alphabeticalMonthOrdersArray.map((order) => (
               <Link
                 key={order.invoiceNumber}
                 to={`${url}/${order.invoiceNumber}`}
@@ -25,10 +29,7 @@ const IndividualOrders = ({ monthOrdersArray, isLoading }) => {
           </div>
         </Route>
         <Route path={`${path}/:name`}>
-          <IndividualOrderInvoice
-            isLoading={isLoading}
-            monthOrdersArray={monthOrdersArray}
-          />
+          <IndividualOrderInvoice isLoading={isLoading} />
         </Route>
       </Switch>
     </div>
