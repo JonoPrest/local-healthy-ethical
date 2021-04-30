@@ -68,16 +68,21 @@ export const sendOrderConfirmation = (currentUser, emailContent) => {
 export const mailToSuppliers = (orderArray, supplier) => {
 	const orderRowsArray = orderArray
 		.filter((orderItem) => orderItem.item.Supplier === supplier.name)
-		.map(
-			(orderItem) =>
-				`${orderItem.quantity}x%20${orderItem.item.Quantity}${orderItem.item.Units}%20${orderItem.item.Item}`
-		);
+		.map((orderItem) => {
+			const row = `${orderItem.quantity}x ${orderItem.item.Quantity}${orderItem.item.Units} ${orderItem.item.Item}`;
+			console.log(row);
+			const encodedRow = encodeURI(row);
+			return encodedRow;
+		});
 
 	const orderString = orderRowsArray.join("%0D%0A");
+	const formattedForAmbersand = orderString.replace("&", "%26");
 
-	const emailBody = `Dear%20${supplier.name}%2C%0D%0A%0D%0AI would like to place the following order for the month of ***%3A%0D%0A%0D%0A${orderString}%0D%0A%0D%0AOur market day this month will be on Friday the ***%0D%0A%0D%0APlease would you deliver before ***%0D%0A%0D%0AMany thanks and kind regards%2C%0D%0AKate`;
+	const emailBody = `Dear%20${supplier.name}%2C%0D%0A%0D%0AI would like to place the following order for the month of ***%3A%0D%0A%0D%0A${formattedForAmbersand}%0D%0A%0D%0AOur market day this month will be on Friday the ***%0D%0A%0D%0APlease would you deliver before ***%0D%0A%0D%0AMany thanks and kind regards%2C%0D%0AKate`;
 
-	const mailToLink = `mailto:${supplier.email}?subject=Local%20Healthy%20Ethical%20Food%20Club%20Order&body=${emailBody}`;
+	const uriEncodedEmailAddress = encodeURI(supplier.email);
+
+	const mailToLink = `mailto:${uriEncodedEmailAddress}?subject=Local%20Healthy%20Ethical%20Food%20Club%20Order&body=${emailBody}`;
 
 	return mailToLink;
 };

@@ -34,6 +34,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 		const createdAt = new Date();
 		const ordersPlaced = 0;
 		const userAccepted = false;
+		const userRejected = false;
 		const administrator = false;
 
 		const newUserObj = {
@@ -42,6 +43,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 			createdAt,
 			ordersPlaced,
 			userAccepted,
+			userRejected,
 			administrator,
 			...additionalData,
 		};
@@ -68,6 +70,30 @@ export const sendForgotPasswordEmail = async (emailAddress) => {
 		.catch((error) => {
 			throw error;
 		});
+};
+
+export const resetUserPassword = async (password) => {
+	const user = firebase.auth().currentUser;
+
+	try {
+		const res = await user.updatePassword(password);
+		return res;
+	} catch (err) {
+		throw err;
+	}
+};
+
+export const deleteUserAccount = async (currentUser) => {
+	const user = firebase.auth().currentUser;
+	const userProfileDoc = firestore.collection("users").doc(`${currentUser.id}`);
+
+	try {
+		await user.delete();
+		await userProfileDoc.delete();
+		return true;
+	} catch (err) {
+		throw err;
+	}
 };
 
 export const getShopSettings = async () => {
