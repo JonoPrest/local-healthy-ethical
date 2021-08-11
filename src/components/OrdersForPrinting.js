@@ -14,7 +14,13 @@ const OrdersForPrinting = ({ shopSettings, monthOrdersArray }) => {
     setLoading(true);
     getInvoicesForGivenMonth(monthOrdersArray)
       .then((res) => {
-        setInvoicesArray(res);
+        const tempInvoiceArray = [...res].sort((a, b) =>
+          a.user.displayName
+            .toLowerCase()
+            .localeCompare(b.user.displayName.toLowerCase())
+        );
+
+        setInvoicesArray(tempInvoiceArray);
         setLoading(false);
       })
       .catch((err) => {
@@ -57,13 +63,8 @@ const OrdersForPrinting = ({ shopSettings, monthOrdersArray }) => {
                       <th className="text-center" style={{ width: "5%" }}>
                         #
                       </th>
+                      <th className="text-right rightAlign">Quantity</th>
                       <th style={{ width: "50%" }}>Item</th>
-                      <th
-                        className="text-right rightAlign"
-                        style={{ width: "15%" }}
-                      >
-                        Quantity
-                      </th>
                       <th
                         className="text-right rightAlign"
                         style={{ width: "15%" }}
@@ -76,7 +77,6 @@ const OrdersForPrinting = ({ shopSettings, monthOrdersArray }) => {
                       >
                         Total Price
                       </th>
-                      <th></th>
                       <th>(#{invoice.invoiceNumber})</th>
                     </tr>
                   </thead>
@@ -92,14 +92,14 @@ const OrdersForPrinting = ({ shopSettings, monthOrdersArray }) => {
                       return (
                         <tr key={`invoiceRow-${i}`} className="tr">
                           <td className="text-center">{i + 1}</td>
-                          <td>
-                            {Item} {Quantity}
-                            {Units}
-                          </td>
                           <td className="text-right rightAlign">
                             {PricePerKg
                               ? `${Quantity * cartItem.quantity}${Units}`
                               : cartItem.quantity}
+                          </td>
+                          <td>
+                            {Item} {Quantity}
+                            {Units}
                           </td>
 
                           <td className="text-right rightAlign">
@@ -121,23 +121,9 @@ const OrdersForPrinting = ({ shopSettings, monthOrdersArray }) => {
                               : `R${cartItem.total}`}
                           </td>
                           <td className="checkbox"></td>
-                          <td className="checkbox"></td>
                         </tr>
                       );
                     })}
-                    <tr className="tr">
-                      <td>{invoice.cart.length + 1}</td>
-                      <td>Market Day Fee</td>
-                      <td className="text-right rightAlign">1</td>
-                      <td className="text-right rightAlign">
-                        <span>R{shopSettings.marketDayFee.toFixed(2)}</span>
-                      </td>
-                      <td className="text-right rightAlign">
-                        <span>R{shopSettings.marketDayFee.toFixed(2)}</span>
-                      </td>
-                      <td className="checkbox"></td>
-                      <td className="checkbox"></td>
-                    </tr>
                   </tbody>
                 </table>
                 <div className="BottomText">

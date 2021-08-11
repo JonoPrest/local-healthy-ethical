@@ -61,6 +61,7 @@ const ProductCard = ({ product, addItem, supplierInfo }) => {
                 <a
                   href={`https://${foundSupplierInfo.Website}`}
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   {foundSupplierInfo.Website}
                 </a>

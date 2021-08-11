@@ -158,11 +158,6 @@ export const createUserOrder = async (
       total: "0.00",
     },
     {
-      item: { Item: "Komati Biodegradable Bag", Price: "2.00" },
-      quantity: 0,
-      total: "0.00",
-    },
-    {
       item: { Item: "Market Day Fee", Price: marketDayFee },
       quantity: 1,
       total: `${marketDayFee.toFixed(2)}`,

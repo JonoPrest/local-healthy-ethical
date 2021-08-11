@@ -4,8 +4,6 @@ import { connect } from "react-redux";
 import { updateItem, updateItemWithInput } from "redux/cart/cart.actions";
 import { Button, CardText, CardTitle, Row, Col } from "reactstrap";
 
-const noImage = require("assets/img/no-image.jpg");
-
 const CartRow = ({ itemInfo, updateItem, updateItemWithInput }) => {
   const [totalQuantity, setTotalQuantity] = useState("");
 
@@ -14,7 +12,6 @@ const CartRow = ({ itemInfo, updateItem, updateItemWithInput }) => {
   }, [itemInfo]);
 
   let item = "";
-  let imageURL = "";
   let quantity = "";
   let units = "";
   let price = "";
@@ -22,7 +19,6 @@ const CartRow = ({ itemInfo, updateItem, updateItemWithInput }) => {
 
   if (itemInfo) {
     item = itemInfo.item.Item;
-    imageURL = itemInfo.item.Image;
     quantity = itemInfo.item.Quantity;
     units = itemInfo.item.Units;
     price = Number(itemInfo.item.Price).toFixed(2);

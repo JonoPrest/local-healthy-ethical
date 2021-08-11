@@ -76,7 +76,7 @@ export const mailToSuppliers = (orderArray, supplier) => {
 
   const orderString = orderRowsArray.join("\n");
 
-  const emailBody = `Dear ${supplier.personalName},\n\nWe would like to place the following order:\n\n${orderString}\n\nOur market day this month will be on Friday the ***\n\nKindly let us know if you would be able to deliver by Wednesday next week.\n\nKind regards,\n\[name]\n\nLocal Healthy Ethical`;
+  const emailBody = `Dear ${supplier.personalName},\n\nWe would like to place the following order:\n\n${orderString}\n\nOur market day this month will be on Friday the ***\n\nKindly let us know if you would be able to deliver by Wednesday next week.\n\nKind regards,\n[name]\n\nLocal Healthy Ethical`;
 
   const encodedBody = encodeURIComponent(emailBody);
 
