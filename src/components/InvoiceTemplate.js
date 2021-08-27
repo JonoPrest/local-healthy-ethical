@@ -84,7 +84,8 @@ const InvoiceTemplate = ({ userOrder, shopSettings }) => {
                           <th className="text-center" style={{ width: "5%" }}>
                             #
                           </th>
-                          <th style={{ width: "50%" }}>Item</th>
+                          <th style={{ width: "40%" }}>Item</th>
+                          <th>Supplier</th>
                           <th
                             className="text-right rightAlign"
                             style={{ width: "15%" }}
@@ -113,6 +114,7 @@ const InvoiceTemplate = ({ userOrder, shopSettings }) => {
                             PricePerKg,
                             Units,
                             Price,
+                            Supplier,
                           } = cartItem.item;
                           return (
                             <tr key={`invoiceRow-${i}`} className="tr">
@@ -121,6 +123,7 @@ const InvoiceTemplate = ({ userOrder, shopSettings }) => {
                                 {Item} {Quantity}
                                 {Units}
                               </td>
+                              <td>{Supplier}</td>
                               <td className="text-right rightAlign">
                                 {PricePerKg
                                   ? `${Quantity * cartItem.quantity}${Units}`

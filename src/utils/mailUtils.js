@@ -19,6 +19,7 @@ export const sendMail = (emailObject) => {
     .post(serverUrl, mailDetails)
     .then((res) => res)
     .catch((err) => {
+      console.log(err);
       throw err;
     });
 };
@@ -61,6 +62,7 @@ export const sendOrderConfirmation = (currentUser, emailContent) => {
     .post(serverUrl, mailDetails)
     .then((res) => console.log(res))
     .catch((err) => {
+      console.log(err);
       throw err;
     });
 };

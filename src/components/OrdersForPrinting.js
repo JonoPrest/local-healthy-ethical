@@ -64,7 +64,8 @@ const OrdersForPrinting = ({ shopSettings, monthOrdersArray }) => {
                         #
                       </th>
                       <th className="text-right rightAlign">Quantity</th>
-                      <th style={{ width: "50%" }}>Item</th>
+                      <th style={{ width: "40%" }}>Item</th>
+                      <th>Supplier</th>
                       <th
                         className="text-right rightAlign"
                         style={{ width: "15%" }}
@@ -88,6 +89,7 @@ const OrdersForPrinting = ({ shopSettings, monthOrdersArray }) => {
                         PricePerKg,
                         Units,
                         Price,
+                        Supplier,
                       } = cartItem.item;
                       return (
                         <tr key={`invoiceRow-${i}`} className="tr">
@@ -101,6 +103,7 @@ const OrdersForPrinting = ({ shopSettings, monthOrdersArray }) => {
                             {Item} {Quantity}
                             {Units}
                           </td>
+                          <td>{Supplier}</td>
 
                           <td className="text-right rightAlign">
                             {PricePerKg ? (

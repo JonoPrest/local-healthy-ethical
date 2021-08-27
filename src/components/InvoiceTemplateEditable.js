@@ -35,11 +35,12 @@ const InvoiceTemplateEditable = ({
     const blankOrderObject = {
       item: {
         AddedItem: true,
-        Price: "00.00",
+        Price: "0.00",
         Item: "",
+        Supplier: "",
       },
       quantity: 1,
-      total: "00.00",
+      total: "0.00",
     };
 
     const currentCart = editedOrder.cart;
@@ -162,10 +163,12 @@ const InvoiceTemplateEditable = ({
                           <th className="text-center" style={{ width: "5%" }}>
                             #
                           </th>
-                          <th style={{ width: "50%" }}>Item</th>
+                          <th style={{ width: "40%" }}>Item</th>
+                          <th>Supplier</th>
                           <th className="text-right" style={{ width: "15%" }}>
                             Quantity
                           </th>
+
                           <th className="text-right" style={{ width: "15%" }}>
                             Unit Price
                           </th>
@@ -199,6 +202,7 @@ const InvoiceTemplateEditable = ({
                                   />
                                 </td>
                               )}
+                              <td>{cartItem.item.Supplier}</td>
                               {cartItem.item.PricePerKg ? (
                                 <td>
                                   <span className="d-flex align-items-center">
