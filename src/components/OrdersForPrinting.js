@@ -49,7 +49,7 @@ const OrdersForPrinting = ({ shopSettings, monthOrdersArray }) => {
               0
             );
 
-            const total = reduceTotal + Number(shopSettings.marketDayFee);
+            const total = reduceTotal;
 
             return (
               <div className="individualInvoice">
