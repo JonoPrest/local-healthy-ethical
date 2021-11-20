@@ -143,17 +143,12 @@ export const createUserOrder = async (
   //add blank returns for invoicing
   const addedJarsAndBags = [
     {
-      item: { Item: "Return Mysthill Jar", Price: "-10.00" },
+      item: { Item: "Return R10 Jar", Price: "-10.00" },
       quantity: 0,
       total: "0.00",
     },
     {
-      item: { Item: "Return Honey Jar", Price: "-5.00" },
-      quantity: 0,
-      total: "0.00",
-    },
-    {
-      item: { Item: "Return All Natural Jar", Price: "-5.00" },
+      item: { Item: "Return R5 Jar", Price: "-5.00" },
       quantity: 0,
       total: "0.00",
     },
