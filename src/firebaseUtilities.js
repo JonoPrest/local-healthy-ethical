@@ -105,6 +105,9 @@ export const getShopSettings = async () => {
 
     return shopSettings;
   } catch (err) {
+    alert(
+      `There was an error while trying to load the shop settings, please screenshot or copy this error and send it to the Local Healthy Ethical Coordinator. You can then try and refresh. \n\nError:\n${err.message}`
+    );
     throw err;
   }
 };
@@ -118,6 +121,9 @@ export const getShopData = async () => {
 
     return shopData;
   } catch (err) {
+    alert(
+      "There was an error while trying to load the shop data, please check your internet connect and refresh."
+    );
     throw err;
   }
 };
@@ -220,18 +226,6 @@ export const setSupplierInfoArray = async (supplierInfo) => {
 
   try {
     await shopDataRef.update({ supplierInfo: supplierInfo });
-  } catch (err) {
-    throw err;
-  }
-};
-
-export const getShopIsLive = async () => {
-  const shopSettingsRef = firestore.doc("shop/shop-settings");
-  try {
-    const snapShot = await shopSettingsRef.get();
-    const shopSettingsData = snapShot.data();
-
-    return shopSettingsData.shopIsLive ? true : false;
   } catch (err) {
     throw err;
   }

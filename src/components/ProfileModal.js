@@ -13,17 +13,15 @@ import Row from "reactstrap/lib/Row";
 import Spinner from "reactstrap/lib/Spinner";
 import { resetCurrentUser } from "redux/user/user.actions";
 
-const ProfileModal = ({ children, currentUser, resetCurrentUser }) => {
+const ProfileModal = ({ children, currentUser }) => {
   const [modal, setModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [resetPassword, setResetPassword] = useState(false);
-  const [, setRemoveAccount] = useState(false);
 
   useEffect(() => {
     if (!modal) {
       setResetPassword(false);
-      setRemoveAccount(false);
       setMessage("");
     }
   }, [modal]);

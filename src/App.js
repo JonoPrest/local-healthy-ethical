@@ -23,127 +23,123 @@ import DemoFooter from "components/Footer.js";
 import ExamplesNavbar from "components/Navbar.js";
 
 const App = ({
-	cart,
-	currentUser,
-	setCurrentUser,
-	fetchShopSettingsStartAsync,
-	shopSettings,
+  cart,
+  currentUser,
+  setCurrentUser,
+  fetchShopSettingsStartAsync,
+  shopSettings,
 }) => {
-	const [loginModal, setLoginModal] = useState(false);
-	const [shopIsVisible, setShopIsVisible] = useState(false);
-	const [total, setTotal] = useState("0.00");
+  const [loginModal, setLoginModal] = useState(false);
+  const [shopIsVisible, setShopIsVisible] = useState(false);
+  const [total, setTotal] = useState("0.00");
 
-	useEffect(() => {
-		const unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-			console.log("app useEffect called");
-			console.log(userAuth);
-			if (userAuth) {
-				console.log("If triggered");
-				const userRef = await createUserProfileDocument(userAuth);
+  useEffect(() => {
+    const unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
 
-				userRef.onSnapshot((snapShot) => {
-					if (userAuth) {
-						console.log(userAuth);
-						setCurrentUser({
-							id: snapShot.id,
-							...snapShot.data(),
-						});
-					}
-				});
-			}
-			setCurrentUser(userAuth);
-		});
+        userRef.onSnapshot((snapShot) => {
+          if (userAuth) {
+            setCurrentUser({
+              id: snapShot.id,
+              ...snapShot.data(),
+            });
+          }
+        });
+      }
+      setCurrentUser(userAuth);
+    });
 
-		return () => {
-			unsubscribeFromAuth();
-		};
-	}, [setCurrentUser]);
+    return () => {
+      unsubscribeFromAuth();
+    };
+  }, [setCurrentUser]);
 
-	useEffect(() => {
-		fetchShopSettingsStartAsync();
-	}, [fetchShopSettingsStartAsync]);
+  useEffect(() => {
+    fetchShopSettingsStartAsync();
+  }, [fetchShopSettingsStartAsync]);
 
-	useEffect(() => {
-		let cummulativeTotal = 0;
-		cart.forEach((item) => {
-			let price = Number(item.item.Price);
-			let quantity = Number(item.quantity);
-			let subTotal = price * quantity;
-			cummulativeTotal += subTotal;
-		});
-		setTotal(cummulativeTotal.toFixed(2));
-	}, [cart]);
+  useEffect(() => {
+    let cummulativeTotal = 0;
+    cart.forEach((item) => {
+      let price = Number(item.item.Price);
+      let quantity = Number(item.quantity);
+      let subTotal = price * quantity;
+      cummulativeTotal += subTotal;
+    });
+    setTotal(cummulativeTotal.toFixed(2));
+  }, [cart]);
 
-	useEffect(() => {
-		if (
-			(shopSettings.shopIsLive && currentUser && currentUser.userAccepted) ||
-			(currentUser && currentUser.administrator)
-		) {
-			setShopIsVisible(true);
-		} else setShopIsVisible(false);
-	}, [currentUser, shopSettings]);
+  useEffect(() => {
+    if (
+      (shopSettings.shopIsLive && currentUser?.userAccepted) ||
+      currentUser?.administrator
+    ) {
+      setShopIsVisible(true);
+    } else setShopIsVisible(false);
+  }, [currentUser, shopSettings]);
 
-	return (
-		<div>
-			<ExamplesNavbar
-				shopIsVisible={shopIsVisible}
-				setLoginModal={setLoginModal}
-			/>
-			<LoginModal loginModal={loginModal} setLoginModal={setLoginModal} />
-			<Switch>
-				<Route
-					exact
-					path="/"
-					render={(props) => (
-						<LandingPage {...props} setLoginModal={setLoginModal} />
-					)}
-				/>
+  return (
+    <div>
+      <ExamplesNavbar
+        shopIsVisible={shopIsVisible}
+        setLoginModal={setLoginModal}
+      />
+      <LoginModal loginModal={loginModal} setLoginModal={setLoginModal} />
+      <Switch>
+        <Route
+          exact
+          path="/"
+          render={(props) => (
+            <LandingPage {...props} setLoginModal={setLoginModal} />
+          )}
+        />
 
-				{shopIsVisible && (
-					<Route path="/shop" render={(props) => <ShopPage {...props} />} />
-				)}
+        {shopIsVisible && (
+          <Route path="/shop" render={(props) => <ShopPage {...props} />} />
+        )}
 
-				{shopIsVisible && (
-					<Route
-						exact
-						path="/cart"
-						render={(props) => <CartPage {...props} total={total} />}
-					/>
-				)}
-				{shopIsVisible && (
-					<Route
-						path="/cart/checkout"
-						render={(props) => <CheckoutPage {...props} total={total} />}
-					/>
-				)}
+        {shopIsVisible && (
+          <Route
+            exact
+            path="/cart"
+            render={(props) => <CartPage {...props} total={total} />}
+          />
+        )}
+        {shopIsVisible && (
+          <Route
+            path="/cart/checkout"
+            render={(props) => <CheckoutPage {...props} total={total} />}
+          />
+        )}
 
-				{currentUser && currentUser.administrator && (
-					<Route
-						path="/admin"
-						render={(props) => <AdminConsole {...props} />}
-					/>
-				)}
+        {currentUser && currentUser.administrator && (
+          <Route
+            path="/admin"
+            render={(props) => <AdminConsole {...props} />}
+          />
+        )}
 
-				<Route
-					path="/register"
-					render={(props) => <RegisterPage {...props} />}
-				/>
-				<Redirect to="/" />
-			</Switch>
-			<DemoFooter />
-		</div>
-	);
+        <Route
+          path="/register"
+          render={(props) => <RegisterPage {...props} />}
+        />
+        <Redirect to="/" />
+      </Switch>
+      <DemoFooter />
+    </div>
+  );
 };
 
 const mapStateToProps = (state) => ({
-	cart: state.cart.cartItems,
-	shopSettings: state.shop.shopSettings,
-	currentUser: state.user.currentUser,
+  cart: state.cart.cartItems,
+  shopSettings: state.shop.shopSettings,
+  currentUser: state.user.currentUser,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	setCurrentUser: (userAuth) => dispatch(setCurrentUser(userAuth)),
-	fetchShopSettingsStartAsync: () => dispatch(fetchShopSettingsStartAsync()),
+  setCurrentUser: (userAuth) => dispatch(setCurrentUser(userAuth)),
+  fetchShopSettingsStartAsync: () => dispatch(fetchShopSettingsStartAsync()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

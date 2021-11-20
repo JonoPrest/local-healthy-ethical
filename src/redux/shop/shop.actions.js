@@ -46,6 +46,6 @@ export const fetchShopSettingsStartAsync = () => {
 
     getShopSettings()
       .then((res) => dispatch(fetchShopSettingsSuccess(res)))
-      .catch((err) => dispatch(fetchShopSettingsFailure(err.message)));
+      .catch((err) => dispatch(fetchShopSettingsFailure(err)));
   };
 };
