@@ -5,7 +5,12 @@ const INITIAL_STATE = {
   supplierInfo: [],
   isFetching: false,
   errorMessage: undefined,
-  shopSettings: { shopIsLive: false, orderGroupName: "", marketDayFee: null },
+  shopSettings: {
+    shopIsLive: false,
+    orderGroupName: "",
+    marketDayFee: null,
+    shopSettingsLoaded: false,
+  },
   isFetchingSettings: false,
 };
 
@@ -43,6 +48,7 @@ const shopReducer = (state = INITIAL_STATE, action) => {
         isFetching: false,
         shopData: action.payload.shopItems,
         supplierInfo: action.payload.supplierInfo,
+        shopSettingsLoaded: true,
       };
     case ShopActionTypes.FETCH_SHOP_DATA_FAILURE:
       return {

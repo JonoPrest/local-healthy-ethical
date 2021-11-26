@@ -50,9 +50,13 @@ const AdminConsole = ({
   }, [months, isFetchingSettings, userRequests]);
 
   const handleShopLiveSwitch = (shopIsLiveState) => {
-    updateShopIsLive(!shopIsLiveState).then(() =>
-      fetchShopSettingsStartAsync()
-    );
+    if (shopSettings.shopSettingsLoaded) {
+      updateShopIsLive(!shopIsLiveState).then(() =>
+        fetchShopSettingsStartAsync()
+      );
+    } else {
+      fetchShopSettingsStartAsync();
+    }
   };
 
   //Bit of a hack because I couldn't figure out how to return a promise from papa parse quickly enough
