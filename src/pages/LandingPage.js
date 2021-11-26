@@ -68,7 +68,6 @@ function LandingPage({ setLoginModal, currentUser }) {
       emailContent: emailContent.value,
       email: email.value,
     };
-    console.log(mail);
 
     sendMail(mail)
       .then(() => {

@@ -47,7 +47,6 @@ const CheckoutPage = ({
         "There was an error placing your order please try again."
       );
     }
-    console.log(orderStatus);
   }, [cart, orderStatus]);
 
   const componentRef = useRef();

@@ -11,7 +11,6 @@ const InvoiceTemplateEditable = ({
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
-    console.log(editedOrder);
     const reduceTotal = editedOrder.cart.reduce(
       (accumulator, cartItem) => accumulator + Number(cartItem.total),
       0

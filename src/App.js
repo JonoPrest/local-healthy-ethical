@@ -56,8 +56,10 @@ const App = ({
   }, [setCurrentUser]);
 
   useEffect(() => {
-    fetchShopSettingsStartAsync();
-  }, [fetchShopSettingsStartAsync]);
+    if (currentUser) {
+      fetchShopSettingsStartAsync();
+    }
+  }, [fetchShopSettingsStartAsync, currentUser]);
 
   useEffect(() => {
     let cummulativeTotal = 0;

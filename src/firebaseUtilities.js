@@ -297,8 +297,6 @@ export const getOrderMonths = async () => {
       a.date < b.date ? 1 : b.date < a.date ? -1 : 0
     );
 
-    console.log(sortedArray);
-
     const finalArray = sortedArray.map((month) => month.id);
 
     return finalArray;

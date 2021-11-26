@@ -49,7 +49,6 @@ const MasterTable = ({ monthOrdersArray, isLoading }) => {
         };
       });
     });
-    console.log(masterObj);
     setMasterObject(masterObj);
     let cumulativeSum = 0;
     Object.values(masterObj).forEach((value, i) => {

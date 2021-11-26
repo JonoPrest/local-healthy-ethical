@@ -8,7 +8,6 @@ const IndividualOrders = ({ monthOrdersArray, isLoading }) => {
   const alphabeticalMonthOrdersArray = [...monthOrdersArray].sort((a, b) =>
     a.user.displayName > b.user.displayName ? 1 : -1
   );
-  console.log(alphabeticalMonthOrdersArray);
   return (
     <div>
       <Switch>
