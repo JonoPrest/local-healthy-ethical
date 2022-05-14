@@ -22,6 +22,7 @@ const AdminConsole = ({
   fetchShopSettingsStartAsync,
   shopSettings,
   isFetchingSettings,
+  shopSettingsLoaded,
 }) => {
   const [months, setMonths] = useState(null);
   const [userRequests, setUserRequests] = useState(null);
@@ -30,6 +31,7 @@ const AdminConsole = ({
   const [supplierSync, setSupplierSync] = useState(false);
   const [shopSyncMessage, setShopSyncMessage] = useState("Sync");
   const [supplierSyncMessage, setSupplierSyncMessage] = useState("Sync");
+  const [switchLoading, setSwitchLoading] = useState(false);
 
   useEffect(() => {
     getUserRequests()
@@ -50,10 +52,22 @@ const AdminConsole = ({
   }, [months, isFetchingSettings, userRequests]);
 
   const handleShopLiveSwitch = (shopIsLiveState) => {
-    if (shopSettings.shopSettingsLoaded) {
-      updateShopIsLive(!shopIsLiveState).then(() =>
-        fetchShopSettingsStartAsync()
-      );
+    console.log(shopSettingsLoaded);
+    if (shopSettingsLoaded) {
+      setSwitchLoading(true);
+
+      updateShopIsLive(!shopIsLiveState)
+        .then(() => {
+          fetchShopSettingsStartAsync();
+          // Hack - not enough time to set up a proper async handler
+          setTimeout(() => {
+            setSwitchLoading(false);
+          }, 300);
+        })
+        .catch((err) => {
+          setSwitchLoading(false);
+          console.error(err);
+        });
     } else {
       fetchShopSettingsStartAsync();
     }
@@ -194,10 +208,12 @@ const AdminConsole = ({
                 >
                   <div className="d-flex flex-column align-items-center border-bottom w-100 p-4">
                     <h2>Set Shop Live</h2>
+
                     <Switch
-                      defaultValue={shopSettings.shopIsLive}
+                      value={shopSettings.shopIsLive}
                       onColor="primary"
                       offColor="primary"
+                      disabled={switchLoading}
                       onChange={() =>
                         handleShopLiveSwitch(shopSettings.shopIsLive)
                       }
@@ -347,6 +363,7 @@ const AdminConsole = ({
 
 const mapStateToProps = (state) => ({
   shopSettings: state.shop.shopSettings,
+  shopSettingsLoaded: state.shop.shopSettingsLoaded,
   isFetchingSettings: state.shop.isFetchingSettings,
 });
 

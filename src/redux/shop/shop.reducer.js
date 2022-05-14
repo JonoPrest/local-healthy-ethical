@@ -9,9 +9,9 @@ const INITIAL_STATE = {
     shopIsLive: false,
     orderGroupName: "",
     marketDayFee: null,
-    shopSettingsLoaded: false,
   },
   isFetchingSettings: false,
+  shopSettingsLoaded: false,
 };
 
 const shopReducer = (state = INITIAL_STATE, action) => {
@@ -20,6 +20,7 @@ const shopReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isFetchingSettings: true,
+        shopSettingsLoaded: false,
       };
 
     case ShopActionTypes.FETCH_SHOP_SETTINGS_SUCCESS:
@@ -27,6 +28,7 @@ const shopReducer = (state = INITIAL_STATE, action) => {
         ...state,
         shopSettings: action.payload,
         isFetchingSettings: false,
+        shopSettingsLoaded: true,
       };
 
     case ShopActionTypes.FETCH_SHOP_SETTINGS_FAILURE:
@@ -35,6 +37,7 @@ const shopReducer = (state = INITIAL_STATE, action) => {
         ...state,
         errorMessage: action.payload,
         isFetchingSettings: false,
+        shopSettingsLoaded: false,
       };
 
     case ShopActionTypes.FETCH_SHOP_DATA_START:
