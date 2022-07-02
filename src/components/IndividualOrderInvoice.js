@@ -31,7 +31,7 @@ const IndividualOrderInvoice = ({ month, shopSettings }) => {
     },
     cart: [],
   };
-  const [deleteInvModal, setDeleteInvModal] = useState(true);
+  const [deleteInvModal, setDeleteInvModal] = useState(false);
   const [userOrder, setUserOrder] = useState(orderObject);
   const [editedOrder, setEditedOrder] = useState(orderObject);
 
@@ -187,7 +187,7 @@ const IndividualOrderInvoice = ({ month, shopSettings }) => {
               <i className="ml-2 nc-icon nc-simple-remove" />
             )}
           </button>
-          <button className="btn btn-danger m1">
+          <button onClick={toggleDeleteInvModal} className="btn btn-danger m1">
             <i className="fa fa-trash"></i>Remove Invoice
           </button>
         </div>
