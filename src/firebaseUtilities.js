@@ -376,6 +376,26 @@ export const getAllInvoices = async () => {
   }
 };
 
+export const removeOrder = async ({ orderGroupId, invoiceNumber }) => {
+  const invoiceRef = firestore.doc(`invoices/${invoiceNumber}`);
+  const orderRef = firestore.doc(
+    `orders/${orderGroupId}/orders-this-month/${invoiceNumber}`
+  );
+
+  try {
+    const batch = firestore.batch();
+
+    console.log("Deleting: ", invoiceRef, " and ", orderRef);
+
+    batch.delete(invoiceRef);
+    batch.delete(orderRef);
+
+    return await batch.commit();
+  } catch (err) {
+    throw err;
+  }
+};
+
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 

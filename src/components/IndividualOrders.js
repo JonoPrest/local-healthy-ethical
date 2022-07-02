@@ -3,7 +3,7 @@ import { Link, Route, Switch, useRouteMatch } from "react-router-dom";
 import { Button } from "reactstrap";
 import IndividualOrderInvoice from "./IndividualOrderInvoice";
 
-const IndividualOrders = ({ monthOrdersArray, isLoading }) => {
+const IndividualOrders = ({ month, monthOrdersArray, isLoading }) => {
   const { url, path } = useRouteMatch();
   const alphabeticalMonthOrdersArray = [...monthOrdersArray].sort((a, b) =>
     a.user.displayName > b.user.displayName ? 1 : -1
@@ -28,7 +28,7 @@ const IndividualOrders = ({ monthOrdersArray, isLoading }) => {
           </div>
         </Route>
         <Route path={`${path}/:name`}>
-          <IndividualOrderInvoice isLoading={isLoading} />
+          <IndividualOrderInvoice month={month} isLoading={isLoading} />
         </Route>
       </Switch>
     </div>
